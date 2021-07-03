@@ -11,7 +11,7 @@ public class SimpleTest {
         System.out.println("2");
         webViewLib.webview_set_title(windowPointer, "Hello");
         System.out.println("3");
-        webViewLib.webview_set_bounds(windowPointer, 50, 50, 500, 500, 0);
+        webViewLib.webview_set_size(windowPointer, 50, 50, 500, 500, 0);
         System.out.println("4");
         webViewLib.webview_navigate(windowPointer, "https://en.m.wikipedia.org/wiki/Main_Page");
         System.out.println("5");
