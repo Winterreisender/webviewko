@@ -1,5 +1,18 @@
 # WebView
 
+## 7/3/2021
+
+Exploring using JNA directly with WebView on macOS w/Java.
+
+Able to successfully launch the WebView window on the main thread, that part is working fine.
+
+WebView window blocks the main thread, so everything else (e.g. callbacks) has to be set up in advance, with window run blocking
+the main UI thread. This appears to make this only useful for a single Window with no other UI.
+
+You might find some of the scripts and configuration useful, but it's just a PoC right now.
+
+## Prior Notes
+
 This is a Java port of the fantastic, tiny, light-weight [WebView](https://github.com/zserge/webview)
 by [Serge Zaitsev](https://zserge.com).
 
