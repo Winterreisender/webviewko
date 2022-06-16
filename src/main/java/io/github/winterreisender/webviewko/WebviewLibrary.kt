@@ -63,16 +63,27 @@ interface WebviewLibrary : Library {
         fun apply(id: Pointer, req: Pointer, args: Pointer? = null)
     }
 
-    // TODO: Decouple the companion object
-    companion object {
-        const val JNA_LIBRARY_NAME = "io/github/winterreisender/webviewko"
-        val JNA_NATIVE_LIB = NativeLibrary.getInstance("io/github/winterreisender/webviewko")
-        val INSTANCE = Native.load("io/github/winterreisender/webviewko", WebviewLibrary::class.java)
+}
 
-        // Window size hints
-        const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
-        const val WEBVIEW_HINT_MIN = 1 // Width and height are minimum bounds
-        const val WEBVIEW_HINT_MAX = 2 // Width and height are maximum bounds
-        const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
+
+object Webview {
+    const val JNA_LIBRARY_NAME = "webview"
+    val JNA_NATIVE_LIB = NativeLibrary.getInstance("webview")
+    val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
+
+    // Window size hints
+    // IN JNA layer, better to use const val instead of enum class
+    const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
+    const val WEBVIEW_HINT_MIN = 1  // Width and height are minimum bounds
+    const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds
+    const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
+
+    @Deprecated("", ReplaceWith("WEBVIEW_HINT_XXX"))
+    enum class WindowHint(val value :Int) {
+        WEBVIEW_HINT_NONE(0), // Width and height are default size
+        WEBVIEW_HINT_MIN(1),  // Width and height are minimum bounds
+        WEBVIEW_HINT_MAX(2),  // Width and height are maximum bounds
+        WEBVIEW_HINT_FIXED(3) // Window size can not be changed by a user
     }
+
 }

@@ -4,9 +4,7 @@ import com.sun.jna.Pointer
 
 class WebviewThread(private val webViewLib: WebviewLibrary, private val windowPointer: Pointer) : Thread() {
     override fun run() {
-        println("7")
         webViewLib.webview_run(windowPointer)
-        println("8")
         var run = true
         while (run) {
             try {
