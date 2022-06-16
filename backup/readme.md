@@ -1,0 +1,1 @@
+This folder (resources/backup) contains original files from wiverson/webviewjar which is not used by this project anymore. 

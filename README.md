@@ -1,4 +1,21 @@
-This is **going to be** an **experimental** project to bind webview with Kotlin and JNA, powered by wiverson/webviewjar
+This is an **experimental** project to bind webview with Kotlin and JNA, powered by wiverson/webviewjar
+
+## Credits
+
+| Project                                                       | License                                                                                          |
+|---------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| [wiverson/webviewjar](https://github.com/wiverson/webviewjar) | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                |
+| [webview_csharp](https://github.com/webview/webview_csharp)   | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                             |
+| [webview](https://github.com/webview/webview)                 | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                    |
+| [JNA](https://github.com/java-native-access/jna)              | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
+
+## License
+
+Apache-2.0
+
+---
+
+Original readme of wiverson/webviewjar
 
 # WebView
 
