@@ -5,3 +5,6 @@ private
 .idea
 target
 *.iml
+.gradle
+gradle
+
