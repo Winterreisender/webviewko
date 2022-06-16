@@ -3,12 +3,14 @@ import org.junit.jupiter.api.Test
 
 internal class Test {
     @Test fun simpleTest() {
-        val webViewLib = Webview.INSTANCE
-        val windowPointer = webViewLib.webview_create(0, null)
-        webViewLib.webview_set_title(windowPointer, "Hello")
-        webViewLib.webview_set_size(windowPointer, 800, 600, Webview.WEBVIEW_HINT_NONE)
-        webViewLib.webview_navigate(windowPointer, "https://www.whatsmybrowser.org/")
-        webViewLib.webview_run(windowPointer)
+        with(Webview.INSTANCE) {
+            val pWindow = Webview.INSTANCE.webview_create(0, null)
+            webview_set_title(pWindow, "Hello")
+            webview_set_size(pWindow, 800, 600, Webview.WEBVIEW_HINT_NONE)
+            webview_navigate(pWindow, "https://www.whatsmybrowser.org/")
+            webview_run(pWindow)
+            webview_destroy(pWindow)
+        }
     }
 
 }
