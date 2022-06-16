@@ -1,4 +1,4 @@
-import webview.WebviewLibrary
+import io.github.winterreisender.webviewko.WebviewLibrary
 
 // TODO: use Gradle Test https://kotlinlang.org/docs/jvm-test-using-junit.html#create-a-test
 

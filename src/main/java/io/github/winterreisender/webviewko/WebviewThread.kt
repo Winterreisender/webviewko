@@ -1,4 +1,4 @@
-package webview
+package io.github.winterreisender.webviewko
 
 import com.sun.jna.Pointer
 
