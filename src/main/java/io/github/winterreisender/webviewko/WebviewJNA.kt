@@ -6,6 +6,7 @@ package io.github.winterreisender.webviewko
 
 import com.sun.jna.*
 
+// JNA Bindings
 interface WebviewLibrary : Library {
     fun webview_create(debug: Int, window: Pointer?): Pointer
     fun webview_destroy(webview: Pointer)
@@ -49,8 +50,8 @@ interface WebviewLibrary : Library {
     fun webview_eval(webview: Pointer, js: String)
 
     @Deprecated("")
-    fun webview_bind(webview: Pointer, name: Pointer, callback: webview_bind_fn_callback, args: Pointer)
-    fun webview_bind(webview: Pointer, name: String, callback: webview_bind_fn_callback, args: Pointer)
+    fun webview_bind(webview: Pointer, name: Pointer, callback: webview_bind_fn_callback, args: Pointer? = null)
+    fun webview_bind(webview: Pointer, name: String, callback: webview_bind_fn_callback, args: Pointer? = null)
 
     @Deprecated("")
     fun webview_return(webview: Pointer, id: Pointer, result: Int, resultJson: Pointer)
@@ -66,7 +67,7 @@ interface WebviewLibrary : Library {
 }
 
 
-object Webview {
+object WebviewJNA {
     const val JNA_LIBRARY_NAME = "webview"
     val JNA_NATIVE_LIB = NativeLibrary.getInstance("webview")
     val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
@@ -78,12 +79,5 @@ object Webview {
     const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds
     const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
 
-    @Deprecated("", ReplaceWith("WEBVIEW_HINT_XXX"))
-    enum class WindowHint(val value :Int) {
-        WEBVIEW_HINT_NONE(0), // Width and height are default size
-        WEBVIEW_HINT_MIN(1),  // Width and height are minimum bounds
-        WEBVIEW_HINT_MAX(2),  // Width and height are maximum bounds
-        WEBVIEW_HINT_FIXED(3) // Window size can not be changed by a user
-    }
-
 }
+

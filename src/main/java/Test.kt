@@ -1,12 +1,25 @@
-import io.github.winterreisender.webviewko.Webview
+import io.github.winterreisender.webviewko.WebviewJNA
+import io.github.winterreisender.webviewko.WebviewKo
+import io.github.winterreisender.webviewko.WindowHint
 import org.junit.jupiter.api.Test
+import java.net.URI
 
 internal class Test {
-    @Test fun simpleTest() {
-        with(Webview.INSTANCE) {
-            val pWindow = Webview.INSTANCE.webview_create(0, null)
+    @Test fun webviewKoTest() {
+        val webview = WebviewKo().apply {
+            title = "webviewKo Test"
+            size = Pair(1024,768)
+            //urlStr = "https://www.whatsmybrowser.org/"
+            uri = URI("https://www.whatsmybrowser.org/") // Both urlStr and url is OK
+            windowHint = WindowHint.None
+        }
+        webview.show()
+    }
+    @Test fun jnaLevelTest() {
+        with(WebviewJNA.INSTANCE) {
+            val pWindow = WebviewJNA.INSTANCE.webview_create(0, null)
             webview_set_title(pWindow, "Hello")
-            webview_set_size(pWindow, 800, 600, Webview.WEBVIEW_HINT_NONE)
+            webview_set_size(pWindow, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
             webview_navigate(pWindow, "https://www.whatsmybrowser.org/")
             webview_run(pWindow)
             webview_destroy(pWindow)
