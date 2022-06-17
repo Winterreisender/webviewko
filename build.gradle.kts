@@ -6,10 +6,9 @@ description = "webviewko"
 
 plugins {
     java
-    `java-library`
     `maven-publish`
     kotlin("jvm") version "1.7.0"
-    //id("com.github.johnrengelman.shadow") version "latest.release"
+    id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
 repositories {
@@ -49,7 +48,7 @@ tasks.jar {
     }
 }
 
-/*
+
 tasks.shadowJar {
     manifest {
         attributes(mapOf(
@@ -60,7 +59,7 @@ tasks.shadowJar {
     }
 }
 
- */
+
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"

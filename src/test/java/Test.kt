@@ -2,16 +2,15 @@ import com.github.winterreisender.webviewko.WebviewJNA
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.webviewko.WindowHint
 import java.awt.Desktop
-import kotlin.test.Test
 import java.net.URI
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 internal class Test {
     @Test fun copyDllTest() {
-        return
-
+        if (!Desktop.isDesktopSupported()) return
         println(this::class.java.classLoader.getResource("WebView2Loader.dll"))
         assertNotNull(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll"))
         try {
@@ -21,8 +20,7 @@ internal class Test {
         }
     }
     @Test fun webviewKoTest() {
-        return
-
+        if (!Desktop.isDesktopSupported()) return
         val webview = WebviewKo().apply {
             title = "webviewKo Test"
             size = Pair(1024,768)
@@ -33,7 +31,7 @@ internal class Test {
         webview.show()
     }
     @Test fun jnaLevelTest() {
-        return
+        if (!Desktop.isDesktopSupported()) return
 
         with(WebviewJNA.getJNALibrary()) {
             val pWebview = WebviewJNA.getJNALibrary().webview_create(0, null)

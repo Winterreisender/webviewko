@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 public class TestJava {
     @Test
     void testSimpleJava() throws URISyntaxException {
-        /*
         if (!Desktop.isDesktopSupported())
             return;
 
@@ -24,6 +23,5 @@ public class TestJava {
         webview.setWindowHint(WindowHint.None);
 
         webview.show();
-         */
     }
 }
