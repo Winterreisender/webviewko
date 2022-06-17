@@ -1,5 +1,5 @@
-import io.github.winterreisender.webviewko.WebviewKo;
-import io.github.winterreisender.webviewko.WindowHint;
+import com.github.winterreisender.webviewko.WebviewKo;
+import com.github.winterreisender.webviewko.WindowHint;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;

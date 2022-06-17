@@ -1,4 +1,4 @@
-package io.github.winterreisender.webviewko
+package com.github.winterreisender.webviewko
 import kotlinx.cli.*
 
 fun main(args :Array<String>) {

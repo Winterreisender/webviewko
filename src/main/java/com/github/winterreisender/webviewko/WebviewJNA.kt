@@ -2,7 +2,7 @@
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 //
-package io.github.winterreisender.webviewko
+package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
 import java.nio.file.Files

@@ -12,9 +12,9 @@ WebviewKo is an **experimental** project for now to bind [webview](https://githu
 for example:
 
 ```kotlin
-import io.github.winterreisender.webviewko.WebviewJNA
-import io.github.winterreisender.webviewko.WebviewKo
-import io.github.winterreisender.webviewko.WindowHint
+import com.github.winterreisender.webviewko.WebviewJNA
+import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.WindowHint
 import java.net.URI
 
 val webview = WebviewKo().apply {
@@ -31,8 +31,8 @@ webview.show()
 for example:
 
 ```java
-import io.github.winterreisender.webviewko.WebviewKo;
-import io.github.winterreisender.webviewko.WindowHint;
+import com.github.winterreisender.webviewko.WebviewKo;
+import com.github.winterreisender.webviewko.WindowHint;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;

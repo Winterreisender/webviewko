@@ -1,6 +1,6 @@
-import io.github.winterreisender.webviewko.WebviewJNA
-import io.github.winterreisender.webviewko.WebviewKo
-import io.github.winterreisender.webviewko.WindowHint
+import com.github.winterreisender.webviewko.WebviewJNA
+import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.WindowHint
 import kotlin.test.Test
 import java.net.URI
 import java.nio.file.Files

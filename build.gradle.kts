@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "io.github.winterreisender.webviewko"
+group = "com.github.Winterreisender.webviewko"
 version = "0.0.1-experimental.3"
 description = "webviewko"
 
@@ -53,7 +53,7 @@ tasks.jar {
 tasks.shadowJar {
     manifest {
         attributes(mapOf(
-            "Main-Class" to "io.github.winterreisender.webviewko.MainCLIKt",
+            "Main-Class" to "com.github.winterreisender.webviewko.MainCLIKt",
             "ImplementationTitle" to project.name,
             "Implementation-Version" to project.version)
         )
