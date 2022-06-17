@@ -10,8 +10,7 @@ import kotlin.test.assertNotNull
 
 internal class Test {
     @Test fun copyDllTest() {
-        if (!Desktop.isDesktopSupported())
-            return
+        return
 
         println(this::class.java.classLoader.getResource("WebView2Loader.dll"))
         assertNotNull(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll"))
@@ -22,8 +21,7 @@ internal class Test {
         }
     }
     @Test fun webviewKoTest() {
-        if (!Desktop.isDesktopSupported())
-            return
+        return
 
         val webview = WebviewKo().apply {
             title = "webviewKo Test"
@@ -35,8 +33,7 @@ internal class Test {
         webview.show()
     }
     @Test fun jnaLevelTest() {
-        if (!Desktop.isDesktopSupported())
-            return
+        return
 
         with(WebviewJNA.getJNALibrary()) {
             val pWebview = WebviewJNA.getJNALibrary().webview_create(0, null)

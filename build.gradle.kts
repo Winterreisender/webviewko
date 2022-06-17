@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "com.github.Winterreisender.webviewko"
+group = "com.github.Winterreisender"
 version = "0.0.1-experimental.3"
 description = "webviewko"
 
