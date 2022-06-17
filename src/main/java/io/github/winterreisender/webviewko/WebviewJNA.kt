@@ -5,6 +5,8 @@
 package io.github.winterreisender.webviewko
 
 import com.sun.jna.*
+import java.nio.file.Files
+import java.nio.file.Path
 
 // JNA Bindings
 interface WebviewLibrary : Library {
@@ -84,7 +86,18 @@ interface WebviewLibrary : Library {
 object WebviewJNA {
 
     fun getJNALibrary(): WebviewLibrary {
+        if (System.getProperty("os.name").lowercase().contains("win"))
+            try {
+                Files.copy(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!, Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
+            }catch (e :FileAlreadyExistsException) {
+                //println("FileAlreadyExistsException")
+            }
         return WebviewLibrary.INSTANCE
+    }
+
+    fun cleanDependencies() {
+        if (System.getProperty("os.name").lowercase().contains("win"))
+            Files.delete(Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
     }
 
     // Window size hints

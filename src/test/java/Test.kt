@@ -3,8 +3,20 @@ import io.github.winterreisender.webviewko.WebviewKo
 import io.github.winterreisender.webviewko.WindowHint
 import kotlin.test.Test
 import java.net.URI
+import java.nio.file.Files
+import java.nio.file.Path
+import kotlin.test.assertNotNull
 
 internal class Test {
+    @Test fun copyDllTest() {
+        println(this::class.java.classLoader.getResource("WebView2Loader.dll"))
+        assertNotNull(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll"))
+        try {
+            Files.copy(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!, Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
+        }catch (e :FileAlreadyExistsException) {
+            //println("FileAlreadyExistsException")
+        }
+    }
     @Test fun webviewKoTest() {
         val webview = WebviewKo().apply {
             title = "webviewKo Test"
