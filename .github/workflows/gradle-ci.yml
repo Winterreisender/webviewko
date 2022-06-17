@@ -24,6 +24,11 @@ jobs:
               with:
                   gradle-version: 7.4.2
 
+            - name: jar with Gradle
+              uses: gradle/gradle-build-action@v2
+              with:
+                  arguments: jar
+
             - name: shadowJar with Gradle
               uses: gradle/gradle-build-action@v2
               with:

@@ -1,10 +1,9 @@
 package io.github.winterreisender.webviewko
 import kotlinx.cli.*
-import java.util.*
 
 fun main(args :Array<String>) {
-    System.setProperty("jna.debug_load","true")
-    System.setProperty("jna.tmpdir",".")
+    //System.setProperty("jna.debug_load","true")
+    //System.setProperty("jna.tmpdir",".")
 
     with(ArgParser("webviewko")) {
         // parse args

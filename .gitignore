@@ -6,4 +6,4 @@ private
 target
 *.iml
 .gradle
-
+WebView2Loader.dll
