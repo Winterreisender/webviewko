@@ -2,6 +2,8 @@
 
 WebviewKo is an **experimental** project for now to bind webview with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar
 
+![screenshot](screenshot.jpg)
+
 ## Quick Look
 
 ### Kotlin API
