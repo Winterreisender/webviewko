@@ -1,7 +1,7 @@
 import io.github.winterreisender.webviewko.WebviewJNA
 import io.github.winterreisender.webviewko.WebviewKo
 import io.github.winterreisender.webviewko.WindowHint
-import org.junit.jupiter.api.Test
+import kotlin.test.Test
 import java.net.URI
 
 internal class Test {
@@ -16,13 +16,13 @@ internal class Test {
         webview.show()
     }
     @Test fun jnaLevelTest() {
-        with(WebviewJNA.INSTANCE) {
-            val pWindow = WebviewJNA.INSTANCE.webview_create(0, null)
-            webview_set_title(pWindow, "Hello")
-            webview_set_size(pWindow, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
-            webview_navigate(pWindow, "https://www.whatsmybrowser.org/")
-            webview_run(pWindow)
-            webview_destroy(pWindow)
+        with(WebviewJNA.getJNALibrary()) {
+            val pWebview = WebviewJNA.getJNALibrary().webview_create(0, null)
+            webview_set_title(pWebview, "Hello")
+            webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
+            webview_navigate(pWebview, "https://www.whatsmybrowser.org/")
+            webview_run(pWebview)
+            webview_destroy(pWebview)
         }
     }
 

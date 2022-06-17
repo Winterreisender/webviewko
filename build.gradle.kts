@@ -1,13 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-group = "io.test.webviewko"
-version = "1.0-SNAPSHOT"
+group = "io.github.winterreisender.webviewko"
+version = "0.0.1"
 description = "webviewko"
 
 
 plugins {
     java
+    `java-library`
+    `maven-publish`
     kotlin("jvm") version "1.7.0"
+    id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
 repositories {
@@ -22,25 +25,50 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
-    testImplementation(kotlin("test"))
-    implementation("org.junit.jupiter:junit-jupiter:5.8.2")
     implementation("net.java.dev.jna:jna:5.11.0")
+
+    testImplementation(kotlin("test"))
+    //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
 }
 
-tasks {
-    test {
-        useJUnitPlatform()
+tasks.test {
+    useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+    //withJavadocJar()
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            mapOf("Implementation-Title" to project.name,
+            "Implementation-Version" to project.version)
+        )
+    }
+}
+
+tasks.shadowJar {
+    manifest {
+        attributes(mapOf(
+            "Main-Class" to "io.github.winterreisender.webviewko.MainCLIKt",
+            "ImplementationTitle" to project.name,
+            "Implementation-Version" to project.version)
+        )
     }
 }
 
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
+
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     jvmTarget = "17"
 }
+
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "17"

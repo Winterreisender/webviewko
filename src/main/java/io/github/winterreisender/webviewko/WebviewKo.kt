@@ -19,8 +19,8 @@ class WebviewKo(
     var jsCallback: (String)->Unit = {}
 ) {
     fun show() {
-        with(WebviewJNA.INSTANCE) {
-            val pWebview = WebviewJNA.INSTANCE.webview_create(0, null)
+        with(WebviewJNA.getJNALibrary()) {
+            val pWebview = webview_create(0, null)
             // webview_bind(pWebview,"",onLoad,null)
 
             webview_set_title(pWebview, title)

@@ -64,13 +64,28 @@ interface WebviewLibrary : Library {
         fun apply(id: Pointer, req: Pointer, args: Pointer? = null)
     }
 
+    companion object {
+        const val JNA_LIBRARY_NAME = "webview"
+        val JNA_NATIVE_LIB = NativeLibrary.getInstance("webview")
+        val INSTANCE: WebviewLibrary
+
+        init {
+            if (System.getProperty("os.name").lowercase().contains("win")){
+                Native.load("WebView2Loader.dll", Library::class.java) // TODO: It doesn't work, NEED HELP
+            }
+
+            INSTANCE = Native.load("webview", WebviewLibrary::class.java)
+        }
+    }
+
 }
 
 
 object WebviewJNA {
-    const val JNA_LIBRARY_NAME = "webview"
-    val JNA_NATIVE_LIB = NativeLibrary.getInstance("webview")
-    val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
+
+    fun getJNALibrary(): WebviewLibrary {
+        return WebviewLibrary.INSTANCE
+    }
 
     // Window size hints
     // IN JNA layer, better to use const val instead of enum class

@@ -1,7 +1,11 @@
 package io.github.winterreisender.webviewko
 import kotlinx.cli.*
+import java.util.*
 
 fun main(args :Array<String>) {
+    System.setProperty("jna.debug_load","true")
+    System.setProperty("jna.tmpdir",".")
+
     with(ArgParser("webviewko")) {
         // parse args
         val uri by argument(ArgType.String, description = "URI/URL")
@@ -11,7 +15,12 @@ fun main(args :Array<String>) {
         parse(args)
 
         //run webviewKo
-        val webviewKo = WebviewKo(title,uri,width,height,WindowHint.None)
-        webviewKo.show()
+        try {
+            val webviewKo = WebviewKo(title, uri, width, height, WindowHint.None)
+            webviewKo.show()
+        } catch (e :Throwable) {
+            e.printStackTrace()
+        }
+
     }
 }
