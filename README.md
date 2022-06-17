@@ -1,6 +1,7 @@
 # WebviewKo
 
-WebviewKo is an **experimental** project for now to bind webview with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar
+WebviewKo is an **experimental** project for now to bind [webview](https://github.com/webview/webview) with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar.  
+[webview](https://github.com/webview/webview) is a tiny cross-platform webview library. Uses WebKit (Gtk/Cocoa) and Edge (Windows)
 
 ![screenshot](screenshot.jpg)
 
