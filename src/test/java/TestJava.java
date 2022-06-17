@@ -2,6 +2,7 @@ import com.github.winterreisender.webviewko.WebviewKo;
 import com.github.winterreisender.webviewko.WindowHint;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +10,10 @@ import java.net.URISyntaxException;
 
 public class TestJava {
     @Test
-    void testSimpleJava() throws URISyntaxException, MalformedURLException {
+    void testSimpleJava() throws URISyntaxException {
+        if (!Desktop.isDesktopSupported())
+            return;
+
         WebviewKo webview = new WebviewKo();
 
         webview.setTitle("webviewKo Java Test");
