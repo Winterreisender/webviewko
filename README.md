@@ -2,7 +2,7 @@
 
 WebviewKo is an **experimental** project for now to bind webview with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar
 
-## Help
+## Quick Look
 
 ### Kotlin API
 
@@ -35,7 +35,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 class Example {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
        WebviewKo webview = new WebviewKo();
 
        webview.setTitle("webviewKo Java Test");
@@ -69,13 +69,11 @@ java -jar webviewko.jar https://example.com
 java -jar webviewko.jar https://example.com --title Hello --width 800 --height 600
 ```
 
-for more information see GitHub Wiki
+**For more information see [GitHub Wiki](wiki)**
 
 ## Contribution
 
-TODO
-
-see GitHub Discussion
+see [GitHub Discussions](discussions)
 
 ## Credits
 
