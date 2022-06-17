@@ -19,7 +19,7 @@ import java.net.URI
 val webview = WebviewKo().apply {
    title = "webviewKo Test"
    size = Pair(1024,768)
-   uri = URI("https://example.com/") // Both urlStr and url is OK
+   uri = URI("https://example.com/")
    windowHint = WindowHint.None
 }
 webview.show()
@@ -71,11 +71,11 @@ java -jar webviewko.jar https://example.com
 java -jar webviewko.jar https://example.com --title Hello --width 800 --height 600
 ```
 
-**For more information see [GitHub Wiki](wiki)**
+**For more information see [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)**
 
 ## Contribution
 
-see [GitHub Discussions](discussions)
+see [GitHub Discussions](https://github.com/Winterreisender/webviewko/discussions)
 
 ## Credits
 
