@@ -7,17 +7,30 @@ WebviewKo is an **experimental** project for now to bind [webview](https://githu
 
 ![screenshot](screenshot.jpg)
 
-## Quick Look
+## Usage
+
+**See [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki) for the full document**
+
+### Import
+
+For Gradle (Kotlin DSL) :
+
+```kotlin
+repositories {
+    ...
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    ...
+    implementation("com.github.Winterreisender:webviewko:main-SNAPSHOT")
+}
+```
 
 ### Kotlin API
 
-for example:
-
 ```kotlin
-import com.github.winterreisender.webviewko.WebviewJNA
-import com.github.winterreisender.webviewko.WebviewKo
-import com.github.winterreisender.webviewko.WindowHint
-import java.net.URI
+import ...
 
 val webview = WebviewKo().apply {
    title = "webviewKo Test"
@@ -30,14 +43,8 @@ webview.show()
 
 ### Java API
 
-for example:
-
 ```java
-import com.github.winterreisender.webviewko.WebviewKo;
-import com.github.winterreisender.webviewko.WindowHint;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import ...;
 
 class Example {
     public static void main(String[] args) {
@@ -57,26 +64,13 @@ class Example {
 ### CLI
 
 ```shell
-Usage: webviewko options_list
-Arguments: 
-    uri -> URI/URL { String }
-Options: 
-    --width [800] -> window width in px { Int }
-    --height [600] -> window height in px { Int }
-    --title, -t [webviewko] -> window title { String }
-    --help, -h -> Usage info 
-```
-
-for example:
-
-```shell
 java -jar webviewko.jar https://example.com
 java -jar webviewko.jar https://example.com --title Hello --width 800 --height 600
 ```
 
-**For more information see [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)**
-
 ## Contribution
+
+All suggestions, pull requests, issues and other contributions are welcome and appreciated.
 
 see [GitHub Discussions](https://github.com/Winterreisender/webviewko/discussions)
 
