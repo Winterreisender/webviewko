@@ -1,5 +1,7 @@
 # WebviewKo
 
+[![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
+
 WebviewKo is an **experimental** project for now to bind [webview](https://github.com/webview/webview) with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar.  
 [webview](https://github.com/webview/webview) is a tiny cross-platform webview library. Uses WebKit (Gtk/Cocoa) and Edge (Windows)
 
