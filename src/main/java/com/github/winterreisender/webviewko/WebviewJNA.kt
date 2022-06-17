@@ -9,6 +9,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 // JNA Bindings
+// TODO: Document these bindings using webview's document
 interface WebviewLibrary : Library {
     fun webview_create(debug: Int, window: Pointer?): Pointer
     fun webview_destroy(webview: Pointer)
@@ -101,7 +102,7 @@ object WebviewJNA {
     }
 
     // Window size hints
-    // IN JNA layer, better to use const val instead of enum class
+    // In JNA layer, better to use const val instead of enum class
     const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
     const val WEBVIEW_HINT_MIN = 1  // Width and height are minimum bounds
     const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds

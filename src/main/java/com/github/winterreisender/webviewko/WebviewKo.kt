@@ -15,7 +15,7 @@ class WebviewKo(
     var width :Int = 600,
     var height :Int = 800,
     var windowHint: WindowHint = WindowHint.None,
-    var onLoad: ()->Unit = {},
+    var onLoad: ()->Unit = {}, // TODO: implement onLoad and jsCallback
     var jsCallback: (String)->Unit = {}
 ) {
     fun show() {
