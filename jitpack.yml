@@ -5,3 +5,4 @@ before_install:
    - sdk use kotlin 1.7.0
    - sdk install gradle 7.4.2
    - sdk use gradle 7.4.2
+   - ./gradlew wrapper
