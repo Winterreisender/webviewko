@@ -1,7 +1,25 @@
+/*
+ * Copyright (c) 2022  Winterreisender
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX short identifier: **Apache-2.0**
+ */
+
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.Pointer
-import java.net.URI
+
 
 enum class WindowHint(val value :Int) {
     None(WebviewJNA.WEBVIEW_HINT_NONE), // Width and height are default size
@@ -10,36 +28,30 @@ enum class WindowHint(val value :Int) {
     Fixed(WebviewJNA.WEBVIEW_HINT_FIXED) // Window size can not be changed by a user
 }
 
-class WebviewKo(
-    var title: String = "",
-    var urlStr: String = "about:blank",
-    var width :Int = 600,
-    var height :Int = 800,
-    var windowHint: WindowHint = WindowHint.None,
-    var initJS: String? = null, // TODO: implement onLoad and jsCallback
-    var jsCallback: String? = null
-) {
-    fun show() {
-        with(WebviewJNA.getInstance()) {
-            val pWebview = webview_create(0, Pointer.NULL)
-            // webview_bind(pWebview,"",onLoad,null)
+class WebviewKo(debug: Int = 0, window: Pointer? = Pointer.NULL) {
+    private val lib: WebviewLibrary = WebviewJNA.getInstance()
+    private val pWebview: Pointer = lib.webview_create(debug,window)!!
+    fun title(v: String) = lib.webview_set_title(pWebview, v)
+    fun url(v: String) = lib.webview_navigate(pWebview, v)
+    fun html(v :String) = lib.webview_set_html(pWebview, v)
+    fun size(width: Int, height: Int, hint: WindowHint = WindowHint.None) = lib.webview_set_size(pWebview, width, height, hint.value)
+    fun initJS(js :String) = lib.webview_init(pWebview, js)
+    fun eval(js :String) = lib.webview_eval(pWebview, js)
 
-            initJS?.let { webview_init(pWebview, it) };
-
-            webview_set_title(pWebview, title)
-            webview_set_size(pWebview, width, height, windowHint.value)
-            webview_navigate(pWebview, urlStr)
-            webview_run(pWebview)
-            webview_destroy(pWebview)
+    // This does not work
+    //fun <T,R> bind(name :String, fn :(T)-> R, x :Int) = lib.webview_bind(pWebview, name, object :WebviewLibrary.webview_bind_fn_callback {
+    //    override fun apply(seq: String?, req: String?, arg: Pointer?) {
+    //        val msg = Json.decodeFromString<T>(req!!)
+    //        lib.webview_return(pWebview, seq, 0, Json.encodeToString(fn(req)))
+    //    }
+    //})
+    fun bind(name :String, fn :(String?)->String) = lib.webview_bind(pWebview, name, object :WebviewLibrary.webview_bind_fn_callback {
+        override fun apply(seq: String?, req: String?, arg: Pointer?) {
+            lib.webview_return(pWebview, seq, 0, fn(req))
         }
+    })
+    fun show() {
+        lib.webview_run(pWebview)
+        lib.webview_destroy(pWebview)
     }
-
-    // virtual member
-    var size :Pair<Int,Int>
-        get() = Pair(width,height)
-        set(v) { width = v.first; height = v.second }
-
-    var uri : URI
-        get() = URI(urlStr)
-        set(v) {urlStr = v.toString()}
 }
