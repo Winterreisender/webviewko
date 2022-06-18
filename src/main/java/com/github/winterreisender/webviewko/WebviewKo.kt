@@ -1,5 +1,6 @@
 package com.github.winterreisender.webviewko
 
+import com.sun.jna.Pointer
 import java.net.URI
 
 enum class WindowHint(val value :Int) {
@@ -15,13 +16,15 @@ class WebviewKo(
     var width :Int = 600,
     var height :Int = 800,
     var windowHint: WindowHint = WindowHint.None,
-    var onLoad: ()->Unit = {}, // TODO: implement onLoad and jsCallback
-    var jsCallback: (String)->Unit = {}
+    var initJS: String? = null, // TODO: implement onLoad and jsCallback
+    var jsCallback: String? = null
 ) {
     fun show() {
-        with(WebviewJNA.getJNALibrary()) {
-            val pWebview = webview_create(0, null)
+        with(WebviewJNA.getInstance()) {
+            val pWebview = webview_create(0, Pointer.NULL)
             // webview_bind(pWebview,"",onLoad,null)
+
+            initJS?.let { webview_init(pWebview, it) };
 
             webview_set_title(pWebview, title)
             webview_set_size(pWebview, width, height, windowHint.value)

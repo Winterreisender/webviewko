@@ -1,70 +1,76 @@
 import com.github.winterreisender.webviewko.WebviewJNA
+import com.github.winterreisender.webviewko.WebviewJNA.getRawInstance
 import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.WebviewLibrary
 import com.github.winterreisender.webviewko.WindowHint
+import com.sun.jna.Pointer
 import java.awt.Desktop
 import java.net.URI
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 internal class Test {
-    @Test fun copyDllTest() {
-        if (!Desktop.isDesktopSupported()) return
-        println(this::class.java.classLoader.getResource("WebView2Loader.dll"))
-        assertNotNull(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll"))
-        try {
-            Files.copy(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!, Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
-        }catch (e :FileAlreadyExistsException) {
-            //println("FileAlreadyExistsException")
-        }
-    }
-    @Test fun webviewKoTest() {
+    @Test fun `apiLayer test`() {
         if (!Desktop.isDesktopSupported()) return
         val webview = WebviewKo().apply {
             title = "webviewKo Test"
             size = Pair(1024,768)
-            //urlStr = "https://www.whatsmybrowser.org/"
-            uri = URI("https://www.whatsmybrowser.org/") // Both urlStr and url is OK
+            uri = URI("https://www.whatsmybrowser.org/")
             windowHint = WindowHint.None
         }
         webview.show()
     }
-    @Test fun jnaLevelTest() {
+    @Test fun `jnaLayer bind`() {
+        // This test implemented the bind.c in webview
+
         if (!Desktop.isDesktopSupported()) return
 
-        with(WebviewJNA.getJNALibrary()) {
-            val pWebview = WebviewJNA.getJNALibrary().webview_create(0, null)
+        // use getInstance to copy dll automatically
+        val webviewNative = getRawInstance()
+
+        with(webviewNative) {
+            val pWebview = webview_create(1, Pointer.NULL)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
-            webview_navigate(pWebview, "https://www.whatsmybrowser.org/")
+
+            webview_init(pWebview, """console.log("Hello, from jnaLayerTest2 init")""")
+
+            val html = """
+                <button id="increment">Tap me</button>
+                <div>You tapped <span id="count">0</span> time(s).</div>
+                <script>
+                  const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
+                  document.addEventListener("DOMContentLoaded", () => {
+                    incrementElement.addEventListener("click", () => {
+                      window.increment(countElement.innerText).then(result => {
+                        countElement.textContent = result.count;
+                      });
+                    });
+                  });
+                </script>
+            """.trimIndent()
+
+            val callback = object :WebviewLibrary.webview_bind_fn_callback {
+                override fun apply(seq: String?, req: String?, arg: Pointer?) {
+                    println("seq: $seq")
+                    println("req: $req")
+                    val r :Int = Regex("""\["(\d+)"]""").find(req!!)!!.groupValues[1].toInt() + 1
+                    println(r)
+                    webview_return(pWebview, seq, 0, "{count: $r}")
+                }
+
+            }
+            webview_bind(pWebview,"increment",callback)
+            webview_set_html(pWebview, html);
+
+            webview_eval(pWebview, """console.log("Hello, from jnaLayerTest2 eval")""")
+
             webview_run(pWebview)
             webview_destroy(pWebview)
         }
     }
 
 }
-
-
-// fun simpleTest0() {
-//     val webViewLib = Webview.INSTANCE
-//     val windowPointer = webViewLib.webview_create(0, null)
-//     webViewLib.webview_set_title(windowPointer, "Hello")
-//     webViewLib.webview_set_size(windowPointer, 800, 600, Webview.WEBVIEW_HINT_NONE)
-//     webViewLib.webview_navigate(windowPointer, "https://www.whatsmybrowser.org/")
-//
-//     //        WebviewThread t1 = new WebviewThread(webViewLib, windowPointer);
-//     //        t1.start();
-//     webViewLib.webview_run(windowPointer)
-//     //        WebviewThread t2 = new WebviewThread();
-//     //        t2.start();
-//     var run = true
-//     while (run) {
-//         try {
-//             Thread.sleep(1000)
-//         } catch (e: InterruptedException) {
-//             e.printStackTrace()
-//             run = false
-//         }
-//     }
-// }

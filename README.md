@@ -61,6 +61,41 @@ class Example {
 }
 ```
 
+### Native API
+
+You can also use JNA bindings directly:
+
+```kotlin
+// This implemented the bind.c in webview
+import com.github.winterreisender.webviewko.*
+
+with(WebviewJNA.getInstance()) {
+    val pWebview = webview_create(1, Pointer.NULL)
+    webview_set_title(pWebview, "Hello")
+    webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
+
+    val html = """
+        <button id="increment">Tap me</button>
+        <div>You tapped <span id="count">0</span> time(s).</div>
+        <script>
+          ...
+        </script>
+    """.trimIndent()
+
+    val callback = object : WebviewLibrary.webview_bind_fn_callback {
+        override fun apply(seq: String?, req: String?, arg: Pointer?) {
+            val r: Int = Regex("""\["(\d+)"]""").find(req!!)!!.groupValues[1].toInt() + 1
+            webview_return(pWebview, seq, 0, "{count: $r}")
+        }
+
+    }
+    webview_bind(pWebview, "increment", callback)
+    webview_set_html(pWebview, html);
+    webview_run(pWebview)
+    webview_destroy(pWebview)
+}
+```
+
 ### CLI
 
 ```shell

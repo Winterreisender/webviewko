@@ -10,18 +10,31 @@ import java.nio.file.Path
 
 // JNA Bindings
 // TODO: Document these bindings using webview's document
-interface WebviewLibrary : Library {
-    fun webview_create(debug: Int, window: Pointer?): Pointer
-    fun webview_destroy(webview: Pointer)
-    fun webview_run(webview: Pointer)
-    fun webview_terminate(webview: Pointer)
-    fun webview_dispatch(webview: Pointer, dispatchFunction: webview_dispatch_fn_callback, args: Pointer)
+// In the most ideal situation, Pointer.NULL should not be null for type safe.
+// But we have Pointer.NULL == null and thus Pointer.NULL is not Pointer. This is an Kotlin/Java inteop issue
+// So we always use `Pointer?` for C interop.
 
-    // Not mapped by webview_csharp
-    // Returns a native window handle pointer. When using GTK backend the pointer
-    // is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow
-    // pointer, when using Win32 backend the pointer is HWND pointer.
-    /**
+interface WebviewLibrary : Library {
+    fun webview_create(debug :Int = 0, window :Pointer? = Pointer.NULL) :Pointer?
+
+    // Destroys a webview and closes the native window.
+    fun webview_destroy(webview :Pointer?)
+    fun webview_run(webview :Pointer?)
+
+    // Stops the main loop. It is safe to call this function from another other
+    // background thread.
+    fun webview_terminate(webview :Pointer?)
+
+    // Posts a function to be executed on the main thread. You normally do not need
+    // to call this function, unless you want to tweak the native window.
+    @Deprecated("You normally do not need it, unless you want to tweak the native window")
+    fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer?)
+
+    interface webview_dispatch_fn_callback : Callback {
+        fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)
+    }
+
+    /*
      * Not mapped by webview_csharp
      *
      * Returns a native window handle pointer. When using GTK backend the pointer
@@ -29,55 +42,40 @@ interface WebviewLibrary : Library {
      * pointer, when using Win32 backend the pointer is HWND pointer.
      */
     @Deprecated("Not suggested to use")
-    fun webview_get_window(webview: Pointer): Pointer
+    fun webview_get_window(webview :Pointer?) :Pointer?
 
-    @Deprecated("")
-    fun webview_set_title(vebview: Pointer, title: Pointer)
-    fun webview_set_title(vebview: Pointer, title: String)
-    fun webview_set_size(vebview: Pointer, width: Int, height: Int, hints: Int)
-    //	@Deprecated
-    //	void webview_get_size(Pointer var1, IntByReference var2, IntByReference var3, IntByReference var4, IntByReference var5, IntByReference var6);
-    //
-    //	void webview_get_bounds(Pointer var1, IntBuffer var2, IntBuffer var3, IntBuffer var4, IntBuffer var5, IntBuffer var6);
+    fun webview_set_title(webview :Pointer?, title :String)
+    fun webview_set_size(webview :Pointer?, width :Int, height :Int, hints :Int)
 
-    @Deprecated("")
-    fun webview_navigate(vebview: Pointer, url: Pointer)
-    fun webview_navigate(vebview: Pointer, url: String)
+    fun webview_navigate(webview :Pointer?, url :String)
+    fun webview_set_html(webview :Pointer?, html :String)
 
-    @Deprecated("")
-    fun webview_init(webview: Pointer, js: Pointer)
-    fun webview_init(webview: Pointer, js: String)
+    //Injects JavaScript code at the initialization of the new page. Every time
+    //the webview will open a new page - this initialization code will be
+    //executed. It is guaranteed that code is executed before window.onload.
+    fun webview_init(webview :Pointer?, js :String)
 
-    @Deprecated("")
-    fun webview_eval(webview: Pointer, js: Pointer)
-    fun webview_eval(webview: Pointer, js: String)
-
-    @Deprecated("")
-    fun webview_bind(webview: Pointer, name: Pointer, callback: webview_bind_fn_callback, args: Pointer? = null)
-    fun webview_bind(webview: Pointer, name: String, callback: webview_bind_fn_callback, args: Pointer? = null)
-
-    @Deprecated("")
-    fun webview_return(webview: Pointer, id: Pointer, result: Int, resultJson: Pointer)
-    fun webview_return(webview: Pointer, id: String, result: Int, resultJson: String)
+    //Evaluates arbitrary JavaScript code. Evaluation happens asynchronously, also
+    //the result of the expression is ignored. Use the bind function if you want to
+    //receive notifications about the results of the evaluation.
+    fun webview_eval(webview :Pointer?, js :String)
+    fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
     interface webview_bind_fn_callback : Callback {
-        fun apply(id: Pointer, req: Pointer, args: Pointer? = null)
+        fun apply(seq :String?, req :String?, arg :Pointer? = Pointer.NULL)
     }
 
-    interface webview_dispatch_fn_callback : Callback {
-        fun apply(id: Pointer, req: Pointer, args: Pointer? = null)
-    }
+    fun webview_return(webview :Pointer?, seq :String?, status :Int, result :String)
+
+    // fun webview_return(webview :Pointer?, seq :Pointer?, status :Int, result :Pointer?) //All String can be replaced by Pointer
 
     companion object {
         const val JNA_LIBRARY_NAME = "webview"
-        val JNA_NATIVE_LIB = NativeLibrary.getInstance("webview")
-        val INSTANCE: WebviewLibrary
 
+        val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
         init {
-            if (System.getProperty("os.name").lowercase().contains("win")){
-                Native.load("WebView2Loader.dll", Library::class.java) // TODO: It doesn't work, NEED HELP
-            }
-
-            INSTANCE = Native.load("webview", WebviewLibrary::class.java)
+            //if (System.getProperty("os.name").lowercase().contains("win")){
+            //    Native.load("WebView2Loader.dll", Library::class.java) // TODO: It doesn't work, NEED HELP
+            //}
         }
     }
 
@@ -85,15 +83,24 @@ interface WebviewLibrary : Library {
 
 
 object WebviewJNA {
+    fun getInstance(): WebviewLibrary {
+        extractDependencies()
+        return WebviewLibrary.INSTANCE
+    }
 
-    fun getJNALibrary(): WebviewLibrary {
+    @Deprecated("Only For Test")
+    fun getRawInstance() = WebviewLibrary.INSTANCE
+
+    fun extractDependencies() {
         if (System.getProperty("os.name").lowercase().contains("win"))
             try {
-                Files.copy(this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!, Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
+                Files.copy(
+                    this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!,
+                    Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll")
+                )
             }catch (e :FileAlreadyExistsException) {
-                //println("FileAlreadyExistsException")
+                println("File Already Exists")
             }
-        return WebviewLibrary.INSTANCE
     }
 
     fun cleanDependencies() {
