@@ -18,7 +18,8 @@
 
 import com.github.winterreisender.webviewko.*
 import com.sun.jna.Pointer
-import java.awt.Desktop
+import java.awt.*
+import javax.swing.*
 import kotlin.test.Test
 
 internal class TestKt {

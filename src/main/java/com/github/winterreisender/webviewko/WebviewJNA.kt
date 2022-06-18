@@ -20,7 +20,7 @@ package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
 import java.nio.file.Files
-import java.nio.file.Path
+import java.nio.file.Paths
 
 // JNA Bindings
 // TODO: Document these bindings using webview's document
@@ -96,38 +96,40 @@ interface WebviewLibrary : Library {
 }
 
 
-object WebviewJNA {
-    fun getInstance(): WebviewLibrary {
-        extractDependencies()
-        return WebviewLibrary.INSTANCE
+class WebviewJNA {
+
+    companion object {
+        fun getInstance(): WebviewLibrary {
+            extractDependencies()
+            return WebviewLibrary.INSTANCE
+        }
+
+        // Copy WebView2Loader.dll in Windows
+        fun extractDependencies() {
+            val targetPath = Paths.get(System.getProperty("user.dir"),"WebView2Loader.dll")
+
+            if (System.getProperty("os.name").lowercase().contains("win") && Files.notExists(targetPath))
+                try {
+                    Files.copy(
+                        this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!,
+                        targetPath
+                    )
+                } catch (e: FileAlreadyExistsException) {
+                    println("File Already Exists")
+                }
+        }
+
+        fun cleanDependencies() {
+            if (System.getProperty("os.name").lowercase().contains("win"))
+                Files.delete(Paths.get(System.getProperty("user.dir"),"WebView2Loader.dll"))
+        }
+
+        // Window size hints
+        // In JNA layer, better to use const val instead of enum class
+        const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
+        const val WEBVIEW_HINT_MIN = 1  // Width and height are minimum bounds
+        const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds
+        const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
     }
-
-    // Copy WebView2Loader.dll in Windows
-    fun extractDependencies() {
-        val targetPath = Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll")
-
-        if (System.getProperty("os.name").lowercase().contains("win") && Files.notExists(targetPath))
-            try {
-                Files.copy(
-                    this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!,
-                    targetPath
-                )
-            }catch (e :FileAlreadyExistsException) {
-                println("File Already Exists")
-            }
-    }
-
-    fun cleanDependencies() {
-        if (System.getProperty("os.name").lowercase().contains("win"))
-            Files.delete(Path.of("${System.getProperty("user.dir")}/WebView2Loader.dll"))
-    }
-
-    // Window size hints
-    // In JNA layer, better to use const val instead of enum class
-    const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
-    const val WEBVIEW_HINT_MIN = 1  // Width and height are minimum bounds
-    const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds
-    const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
-
 }
 
