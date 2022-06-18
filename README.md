@@ -1,5 +1,12 @@
 # webviewko
 
+![Top language](https://img.shields.io/github/languages/top/Winterreisender/webviewko?color=b99bf8&logo=kotlin)
+![Java](https://img.shields.io/badge/Java-11,17-orange?logo=java)
+![license](https://img.shields.io/github/license/Winterreisender/webviewko)
+
+![dev release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=dev&include_prereleases)
+[![Gradle CI MacOS](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
+![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 [![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
 
 webviewko is an **experimental** project to bind [webview](https://github.com/webview/webview) with Kotlin and JNA for both Java and Kotlin, based on wiverson/webviewjar.  
