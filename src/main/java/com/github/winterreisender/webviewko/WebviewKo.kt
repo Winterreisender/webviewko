@@ -28,9 +28,11 @@ enum class WindowHint(val value :Int) {
     Fixed(WebviewJNA.WEBVIEW_HINT_FIXED) // Window size can not be changed by a user
 }
 
-class WebviewKo(debug: Int = 0, window: Pointer? = Pointer.NULL) {
+class WebviewKo(debug: Int = 0) {
     private val lib: WebviewLibrary = WebviewJNA.getInstance()
-    private val pWebview: Pointer = lib.webview_create(debug,window)!!
+    private val pWebview: Pointer = lib.webview_create(debug,Pointer.NULL)!!
+    // If you add a window parameter, you need to add it to constructor, thus your user must have access to com.sun.jna.Pointer
+    // then your user must install jna whether they want. Or they'll get an error: Cannot access class 'com.sun.jna.Pointer'
     fun title(v: String) = lib.webview_set_title(pWebview, v)
     fun url(v: String) = lib.webview_navigate(pWebview, v)
     fun html(v :String) = lib.webview_set_html(pWebview, v)

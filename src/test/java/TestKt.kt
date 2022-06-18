@@ -19,7 +19,6 @@
 import com.github.winterreisender.webviewko.*
 import com.sun.jna.Pointer
 import java.awt.*
-import javax.swing.*
 import kotlin.test.Test
 
 internal class TestKt {
@@ -69,8 +68,19 @@ internal class TestKt {
         }
     }
 
-    @Test fun `apiLayer serialization`() {
-
+    @Test fun `apiLayer thread`() {
+        Thread {
+            Thread.currentThread().name = "JKDrcom Net Window"
+            with(WebviewKo()) {
+                title("JKDrcom Net Window")
+                size(600, 500)
+                url("https://example.com")
+                show()
+            }
+        }.apply {
+            start()
+            join()
+        }
     }
 
     @Test fun `jnaLayer bind`() {
