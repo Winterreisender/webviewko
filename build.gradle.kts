@@ -41,10 +41,10 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
-    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("net.java.dev.jna:jna:5.11.0")
 
     testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
 }

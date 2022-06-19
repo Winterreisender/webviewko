@@ -29,7 +29,7 @@ enum class WindowHint(val value :Int) {
 }
 
 class WebviewKo(debug: Int = 0) {
-    private val lib: WebviewLibrary = WebviewJNA.getInstance()
+    private val lib: WebviewLibrary = WebviewJNA.getLib()
     private val pWebview: Pointer = lib.webview_create(debug,Pointer.NULL)!!
     // If you add a window parameter, you need to add it to constructor, thus your user must have access to com.sun.jna.Pointer
     // then your user must install jna whether they want. Or they'll get an error: Cannot access class 'com.sun.jna.Pointer'

@@ -82,62 +82,36 @@ interface WebviewLibrary : Library {
 
     fun webview_return(webview :Pointer?, seq :String?, status :Int, result :String)
 
-    // fun webview_return(webview :Pointer?, seq :Pointer?, status :Int, result :Pointer?) //All String can be replaced by Pointer
-
-    companion object {
-        const val JNA_LIBRARY_NAME = "webview"
-        val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
-
-        init {
-            // move WebView2Loader.dll to System.setProperty("jna.tmpdir",".") in Windows
-            if (Platform.getOSType() == Platform.WINDOWS) {
-                val file = Native.extractFromResourcePath("WebView2Loader.dll")
-                Files.move(file.toPath(),file.toPath().parent.resolve("WebView2Loader.dll"), StandardCopyOption.REPLACE_EXISTING) // Why there's not something like DO_NOTHING_IF_EXISTING?
-            }
-        }
-        // It doesn't work, because it changes the fileName
-        //init {
-            //if (System.getProperty("os.name").lowercase().contains("win")){
-            //    Native.load("WebView2Loader.dll", Library::class.java)
-            //}
-        //}
-    }
-
 }
 
 
 class WebviewJNA {
     companion object {
-        fun getInstance(): WebviewLibrary = WebviewLibrary.INSTANCE
+        const val JNA_LIBRARY_NAME = "webview"
 
-        // Copy WebView2Loader.dll in Windows
-        @Deprecated("", ReplaceWith("extractDependencies"))
-        fun extractDependencies0() {
-            val targetPath = Paths.get(System.getProperty("user.dir"),"WebView2Loader.dll")
-
-            if (System.getProperty("os.name").lowercase().contains("win") && Files.notExists(targetPath))
-                try {
-                    Files.copy(
-                        this::class.java.classLoader.getResourceAsStream("win32-x86-64/WebView2Loader.dll")!!,
-                        targetPath
-                    )
-                } catch (e: FileAlreadyExistsException) {
-                    println("File Already Exists")
-                }
-        }
-
-        @Deprecated("Leave it to JNA")
-        fun cleanDependencies() {
-            if (System.getProperty("os.name").lowercase().contains("win"))
-                Files.delete(Paths.get(System.getProperty("user.dir"),"win32-x86-64/WebView2Loader.dll"))
-        }
-
-        // Window size hints
-        // In JNA layer, better to use const val instead of enum class
+        // Window size hints, in API layer, we have enum
         const val WEBVIEW_HINT_NONE = 0 // Width and height are default size
         const val WEBVIEW_HINT_MIN = 1  // Width and height are minimum bounds
         const val WEBVIEW_HINT_MAX = 2  // Width and height are maximum bounds
         const val WEBVIEW_HINT_FIXED = 3 // Window size can not be changed by a user
+
+        fun getLibOrNull() :WebviewLibrary? {
+            // move WebView2Loader.dll to System.setProperty("jna.tmpdir",".") in Windows
+            if (Platform.getOSType() == Platform.WINDOWS) {
+                val file = Native.extractFromResourcePath("WebView2Loader.dll")
+                val dest = file.toPath().parent.resolve("WebView2Loader.dll")
+                // Why there's not something like DO_NOTHING_IF_EXISTING?
+                if(Files.notExists(dest)) {
+                    Files.move(file.toPath(),dest)
+                }
+            }
+            return Native.load("webview", WebviewLibrary::class.java)
+        }
+
+        fun getLib() :WebviewLibrary = getLibOrNull()!!
+
+        @Deprecated("",ReplaceWith("getLib"))
+        fun getInstance() :WebviewLibrary = getLib()
     }
 }
 

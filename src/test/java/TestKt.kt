@@ -20,6 +20,8 @@ import com.github.winterreisender.webviewko.*
 import com.sun.jna.Pointer
 import java.awt.*
 import kotlin.test.Test
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 
 internal class TestKt {
     @Test fun `apiLayer simple`() {
@@ -94,9 +96,7 @@ internal class TestKt {
 
         if (!Desktop.isDesktopSupported()) return
 
-        val webviewNative = WebviewJNA.getInstance()
-
-        with(webviewNative) {
+        with(WebviewJNA.getLib()) {
             val pWebview = webview_create(1, Pointer.NULL)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
@@ -135,6 +135,49 @@ internal class TestKt {
 
             webview_run(pWebview)
             webview_destroy(pWebview)
+        }
+    }
+
+    @Test fun `json Test`() {
+        // Example about using third part Json Serialization (kotlinx-serialization-json)
+        if (!Desktop.isDesktopSupported()) return
+
+        with(WebviewKo(1)) {
+            title("Title")
+            size(800,600)
+            url("https://example.com")
+            initJS("""console.log("Hello, from  init")""")
+
+            bind("increment") {
+                // [7, {count: 2, max 8}]
+                val json = Json.parseToJsonElement(it!!)
+                val arg1 = json.jsonArray[0].jsonPrimitive.float
+                val count = json.jsonArray[1].jsonObject["count"]!!.jsonPrimitive.int
+                val max = json.jsonArray[1].jsonObject["max"]!!.jsonPrimitive.int
+
+                println("$json $arg1 $count $max")
+
+                buildJsonObject {
+                    put("count", arrayOf(count+1,max).min())
+                }.toString()
+            }
+
+            html("""
+                <button id="increment">Tap me</button>
+                <div>You tapped <span id="count">0</span> time(s).</div>
+                <script>
+                  const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
+                  document.addEventListener("DOMContentLoaded", () => {
+                    incrementElement.addEventListener("click", () => {
+                      window.increment(7.2,{count: parseInt(countElement.innerText), max: 8}).then(result => {
+                        countElement.textContent = result.count;
+                      });
+                    });
+                  });
+                </script>
+            """.trimIndent())
+
+            show()
         }
     }
 
