@@ -139,7 +139,7 @@ internal class TestKt {
 
             }
             webview_bind(pWebview,"increment",callback)
-            webview_set_html(pWebview, html);
+            webview_set_html(pWebview, html)
 
             webview_eval(pWebview, """console.log("Hello, from  eval")""")
 
