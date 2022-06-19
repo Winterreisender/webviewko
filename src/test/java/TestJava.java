@@ -74,8 +74,8 @@ public class TestJava {
 
     // Callback for jnaFull
     static class Callback0 implements WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
-        private WebviewJNA.WebviewLibrary lib;
-        private Pointer pWebview;
+        private final WebviewJNA.WebviewLibrary lib;
+        private final Pointer pWebview;
 
         public Callback0(WebviewJNA.WebviewLibrary lib, Pointer pWebview){
             this.lib = lib;
