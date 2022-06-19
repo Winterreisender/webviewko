@@ -19,8 +19,10 @@
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
+import java.nio.file.CopyOption
 import java.nio.file.Files
 import java.nio.file.Paths
+import java.nio.file.StandardCopyOption
 
 // JNA Bindings
 // TODO: Document these bindings using webview's document
@@ -84,34 +86,39 @@ interface WebviewLibrary : Library {
 
     companion object {
         const val JNA_LIBRARY_NAME = "webview"
-
         val INSTANCE: WebviewLibrary = Native.load("webview", WebviewLibrary::class.java)
+
         init {
-            //if (System.getProperty("os.name").lowercase().contains("win")){
-            //    Native.load("WebView2Loader.dll", Library::class.java) // TODO: It doesn't work, NEED HELP
-            //}
+            // move WebView2Loader.dll to System.setProperty("jna.tmpdir",".") in Windows
+            if (Platform.getOSType() == Platform.WINDOWS) {
+                val file = Native.extractFromResourcePath("WebView2Loader.dll")
+                Files.move(file.toPath(),file.toPath().parent.resolve("WebView2Loader.dll"), StandardCopyOption.REPLACE_EXISTING) // Why there's not something like DO_NOTHING_IF_EXISTING?
+            }
         }
+        // It doesn't work, because it changes the fileName
+        //init {
+            //if (System.getProperty("os.name").lowercase().contains("win")){
+            //    Native.load("WebView2Loader.dll", Library::class.java)
+            //}
+        //}
     }
 
 }
 
 
 class WebviewJNA {
-
     companion object {
-        fun getInstance(): WebviewLibrary {
-            extractDependencies()
-            return WebviewLibrary.INSTANCE
-        }
+        fun getInstance(): WebviewLibrary = WebviewLibrary.INSTANCE
 
         // Copy WebView2Loader.dll in Windows
-        fun extractDependencies() {
+        @Deprecated("", ReplaceWith("extractDependencies"))
+        fun extractDependencies0() {
             val targetPath = Paths.get(System.getProperty("user.dir"),"WebView2Loader.dll")
 
             if (System.getProperty("os.name").lowercase().contains("win") && Files.notExists(targetPath))
                 try {
                     Files.copy(
-                        this::class.java.classLoader.getResourceAsStream("WebView2Loader.dll")!!,
+                        this::class.java.classLoader.getResourceAsStream("win32-x86-64/WebView2Loader.dll")!!,
                         targetPath
                     )
                 } catch (e: FileAlreadyExistsException) {
@@ -119,9 +126,10 @@ class WebviewJNA {
                 }
         }
 
+        @Deprecated("Leave it to JNA")
         fun cleanDependencies() {
             if (System.getProperty("os.name").lowercase().contains("win"))
-                Files.delete(Paths.get(System.getProperty("user.dir"),"WebView2Loader.dll"))
+                Files.delete(Paths.get(System.getProperty("user.dir"),"win32-x86-64/WebView2Loader.dll"))
         }
 
         // Window size hints

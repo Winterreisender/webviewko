@@ -45,8 +45,14 @@ internal class TestKt {
             initJS("""console.log("Hello, from  init")""")
 
             bind("increment") {
-                println(it)
-                "{count: 7}"
+                println("req: $it")
+                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                println(r)
+                title(r.toString())
+                if(r==8) {
+                    url("https://example.com")
+                }
+                "{count: $r}"
             }
 
             html("""

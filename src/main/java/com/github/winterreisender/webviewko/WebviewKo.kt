@@ -47,7 +47,7 @@ class WebviewKo(debug: Int = 0) {
     //        lib.webview_return(pWebview, seq, 0, Json.encodeToString(fn(req)))
     //    }
     //})
-    fun bind(name :String, fn :(String?)->String) = lib.webview_bind(pWebview, name, object :WebviewLibrary.webview_bind_fn_callback {
+    fun bind(name :String, fn :WebviewKo.(String?)->String) = lib.webview_bind(pWebview, name, object :WebviewLibrary.webview_bind_fn_callback {
         override fun apply(seq: String?, req: String?, arg: Pointer?) {
             lib.webview_return(pWebview, seq, 0, fn(req))
         }
@@ -55,5 +55,9 @@ class WebviewKo(debug: Int = 0) {
     fun show() {
         lib.webview_run(pWebview)
         lib.webview_destroy(pWebview)
+    }
+
+    fun terminate() {
+        lib.webview_terminate(pWebview)
     }
 }
