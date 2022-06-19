@@ -19,6 +19,8 @@
 package com.github.winterreisender.webviewko
 import kotlinx.cli.*
 
+
+// TODO: move CLI to another module so the kotlinx.cli won't be essential, or just move CLI to another project
 fun main(args :Array<String>) {
     //System.setProperty("jna.debug_load","true")
     //System.setProperty("jna.tmpdir",".")

@@ -30,14 +30,23 @@ internal class TestKt {
         with(WebviewKo()) {
             title("Title")
             size(800, 600)
-            initJS("""console.log("Hello, from init")""")
 
             url("https://example.com")
             show()
         }
     }
 
-    @Test fun `apiLayer full`() {
+    @Test fun `webview example basic`() {
+        // This tests the example from webview: https://github.com/webview/webview/blob/master/examples/basic.cc
+        if (!Desktop.isDesktopSupported()) return
+        with(WebviewKo()) {
+            title("Basic Example")
+            size(480, 320, WindowHint.None)
+            html("Thanks for using webview!")
+            show()
+        }
+    }
+    @Test fun `api Full`() {
         if (!Desktop.isDesktopSupported()) return
 
         with(WebviewKo(1)) {
@@ -77,6 +86,8 @@ internal class TestKt {
     }
 
     @Test fun `apiLayer thread`() {
+        if (!Desktop.isDesktopSupported()) return
+
         Thread {
             Thread.currentThread().name = "JKDrcom Net Window"
             with(WebviewKo()) {
@@ -92,8 +103,7 @@ internal class TestKt {
     }
 
     @Test fun `jnaLayer bind`() {
-        // This test implemented the bind.c in webview
-
+        // This test implemented a similar bind.c example in webview
         if (!Desktop.isDesktopSupported()) return
 
         with(WebviewJNA.getLib()) {
