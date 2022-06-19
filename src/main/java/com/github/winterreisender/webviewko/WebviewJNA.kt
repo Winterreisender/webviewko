@@ -30,59 +30,7 @@ import java.nio.file.StandardCopyOption
 // But we have Pointer.NULL == null and thus Pointer.NULL is not Pointer. This is an Kotlin/Java inteop issue
 // So we always use `Pointer?` for C interop.
 
-interface WebviewLibrary : Library {
-    fun webview_create(debug :Int = 0, window :Pointer? = Pointer.NULL) :Pointer?
 
-    // Destroys a webview and closes the native window.
-    fun webview_destroy(webview :Pointer?)
-    fun webview_run(webview :Pointer?)
-
-    // Stops the main loop. It is safe to call this function from another other
-    // background thread.
-    fun webview_terminate(webview :Pointer?)
-
-    // Posts a function to be executed on the main thread. You normally do not need
-    // to call this function, unless you want to tweak the native window.
-    @Deprecated("You normally do not need it, unless you want to tweak the native window")
-    fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer?)
-
-    interface webview_dispatch_fn_callback : Callback {
-        fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)
-    }
-
-    /*
-     * Not mapped by webview_csharp
-     *
-     * Returns a native window handle pointer. When using GTK backend the pointer
-     * is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow
-     * pointer, when using Win32 backend the pointer is HWND pointer.
-     */
-    @Deprecated("Not suggested to use")
-    fun webview_get_window(webview :Pointer?) :Pointer?
-
-    fun webview_set_title(webview :Pointer?, title :String)
-    fun webview_set_size(webview :Pointer?, width :Int, height :Int, hints :Int)
-
-    fun webview_navigate(webview :Pointer?, url :String)
-    fun webview_set_html(webview :Pointer?, html :String)
-
-    //Injects JavaScript code at the initialization of the new page. Every time
-    //the webview will open a new page - this initialization code will be
-    //executed. It is guaranteed that code is executed before window.onload.
-    fun webview_init(webview :Pointer?, js :String)
-
-    //Evaluates arbitrary JavaScript code. Evaluation happens asynchronously, also
-    //the result of the expression is ignored. Use the bind function if you want to
-    //receive notifications about the results of the evaluation.
-    fun webview_eval(webview :Pointer?, js :String)
-    fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
-    interface webview_bind_fn_callback : Callback {
-        fun apply(seq :String?, req :String?, arg :Pointer? = Pointer.NULL)
-    }
-
-    fun webview_return(webview :Pointer?, seq :String?, status :Int, result :String)
-
-}
 
 
 class WebviewJNA {
@@ -112,6 +60,61 @@ class WebviewJNA {
 
         @Deprecated("",ReplaceWith("getLib"))
         fun getInstance() :WebviewLibrary = getLib()
+
+    }
+
+    interface WebviewLibrary : Library {
+        fun webview_create(debug :Int = 0, window :Pointer? = Pointer.NULL) :Pointer?
+
+        // Destroys a webview and closes the native window.
+        fun webview_destroy(webview :Pointer?)
+        fun webview_run(webview :Pointer?)
+
+        // Stops the main loop. It is safe to call this function from another other
+        // background thread.
+        fun webview_terminate(webview :Pointer?)
+
+        // Posts a function to be executed on the main thread. You normally do not need
+        // to call this function, unless you want to tweak the native window.
+        @Deprecated("You normally do not need it, unless you want to tweak the native window")
+        fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer?)
+
+        interface webview_dispatch_fn_callback : Callback {
+            fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)
+        }
+
+        /*
+         * Not mapped by webview_csharp
+         *
+         * Returns a native window handle pointer. When using GTK backend the pointer
+         * is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow
+         * pointer, when using Win32 backend the pointer is HWND pointer.
+         */
+        @Deprecated("Not suggested to use")
+        fun webview_get_window(webview :Pointer?) :Pointer?
+
+        fun webview_set_title(webview :Pointer?, title :String)
+        fun webview_set_size(webview :Pointer?, width :Int, height :Int, hints :Int)
+
+        fun webview_navigate(webview :Pointer?, url :String)
+        fun webview_set_html(webview :Pointer?, html :String)
+
+        //Injects JavaScript code at the initialization of the new page. Every time
+        //the webview will open a new page - this initialization code will be
+        //executed. It is guaranteed that code is executed before window.onload.
+        fun webview_init(webview :Pointer?, js :String)
+
+        //Evaluates arbitrary JavaScript code. Evaluation happens asynchronously, also
+        //the result of the expression is ignored. Use the bind function if you want to
+        //receive notifications about the results of the evaluation.
+        fun webview_eval(webview :Pointer?, js :String)
+        fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
+        interface webview_bind_fn_callback : Callback {
+            fun apply(seq :String?, req :String?, arg :Pointer? = Pointer.NULL)
+        }
+
+        fun webview_return(webview :Pointer?, seq :String?, status :Int, result :String)
+
     }
 }
 

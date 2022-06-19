@@ -19,7 +19,7 @@
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.Pointer
-
+import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 
 enum class WindowHint(val value :Int) {
     None(WebviewJNA.WEBVIEW_HINT_NONE), // Width and height are default size

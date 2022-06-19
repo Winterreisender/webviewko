@@ -17,10 +17,10 @@
  */
 
 import com.github.winterreisender.webviewko.*
+import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 import com.sun.jna.Pointer
 import java.awt.*
 import kotlin.test.Test
-import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 internal class TestKt {
@@ -52,7 +52,7 @@ internal class TestKt {
                 println(r)
                 title(r.toString())
                 if(r==8) {
-                    url("https://example.com")
+                    terminate()
                 }
                 "{count: $r}"
             }
