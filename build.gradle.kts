@@ -19,7 +19,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.Winterreisender"
-version = "v0.0.1-experimental.13"
+version = "v0.0.1-experimental.15"
 description = "webviewko"
 
 plugins {
