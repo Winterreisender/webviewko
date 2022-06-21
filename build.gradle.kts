@@ -39,16 +39,17 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
     api("net.java.dev.jna:jna:5.11.0") // can be accessed by users
 
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-    //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
-    //dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
     dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
+
+    //implementation(kotlin("stdlib"))
+    //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    //dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
 tasks.dokkaHtml.configure {
