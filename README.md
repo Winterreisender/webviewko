@@ -16,21 +16,11 @@ webviewko is a project to bind [webview](https://github.com/webview/webview) (a 
 
 ## Getting Started
 
-**See [docs](https://winterreisender.github.io/webviewko/) for the full document**
-
 ### 1. Import webviewko
 
-For Gradle (Kotlin DSL) :
+If you're using a build system like Gradle, Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko)
 
-```kotlin
-repositories {
-    maven("https://jitpack.io")
-}
-
-dependencies {
-    implementation("com.github.Winterreisender:webviewko:0.1.0")
-}
-```
+If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
 
 ### 2. Use webviewko
 
@@ -49,6 +39,8 @@ with(WebviewKo()) {
 }
 ```
 
+More example: [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt)
+
 For Java:
 
 ```java
@@ -61,13 +53,14 @@ webview.url("https://example.com");
 webview.show();
 ```
 
+More example: [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+
 ### Native API
 
 You can also use JNA bindings directly:
 
 ```kotlin
-// This implemented the bind.c in webview
-import com.github.winterreisender.webviewko.*
+import ...
 
 with(WebviewJNA.getInstance()) {
     val pWebview = webview_create(1, Pointer.NULL)
@@ -96,17 +89,13 @@ with(WebviewJNA.getInstance()) {
 }
 ```
 
-### CLI
+## Documents
 
-```shell
-java -jar webviewko.jar https://example.com --title Hello --width 800 --height 600
-```
+**See [docs](https://winterreisender.github.io/webviewko/) for the full document**
 
 ## Contribution
 
 All suggestions, pull requests, issues and other contributions are welcome and appreciated.
-
-see [GitHub Discussions](https://github.com/Winterreisender/webviewko/discussions)
 
 ## Credits
 
