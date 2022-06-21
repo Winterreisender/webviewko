@@ -1,0 +1,8 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.Companion.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.html
+com.github.winterreisender.webviewko
+

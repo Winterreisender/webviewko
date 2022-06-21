@@ -19,7 +19,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.Winterreisender"
-version = "v0.0.1-experimental.15"
+version = "0.1.0"
 description = "webviewko"
 
 plugins {
@@ -27,6 +27,7 @@ plugins {
     `maven-publish`
     kotlin("jvm") version "1.7.0"
     id("com.github.johnrengelman.shadow") version "latest.release"
+    id("org.jetbrains.dokka") version "1.7.0"
 }
 
 repositories {
@@ -44,8 +45,19 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
+    //dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
+    dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(rootDir.resolve("docs/kdoc"))
+}
+
+tasks.dokkaJavadoc.configure {
+    outputDirectory.set(rootDir.resolve("docs/javadoc"))
+}
 
 tasks.test {
     useJUnitPlatform()
@@ -53,7 +65,7 @@ tasks.test {
 
 java {
     withSourcesJar()
-    //withJavadocJar()
+    withJavadocJar()
 }
 
 tasks.jar {

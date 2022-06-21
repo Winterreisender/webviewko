@@ -16,5 +16,9 @@
  * SPDX short identifier: **Apache-2.0**
  */
 
+/**
+ * A Kotlin/Java binding to webview
+ */
+
 package com.github.winterreisender.webviewko;
 

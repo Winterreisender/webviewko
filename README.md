@@ -1,4 +1,4 @@
-# webview<span style="color: #b59aed">ko</span>
+# webviewko
 
 ![Top language](https://img.shields.io/github/languages/top/Winterreisender/webviewko?color=b99bf8&logo=kotlin)
 ![Java](https://img.shields.io/badge/Java-11,17-orange?logo=java)
@@ -16,7 +16,7 @@ webviewko is a project to bind [webview](https://github.com/webview/webview) (a 
 
 ## Getting Started
 
-**See [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki) for the full document**
+**See [docs](https://winterreisender.github.io/webviewko/) for the full document**
 
 ### 1. Import webviewko
 
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.Winterreisender:webviewko:main-SNAPSHOT")
+    implementation("com.github.Winterreisender:webviewko:0.1.0")
 }
 ```
 
