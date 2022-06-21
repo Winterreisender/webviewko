@@ -23,7 +23,7 @@ version = "v0.0.1-experimental.15"
 description = "webviewko"
 
 plugins {
-    java
+    `java-library`
     `maven-publish`
     kotlin("jvm") version "1.7.0"
     id("com.github.johnrengelman.shadow") version "latest.release"
@@ -39,15 +39,13 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.4")
-    implementation("net.java.dev.jna:jna:5.11.0")
+    api("net.java.dev.jna:jna:5.11.0") // can be accessed by users
 
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-
 }
+
 
 tasks.test {
     useJUnitPlatform()
@@ -71,7 +69,7 @@ tasks.jar {
 tasks.shadowJar {
     manifest {
         attributes(mapOf(
-            "Main-Class" to "com.github.winterreisender.webviewko.MainCLIKt",
+            //"Main-Class" to "com.github.winterreisender.webviewko.MainCLIKt",
             "ImplementationTitle" to project.name,
             "Implementation-Version" to project.version)
         )

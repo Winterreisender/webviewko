@@ -19,10 +19,7 @@
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
-import java.nio.file.CopyOption
 import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
 
 // JNA Bindings
 // TODO: Document these bindings using webview's document
@@ -73,7 +70,6 @@ class WebviewJNA {
         // Stops the main loop. It is safe to call this function from another other
         // background thread.
         fun webview_terminate(webview :Pointer?)
-
         // Posts a function to be executed on the main thread. You normally do not need
         // to call this function, unless you want to tweak the native window.
         @Deprecated("You normally do not need it, unless you want to tweak the native window")
