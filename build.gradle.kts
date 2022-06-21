@@ -65,7 +65,7 @@ tasks.test {
 
 java {
     withSourcesJar()
-    withJavadocJar()
+    //withJavadocJar()
 }
 
 tasks.jar {
