@@ -140,7 +140,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param fn the callback
          */
-        @Deprecated("You normally do not need it, unless you want to tweak the native window")
+        //@Deprecated("You normally do not need it, unless you want to tweak the native window")
         fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer? = Pointer.NULL)
         interface webview_dispatch_fn_callback : Callback {
             fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)

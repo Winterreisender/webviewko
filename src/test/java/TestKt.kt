@@ -33,6 +33,8 @@ internal class TestKt {
 
             url("https://example.com")
             show()
+
+            println("Goodbye webview")
         }
     }
 
@@ -85,13 +87,32 @@ internal class TestKt {
         }
     }
 
-    @Test fun `apiLayer thread`() {
+
+    // Related issues: [Is it safe to share a webview between threads?](https://github.com/webview/webview/issues/77)
+    @Test fun `apiLayer thread simple`() {
         if (!Desktop.isDesktopSupported()) return
 
+        var webviewkoWindow :WebviewKo? = null
+
         Thread {
-            Thread.currentThread().name = "JKDrcom Net Window"
-            with(WebviewKo()) {
-                title("JKDrcom Net Window")
+            Thread.sleep(5000L)
+            println(webviewkoWindow)
+            webviewkoWindow?.dispatch {
+                title("5s passed")
+                size(900, 500)
+            }
+            Thread.sleep(5000L)
+            webviewkoWindow?.dispatch {
+                terminate()
+            }
+        }.start()
+
+        Thread {
+            Thread.currentThread().name = "thread test"
+            webviewkoWindow = WebviewKo()
+            println(webviewkoWindow)
+            with(webviewkoWindow!!) {
+                title("thread test")
                 size(600, 500)
                 url("https://example.com")
                 show()
@@ -99,6 +120,19 @@ internal class TestKt {
         }.apply {
             start()
             join()
+        }
+
+
+    }
+
+    @Test fun `jnaLayer simple`() {
+        with(WebviewJNA.getLib()) {
+            val pWebview = webview_create(1, Pointer.NULL)
+            webview_set_title(pWebview, "Hello")
+            webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
+            webview_navigate(pWebview, "https://example.com")
+            webview_run(pWebview)
+            webview_destroy(pWebview)
         }
     }
 

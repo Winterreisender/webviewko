@@ -30,7 +30,7 @@ public class TestJava {
             return;
 
         WebviewKo webview = new WebviewKo();
-        webview.title("webviewKo Java Test");
+        webview.title("Java Test");
         webview.size(1024,768,WindowHint.None);
         webview.url("https://example.com");
 
@@ -44,7 +44,7 @@ public class TestJava {
             return;
 
         WebviewKo webview = new WebviewKo();
-        webview.title("webviewKo Java Test");
+        webview.title("Java Test");
         webview.size(1024,768,WindowHint.None);
 
         webview.bind("increment",(WebviewKo w,String msg)-> {
@@ -91,16 +91,28 @@ public class TestJava {
         }
     }
 
-    @Test
-    void jnaFull() {
-        var lib = WebviewJNA.Companion.getLib();
-
-        // This test implemented the bind.c in webview
-
+    @Test void jnaSimple() {
         if (!Desktop.isDesktopSupported()) {
             return;
         }
-        var pWebview = lib.webview_create(1, Pointer.NULL);
+        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
+        Pointer pWebview = lib.webview_create(1, Pointer.NULL);
+        lib.webview_set_title(pWebview, "Hello");
+        lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
+        lib.webview_navigate(pWebview, "https://example.com");
+        lib.webview_run(pWebview);
+        lib.webview_destroy(pWebview);
+    }
+
+    @Test
+    void jnaFull() {
+        // This test implemented the bind.c in webview
+        if (!Desktop.isDesktopSupported()) {
+            return;
+        }
+
+        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
+        Pointer pWebview = lib.webview_create(1, Pointer.NULL);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
 

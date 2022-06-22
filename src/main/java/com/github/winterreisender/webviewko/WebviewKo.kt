@@ -74,11 +74,20 @@ class WebviewKo(debug: Int = 0) {
     /**
      * Navigates webview to the given URL
      *
-     * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you.
+     * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you. Same as [navigate]
      *
      * @param v the URL or URI
      * */
     fun url(v: String) = lib.webview_navigate(pWebview, v)
+
+    /**
+     * Navigates webview to the given URL
+     *
+     * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you. Same as [url]
+     *
+     * @param v the URL or URI
+     * */
+    fun navigate(v: String) = url(v)
 
     /**
      * Set webview HTML directly.
@@ -151,6 +160,22 @@ class WebviewKo(debug: Int = 0) {
      * @param name the name of JS function used in `webview_bind`
      */
     fun unbind(name: String) = lib.webview_unbind(pWebview, name)
+
+
+    /**
+     * Posts a function to be executed on the main thread.
+     *
+     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
+     *
+     * @param fn the function to be executed on the main thread.
+     *
+     */
+    fun dispatch(fn :WebviewKo.()->Unit) = lib.webview_dispatch(pWebview,object :WebviewLibrary.webview_dispatch_fn_callback {
+        override fun apply(webview: Pointer?, arg: Pointer?) {
+            fn()
+        }
+    })
+
 
     /**
      * Runs the main loop and destroy it when terminated.

@@ -18,7 +18,7 @@ webviewko is a project to bind [webview](https://github.com/webview/webview) (a 
 
 ### 1. Import webviewko
 
-If you're using a build system like Gradle, Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko)
+If you're using a build system like Gradle or Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko)
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
 
@@ -28,18 +28,15 @@ For Kotlin:
 
 ```kotlin
 import com.github.winterreisender.webviewko.*
+import com.sun.jna.Pointer;
 
 with(WebviewKo()) {
-    title("Title")
-    size(800, 600)
-    initJS("""console.log("Hello, from init")""")
-
-    url("https://example.com")
+    title("Basic Example")
+    size(480, 320, WindowHint.None)
+    html("Thanks for using webview!")
     show()
 }
 ```
-
-More example: [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt)
 
 For Java:
 
@@ -50,44 +47,44 @@ WebviewKo webview = new WebviewKo();
 webview.title("webviewKo Java Test");
 webview.size(1024,768,WindowHint.None);
 webview.url("https://example.com");
+
 webview.show();
 ```
 
-More example: [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
-
-### Native API
+Native API:
 
 You can also use JNA bindings directly:
 
 ```kotlin
-import ...
+import com.github.winterreisender.webviewko.*
+import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
+import com.sun.jna.Pointer
+import java.beans.JavaBean
 
-with(WebviewJNA.getInstance()) {
+with(WebviewJNA.getLib()) {
     val pWebview = webview_create(1, Pointer.NULL)
     webview_set_title(pWebview, "Hello")
     webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
-
-    val html = """
-        <button id="increment">Tap me</button>
-        <div>You tapped <span id="count">0</span> time(s).</div>
-        <script>
-          ...
-        </script>
-    """.trimIndent()
-
-    val callback = object : WebviewLibrary.webview_bind_fn_callback {
-        override fun apply(seq: String?, req: String?, arg: Pointer?) {
-            val r: Int = Regex("""\["(\d+)"]""").find(req!!)!!.groupValues[1].toInt() + 1
-            webview_return(pWebview, seq, 0, "{count: $r}")
-        }
-
-    }
-    webview_bind(pWebview, "increment", callback)
-    webview_set_html(pWebview, html)
+    webview_navigate(pWebview, "https://example.com")
     webview_run(pWebview)
     webview_destroy(pWebview)
 }
 ```
+
+or in Java:
+
+```java
+WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
+Pointer pWebview = lib.webview_create(1, Pointer.NULL);
+lib.webview_set_title(pWebview, "Hello");
+lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
+lib.webview_navigate(pWebview, "https://example.com");
+lib.webview_run(pWebview);
+lib.webview_destroy(pWebview);
+```
+
+More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+
 
 ## Documents
 
