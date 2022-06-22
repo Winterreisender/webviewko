@@ -1,7 +1,7 @@
 # The webview<span style="color: #b59aed">ko</span> documents
 
-- [JavaDoc](javadoc/index.html)
-- [KDoc (Kotlin)](kdoc/index.html)
+- [KDoc for Kotlin](https://winterreisender.github.io/webviewko/kdoc/index.html)
+- [JavaDoc for Java](https://winterreisender.github.io/webviewko/javadoc/index.html)
 - [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)
 - [GitHub Repo](https://github.com/Winterreisender/webviewko)
 

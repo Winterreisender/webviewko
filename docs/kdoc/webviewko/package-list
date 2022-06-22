@@ -35,10 +35,12 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewJNA/WebviewJNA/#/Poi
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/bind/#kotlin.String#kotlin.Function2[com.github.winterreisender.webviewko.WebviewKo,kotlin.String?,kotlin.String]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/bind.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/dispatch/#kotlin.Function1[com.github.winterreisender.webviewko.WebviewKo,kotlin.Unit]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/dispatch.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/eval/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/eval.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/html/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/html.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/init/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/init.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/initJS/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/init-j-s.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/navigate/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/navigate.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/show/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/show.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/size/#kotlin.Int#kotlin.Int#com.github.winterreisender.webviewko.WindowHint/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/size.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/terminate/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/terminate.html

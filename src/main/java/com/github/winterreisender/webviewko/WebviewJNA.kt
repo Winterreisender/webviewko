@@ -135,12 +135,12 @@ class WebviewJNA {
         /**
          * Posts a function to be executed on the main thread.
          *
+         * It safely schedules the callback to be run on the main thread on the next main loop iteration.
          * You normally do not need to call this function, unless you want to tweak the native window.
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param fn the callback
          */
-        //@Deprecated("You normally do not need it, unless you want to tweak the native window")
         fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer? = Pointer.NULL)
         interface webview_dispatch_fn_callback : Callback {
             fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)

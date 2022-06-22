@@ -522,8 +522,8 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                           >
                                     <li class="blockList">
                                         <h4>webview_dispatch</h4>
-                                        <pre class="methodSignature">@<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/index.html>Deprecated</a>(message = &quot;You normally do not need it, unless you want to tweak the native window&quot;) abstract <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewJNA.WebviewLibrary.html#webview_dispatch(Pointer,WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback,Pointer)>webview_dispatch</a>(Pointer webview, <a href=WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback.html>WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback</a> fn, Pointer args)</pre>
-                                        <div class="block"><p>Posts a function to be executed on the main thread.</p><p>You normally do not need to call this function, unless you want to tweak the native window.</p></div>
+                                        <pre class="methodSignature"> abstract <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewJNA.WebviewLibrary.html#webview_dispatch(Pointer,WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback,Pointer)>webview_dispatch</a>(Pointer webview, <a href=WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback.html>WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback</a> fn, Pointer args)</pre>
+                                        <div class="block"><p>Posts a function to be executed on the main thread.</p><p>It safely schedules the callback to be run on the main thread on the next main loop iteration. You normally do not need to call this function, unless you want to tweak the native window.</p></div>
                                         
                                         <dl>
                                             <dt><span class="paramLabel">Parameters:</span></dt>

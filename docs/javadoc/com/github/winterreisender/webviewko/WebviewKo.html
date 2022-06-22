@@ -280,12 +280,20 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                         <tr id="i2" class="altColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
+                                            <th class="colSecond" scope="row"><code><a href=WebviewKo.html#navigate(String)>navigate</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> v) </code>
+                                            </th>
+                                            <td class="colLast">Navigates webview to the given URLURL may be a data URI, i.e.</td>
+                                        </tr>
+                                        
+                                        <tr id="i3" class="rowColor">
+                                            <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
+                                            </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#html(String)>html</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> v) </code>
                                             </th>
                                             <td class="colLast">Set webview HTML directly.</td>
                                         </tr>
                                         
-                                        <tr id="i3" class="rowColor">
+                                        <tr id="i4" class="altColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#size(Integer,Integer,WindowHint)>size</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a> width, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a> height, <a href=WindowHint.html>WindowHint</a> hints) </code>
@@ -293,7 +301,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Updates the size of the native window.</td>
                                         </tr>
                                         
-                                        <tr id="i4" class="altColor">
+                                        <tr id="i5" class="rowColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#initJS(String)>initJS</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> js) </code>
@@ -301,7 +309,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Injects JavaScript code at the initialization of the new page.</td>
                                         </tr>
                                         
-                                        <tr id="i5" class="rowColor">
+                                        <tr id="i6" class="altColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#init(String)>init</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> js) </code>
@@ -309,7 +317,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Injects JavaScript code at the initialization of the new page.</td>
                                         </tr>
                                         
-                                        <tr id="i6" class="altColor">
+                                        <tr id="i7" class="rowColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#eval(String)>eval</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> js) </code>
@@ -317,7 +325,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Evaluates arbitrary JavaScript code.</td>
                                         </tr>
                                         
-                                        <tr id="i7" class="rowColor">
+                                        <tr id="i8" class="altColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#bind(String,Function2)>bind</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> name, Function2&lt;<a href=WebviewKo.html>WebviewKo</a>, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a>, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a>&gt; fn) </code>
@@ -325,7 +333,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.</td>
                                         </tr>
                                         
-                                        <tr id="i8" class="altColor">
+                                        <tr id="i9" class="rowColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#unbind(String)>unbind</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> name) </code>
@@ -333,7 +341,15 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Removes a callback that was previously set by <code>webview_bind</code>.</td>
                                         </tr>
                                         
-                                        <tr id="i9" class="rowColor">
+                                        <tr id="i10" class="altColor">
+                                            <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=WebviewKo.html#dispatch(Function1)>dispatch</a>(Function1&lt;<a href=WebviewKo.html>WebviewKo</a>, <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a>&gt; fn) </code>
+                                            </th>
+                                            <td class="colLast">Posts a function to be executed on the main thread.</td>
+                                        </tr>
+                                        
+                                        <tr id="i11" class="rowColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#show()>show</a>() </code>
@@ -341,7 +357,7 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             <td class="colLast">Runs the main loop and destroy it when terminated.</td>
                                         </tr>
                                         
-                                        <tr id="i10" class="altColor">
+                                        <tr id="i12" class="altColor">
                                             <td class="colFirst"><code>final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a></code>
                                             </td>
                                             <th class="colSecond" scope="row"><code><a href=WebviewKo.html#terminate()>terminate</a>() </code>
@@ -436,7 +452,31 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                     <li class="blockList">
                                         <h4>url</h4>
                                         <pre class="methodSignature"> final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewKo.html#url(String)>url</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> v)</pre>
-                                        <div class="block"><p>Navigates webview to the given URL</p><p>URL may be a data URI, i.e. &quot;data:text/text,...&quot;. It is often ok not to url-encode it properly, webview will re-encode it for you.</p></div>
+                                        <div class="block"><p>Navigates webview to the given URL</p><p>URL may be a data URI, i.e. &quot;data:text/text,...&quot;. It is often ok not to url-encode it properly, webview will re-encode it for you. Same as <a href=WebviewKo.html#navigate(String)>navigate</a></p></div>
+                                        
+                                        <dl>
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>v</code> - the URL or URI</dd>
+                                            
+                                            
+                                        </dl>
+                                        
+                                        <!-- TODO missing return annotation -->
+                                    </li>
+                                </ul>
+                                
+                                <a id="navigate(String)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>navigate</h4>
+                                        <pre class="methodSignature"> final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewKo.html#navigate(String)>navigate</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> v)</pre>
+                                        <div class="block"><p>Navigates webview to the given URL</p><p>URL may be a data URI, i.e. &quot;data:text/text,...&quot;. It is often ok not to url-encode it properly, webview will re-encode it for you. Same as <a href=WebviewKo.html#url(String)>url</a></p></div>
                                         
                                         <dl>
                                             <dt><span class="paramLabel">Parameters:</span></dt>
@@ -619,6 +659,30 @@ public final class <span class="typeNameLabel"><a href=WebviewKo.html>WebviewKo<
                                             
                                             
                                             <dd><code>name</code> - the name of JS function used in <code>webview_bind</code></dd>
+                                            
+                                            
+                                        </dl>
+                                        
+                                        <!-- TODO missing return annotation -->
+                                    </li>
+                                </ul>
+                                
+                                <a id="dispatch(Function1)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>dispatch</h4>
+                                        <pre class="methodSignature"> final <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewKo.html#dispatch(Function1)>dispatch</a>(Function1&lt;<a href=WebviewKo.html>WebviewKo</a>, <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a>&gt; fn)</pre>
+                                        <div class="block"><p>Posts a function to be executed on the main thread.</p><p>It safely schedules the callback to be run on the main thread on the next main loop iteration.</p></div>
+                                        
+                                        <dl>
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>fn</code> - the function to be executed on the main thread.</dd>
                                             
                                             
                                         </dl>
