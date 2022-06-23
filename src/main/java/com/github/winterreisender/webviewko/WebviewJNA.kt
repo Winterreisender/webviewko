@@ -71,7 +71,6 @@ class WebviewJNA {
          *
          */
         fun getLibOrNull() :WebviewLibrary? {
-            // move WebView2Loader.dll to System.setProperty("jna.tmpdir",".") in Windows
             if (Platform.getOSType() == Platform.WINDOWS) {
                 val file = Native.extractFromResourcePath("WebView2Loader.dll",WebviewJNA::class.java.classLoader)
                 val dest = file.toPath().parent.resolve("WebView2Loader.dll")
@@ -99,6 +98,10 @@ class WebviewJNA {
         fun getInstance() :WebviewLibrary = getLib()
 
     }
+
+    /**
+     * Mapping all C functions in webview.h
+     */
 
     interface WebviewLibrary : Library {
         /**
@@ -140,6 +143,7 @@ class WebviewJNA {
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param fn the callback
+         * @param args please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
          */
         fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer? = Pointer.NULL)
         interface webview_dispatch_fn_callback : Callback {
@@ -223,6 +227,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param name the name of the global JavaScript function
          * @param callback the Kotlin/Java callback function wrapper in an interface, use `webview_return` to response to the JS request.
+         * @param arg please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
          */
         fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
 
@@ -244,8 +249,8 @@ class WebviewJNA {
              * You should use `webview_return` to response to the JS
              *
              * @param seq the id of request
-             * @param req Request string is a JSON array of all the arguments passed to the JavaScript function.
-             * @param arg please ignore it and keep it `Pointer.NULL`
+             * @param req request string is a JSON array of all the arguments passed to the JavaScript function.
+             * @param arg please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
              */
             fun apply(seq :String?, req :String?, arg :Pointer? = Pointer.NULL)
         }

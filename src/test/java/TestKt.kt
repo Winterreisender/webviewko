@@ -30,10 +30,8 @@ internal class TestKt {
         with(WebviewKo()) {
             title("Title")
             size(800, 600)
-
             url("https://example.com")
             show()
-
             println("Goodbye webview")
         }
     }
@@ -110,7 +108,6 @@ internal class TestKt {
         Thread {
             Thread.currentThread().name = "thread test"
             webviewkoWindow = WebviewKo()
-            println(webviewkoWindow)
             with(webviewkoWindow!!) {
                 title("thread test")
                 size(600, 500)
@@ -144,7 +141,6 @@ internal class TestKt {
             val pWebview = webview_create(1, Pointer.NULL)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
-
             webview_init(pWebview, """console.log("Hello, from init")""")
 
             val html = """
@@ -220,7 +216,6 @@ internal class TestKt {
                   });
                 </script>
             """.trimIndent())
-
             show()
         }
     }
