@@ -9,8 +9,12 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 [![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
 
-webviewko is a project to bind [webview](https://github.com/webview/webview) (a tiny cross-platform webview library) with Kotlin and JNA for both Java and Kotlin, inspired by [wiverson/webviewjar](https://github.com/wiverson/webviewjar).  
+<!-- 
+See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry)
+English | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](README.zh-Hant.md) 
+-->
 
+webviewko is a project to bind [webview](https://github.com/webview/webview) (a tiny cross-platform webview library) with Kotlin and JNA for both Java and Kotlin, inspired by [wiverson/webviewjar](https://github.com/wiverson/webviewjar).  
 
 ![screenshot](screenshot.jpg)
 

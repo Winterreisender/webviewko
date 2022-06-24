@@ -16,12 +16,16 @@
  * SPDX short identifier: **Apache-2.0**
  */
 
-import com.github.winterreisender.webviewko.*
+import com.github.winterreisender.webviewko.WebviewJNA
 import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
+import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.WindowHint
 import com.sun.jna.Pointer
-import java.awt.*
-import kotlin.test.Test
+import com.sun.jna.Structure
 import kotlinx.serialization.json.*
+import java.awt.Desktop
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 internal class TestKt {
     @Test fun `apiLayer simple`() {
@@ -134,7 +138,6 @@ internal class TestKt {
     }
 
     @Test fun `jnaLayer bind`() {
-        // This test implemented a similar bind.c example in webview
         if (!Desktop.isDesktopSupported()) return
 
         with(WebviewJNA.getLib()) {
@@ -219,5 +222,70 @@ internal class TestKt {
             show()
         }
     }
+
+
+    class Context : Structure() {
+        @JvmField var webview: Pointer? = Pointer.NULL
+        @JvmField var count: Int = 0
+        override fun getFieldOrder() = mutableListOf("webview","count")
+    }
+    @Test
+    fun `jna bind_c`() {
+        // This test implemented a similar bind.c example in webview
+        if (!Desktop.isDesktopSupported()) return
+
+        with(WebviewJNA.getLib()) {
+            val pWebview = webview_create(0, Pointer.NULL)
+
+            val context = Context().apply {
+                webview = pWebview!!
+                count = 0
+                write()
+            }
+
+
+            webview_set_title(pWebview, "Bind Example")
+            webview_set_size(pWebview, 480, 320, WebviewJNA.WEBVIEW_HINT_NONE)
+            webview_init(pWebview, """console.log("Hello, from init")""")
+
+            val html = """
+                <button id="increment">Tap me</button>
+                <div>You tapped <span id="count">0</span> time(s).</div>
+                <script>
+                  const [incrementElement, countElement] =
+                    document.querySelectorAll("#increment, #count");
+                  document.addEventListener("DOMContentLoaded", () => {
+                    incrementElement.addEventListener("click", () => {
+                      window.increment().then(result => {
+                        countElement.textContent = result.count;
+                      });
+                    });
+                  });
+                </script>
+            """.trimIndent()
+
+            val callback = object :WebviewLibrary.webview_bind_fn_callback {
+                override fun apply(seq: String?, req: String?, arg: Pointer?) {
+                    val context2 = Structure.newInstance(Context::class.java,arg)
+                    with(context2) {
+                        read() // read from native memory
+                        count++
+                        write() // write to native memory
+                    }
+                    webview_return(context2.webview, seq, 0, "{count: ${context2.count}}")
+                }
+
+            }
+            webview_bind(pWebview,"increment",callback, context.pointer)
+            webview_set_html(pWebview, html)
+
+            webview_eval(pWebview, """console.log("Hello, from  eval")""")
+
+            webview_run(pWebview)
+            webview_destroy(pWebview)
+        }
+    }
+
+
 
 }

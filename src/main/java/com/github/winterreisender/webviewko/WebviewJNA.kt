@@ -100,7 +100,7 @@ class WebviewJNA {
     }
 
     /**
-     * Mapping all C functions in webview.h
+     * All 15 C functions in webview.h
      */
 
     interface WebviewLibrary : Library {
@@ -153,7 +153,7 @@ class WebviewJNA {
         /**
          * Returns a native window handle pointer.
          *
-         * Not suggested to use. When using GTK backend the pointer is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow pointer, when using Win32 backend the pointer is HWND pointer.
+         * When using GTK backend the pointer is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow pointer, when using Win32 backend the pointer is HWND pointer.
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          */
@@ -227,7 +227,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param name the name of the global JavaScript function
          * @param callback the Kotlin/Java callback function wrapper in an interface, use `webview_return` to response to the JS request.
-         * @param arg please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
+         * @param arg the context. please keep it `Pointer.NULL` unless you know what you're doing.
          */
         fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
 
