@@ -23,9 +23,6 @@ import com.github.winterreisender.webviewko.WindowHint
 import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
-import com.sun.jna.platform.win32.Kernel32
-import com.sun.jna.platform.win32.User32
-import com.sun.jna.platform.win32.WinDef.HWND
 import kotlinx.serialization.json.*
 import java.awt.*
 import kotlin.test.BeforeTest
@@ -332,6 +329,10 @@ internal class TestKt {
         }
     }
 
+    /*
+    import com.sun.jna.platform.win32.Kernel32
+    import com.sun.jna.platform.win32.User32
+    import com.sun.jna.platform.win32.WinDef.HWND
     // Not working fine
      @Ignore fun `awt0`() {
          if (!Desktop.isDesktopSupported()) return
@@ -371,6 +372,8 @@ internal class TestKt {
          Thread.sleep(90000L)
 
      }
+
+     */
 
 
 }

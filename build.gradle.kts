@@ -45,12 +45,12 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-    testImplementation("net.java.dev.jna:jna-platform:5.11.0")
+
 
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
     dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 
-
+    //testImplementation("net.java.dev.jna:jna-platform:5.11.0")
     //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     //dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
