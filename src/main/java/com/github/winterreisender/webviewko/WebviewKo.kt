@@ -165,7 +165,7 @@ class WebviewKo(debug: Int = 0) {
     /**
      * Posts a function to be executed on the main thread.
      *
-     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
+     * It safely schedules the callback to be run on the main thread on the next main loop iteration. Like `invokeLater` in Swing
      *
      * @param fn the function to be executed on the main thread.
      *

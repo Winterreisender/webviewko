@@ -20,14 +20,27 @@ import com.github.winterreisender.webviewko.WebviewJNA
 import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.webviewko.WindowHint
+import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
+import com.sun.jna.platform.win32.Kernel32
+import com.sun.jna.platform.win32.User32
+import com.sun.jna.platform.win32.WinDef.HWND
 import kotlinx.serialization.json.*
-import java.awt.Desktop
+import java.awt.*
+import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.Ignore
+
 
 internal class TestKt {
+    @BeforeTest fun initialize() {
+        println("Start testing")
+        if (!Desktop.isDesktopSupported()) {
+            println("Desktop Not Supported. All tests ignored")
+        }
+    }
+
     @Test fun `apiLayer simple`() {
         if (!Desktop.isDesktopSupported()) return
 
@@ -286,6 +299,78 @@ internal class TestKt {
         }
     }
 
+    @Test fun `multi window`() {
+        // For the sake of simplicity and forward-compatibility with mobile platforms, only a single native window per app process is supported.
+        // See https://github.com/webview/webview/issues/305
+
+        if (!Desktop.isDesktopSupported()) return
+
+
+        val t1 = Thread {
+            with(WebviewKo()) {
+                println(ProcessHandle.current().pid())
+                title("1")
+                size(900, 500)
+                url("https://bing.com")
+                show()
+            }
+        }
+
+        Thread {
+            with(WebviewKo()) {
+                println(ProcessHandle.current().pid())
+                title("1")
+                size(900, 500)
+                url("https://example.com")
+                show()
+            }
+        }.apply {
+            t1.start()
+            start()
+            join()
+            t1.join()
+        }
+    }
+
+    // Not working fine
+     @Ignore fun `awt0`() {
+         if (!Desktop.isDesktopSupported()) return
+
+         val c = Canvas().apply {
+             size = Dimension(800,500)
+         }
+
+         val f = Frame("Hello").apply {
+             layout = FlowLayout()
+             size = Dimension(800,800)
+             add(c)
+             Button("Hello").also(::add)
+         }
+
+         var pWin :Pointer? = Pointer.NULL
+
+         with(WebviewJNA.getLib()) {
+             val pWebview = webview_create(1, null)
+             pWin = webview_get_window(pWebview)
+
+
+             f.isVisible = true
+             val r = User32.INSTANCE.SetParent(HWND(pWin),HWND(getComponentPointer(c)))
+
+             println("${pWin} ${getComponentPointer(c)}")
+
+             println(Kernel32.INSTANCE.GetLastError())
+
+             webview_set_title(pWebview, "Hello")
+             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_MAX)
+             webview_navigate(pWebview, "https://example.com")
+             webview_run(pWebview)
+             webview_destroy(pWebview)
+         }
+
+         Thread.sleep(90000L)
+
+     }
 
 
 }

@@ -2,7 +2,7 @@
 
 ![Top language](https://img.shields.io/github/languages/top/Winterreisender/webviewko?color=b99bf8&logo=kotlin)
 ![Java](https://img.shields.io/badge/Java-11,17-orange?logo=java)
-![license](https://img.shields.io/github/license/Winterreisender/webviewko) 
+![license](https://img.shields.io/github/license/Winterreisender/webviewko)
 
 ![dev release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=dev&include_prereleases)
 [![Gradle CI](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
@@ -10,27 +10,27 @@
 [![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
 
 <!-- 
-See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry)
+See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry) for language tags
 -->
 
-**English** | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](README.zh-Hant.md) 
+[English](../README.md) | **中文(简体)** | [中文(繁體)](README.zh-Hant.md) 
 
 
-webviewko is a project to bind [webview](https://github.com/webview/webview) (a tiny cross-platform webview library) with Kotlin and JNA for both Java and Kotlin, inspired by [wiverson/webviewjar](https://github.com/wiverson/webviewjar).  
+webviewko 是一个 [webview](https://github.com/webview/webview) (轻量级跨平台的网页视图库) 的 Kotlin/Java 绑定.
 
-![screenshot](screenshot.jpg)
+![screenshot](../screenshot.jpg)
 
-## Getting Started
+## 快速开始
 
-### 1. Import webviewko
+### 1. 导入 webviewko
 
-If you're using a build system like Gradle or Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko)
+如果你在用 Gradle 或者 Maven 等构建系统, 请看 [JitPack.io上的webviewko](https://jitpack.io/#Winterreisender/webviewko)
 
-If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
+如果你想手动导入jar文件, 请到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下载.
 
-### 2. Use webviewko
+### 2. 使用 webviewko
 
-For Kotlin:
+对于 Kotlin:
 
 ```kotlin
 import com.github.winterreisender.webviewko.*
@@ -44,7 +44,7 @@ with(WebviewKo()) {
 }
 ```
 
-For Java:
+对于 Java:
 
 ```java
 import com.github.winterreisender.webviewko.*;
@@ -57,9 +57,9 @@ webview.url("https://example.com");
 webview.show();
 ```
 
-#### Native API
+#### 原生API
 
-You can also use JNA bindings directly:
+你也可以直接使用 webviewko 的 JNA 绑定:
 
 ```kotlin
 import com.github.winterreisender.webviewko.*
@@ -77,7 +77,7 @@ with(WebviewJNA.getLib()) {
 }
 ```
 
-or in Java:
+或者用Java:
 
 ```java
 WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
@@ -89,20 +89,20 @@ lib.webview_run(pWebview);
 lib.webview_destroy(pWebview);
 ```
 
-More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+更多例子,诸如绑定JS回调、在线程间共享实例: 请看 [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) 和 [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
 
 
-## Documents
+## 文档
 
-**See [docs](https://winterreisender.github.io/webviewko/) for the full document**
+**请看 [docs](https://winterreisender.github.io/webviewko/)**
 
-## Contribution
+## 贡献者指南
 
-All suggestions, pull requests, issues and other contributions are welcome and appreciated.
+我们欢迎并感谢任何人对项目的任何贡献，包括建议、Pull Request、Issue等。
 
-## Credits
+## 引用
 
-| Project                                                                      | License                                                                                          |
+| 项目                                                                           | 许可证                                                                                              |
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
 | [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                |
 | [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                             |
@@ -111,7 +111,7 @@ All suggestions, pull requests, issues and other contributions are welcome and a
 | [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [See the License](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)     |
 | [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                            |
 
-## License
+## 版权与许可
 
 Copyright 2022 Winterreisender
 

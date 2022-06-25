@@ -23,7 +23,7 @@ import com.sun.jna.*
 import java.nio.file.Files
 
 // JNA Bindings
-// TODO: Document these bindings using webview's document
+// DONE: Document these bindings using webview's document
 // In the most ideal situation, Pointer.NULL should not be null for type safe.
 // But we have Pointer.NULL == null and thus Pointer.NULL is not Pointer. This is an Kotlin/Java inteop issue
 // So we always use `Pointer?` for C interop.

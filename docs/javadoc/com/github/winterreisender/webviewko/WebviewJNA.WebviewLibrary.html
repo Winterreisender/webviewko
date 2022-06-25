@@ -138,7 +138,7 @@ var pathtoroot = "../../../../";
 public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.html>WebviewJNA.WebviewLibrary</a></span>
  implements Library
                     </pre>
-                    <div class="block"></div>
+                    <div class="block"><p>All 15 C functions in webview.h</p></div>
                 </li>
             </ul>
         </div>
@@ -537,6 +537,8 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                             
                                             
                                             
+                                            <dd><code>args</code> - please ignore it and keep it <code>Pointer.NULL</code> unless you know what you're doing.</dd>
+                                            
                                             
                                         </dl>
                                         
@@ -553,7 +555,7 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                     <li class="blockList">
                                         <h4>webview_get_window</h4>
                                         <pre class="methodSignature">@<a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-deprecated/index.html>Deprecated</a>(message = &quot;Not suggested to use&quot;) abstract Pointer <a href=WebviewJNA.WebviewLibrary.html#webview_get_window(Pointer)>webview_get_window</a>(Pointer webview)</pre>
-                                        <div class="block"><p>Returns a native window handle pointer.</p><p>Not suggested to use. When using GTK backend the pointer is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow pointer, when using Win32 backend the pointer is HWND pointer.</p></div>
+                                        <div class="block"><p>Returns a native window handle pointer.</p><p>When using GTK backend the pointer is GtkWindow pointer, when using Cocoa backend the pointer is NSWindow pointer, when using Win32 backend the pointer is HWND pointer.</p></div>
                                         
                                         <dl>
                                             <dt><span class="paramLabel">Parameters:</span></dt>
@@ -766,6 +768,8 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                             <dd><code>callback</code> - the Kotlin/Java callback function wrapper in an interface, use <code>webview_return</code> to response to the JS request.</dd>
                                             
                                             
+                                            
+                                            <dd><code>arg</code> - the context.</dd>
                                             
                                             
                                         </dl>
