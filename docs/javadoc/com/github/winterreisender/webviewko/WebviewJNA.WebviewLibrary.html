@@ -1,25 +1,7 @@
-<!--
-  ~ Copyright (c) 2022  Winterreisender
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~  http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  ~
-  ~ SPDX short identifier: **Apache-2.0**
-  -->
-
 <!DOCTYPE HTML>
 <!-- NewPage -->
 <html lang="en"><head>
-    <title>WebviewLibrary 0.1.0 API </title>
+    <title>WebviewLibrary 0.1.1 API </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="dc.created" content="2020-03-25">
     <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
@@ -445,7 +427,7 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                     <li class="blockList">
                                         <h4>webview_create</h4>
                                         <pre class="methodSignature"> abstract Pointer <a href=WebviewJNA.WebviewLibrary.html#webview_create(Integer,Pointer)>webview_create</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a> debug, Pointer window)</pre>
-                                        <div class="block"><p>Creates a new webview instance.</p><p>If debug is non-zero - developer tools will be enabled (if the platform supports them). Window parameter can be a pointer to the native window handle. If it's non-null - then child WebView is embedded into the given parent window. Otherwise a new window is created. Depending on the platform, a GtkWindow, NSWindow or HWND pointer can be passed here.</p></div>
+                                        <div class="block"><p>Creates a new webview instance.</p><p>If debug is non-zero - developer tools will be enabled (if the platform supports them). Window parameter can be a pointer to the native window handle. If it's non-null - then child WebView is embedded into the given parent window. Otherwise, a new window is created. Depending on the platform, a GtkWindow, NSWindow or HWND pointer can be passed here.</p></div>
                                         
                                         <!-- TODO missing return annotation -->
                                     </li>
@@ -695,7 +677,7 @@ public interface <span class="typeNameLabel"><a href=WebviewJNA.WebviewLibrary.h
                                     <li class="blockList">
                                         <h4>webview_init</h4>
                                         <pre class="methodSignature"> abstract <a href=https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html>Unit</a> <a href=WebviewJNA.WebviewLibrary.html#webview_init(Pointer,String)>webview_init</a>(Pointer webview, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> js)</pre>
-                                        <div class="block"><p>Injects JavaScript code at the initialization of the new page.</p><p>Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.</p></div>
+                                        <div class="block"><p>Injects JavaScript code at the initialization of the new page.</p><p>Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before <code>window.onload</code>.</p></div>
                                         
                                         <dl>
                                             <dt><span class="paramLabel">Parameters:</span></dt>

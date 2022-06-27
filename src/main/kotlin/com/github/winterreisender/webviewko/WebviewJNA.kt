@@ -23,12 +23,9 @@ import com.sun.jna.*
 import java.nio.file.Files
 
 // JNA Bindings
-// DONE: Document these bindings using webview's document
 // In the most ideal situation, Pointer.NULL should not be null for type safe.
-// But we have Pointer.NULL == null and thus Pointer.NULL is not Pointer. This is an Kotlin/Java inteop issue
+// But we have `Pointer.NULL = null` and thus `Pointer.NULL` is not `Pointer`. This is a Kotlin/Java interop issue
 // So we always use `Pointer?` for C interop.
-
-
 
 /**
  * A JNA binding to webview.
@@ -107,7 +104,7 @@ class WebviewJNA {
         /**
          * Creates a new webview instance.
          *
-         * If debug is non-zero - developer tools will be enabled (if the platform supports them). Window parameter can be a pointer to the native window handle. If it's non-null - then child WebView is embedded into the given parent window. Otherwise a new window is created. Depending on the platform, a GtkWindow, NSWindow or HWND pointer can be passed here.
+         * If debug is non-zero - developer tools will be enabled (if the platform supports them). Window parameter can be a pointer to the native window handle. If it's non-null - then child WebView is embedded into the given parent window. Otherwise, a new window is created. Depending on the platform, a GtkWindow, NSWindow or HWND pointer can be passed here.
          *
          * @return a webview handle
          */
@@ -202,7 +199,7 @@ class WebviewJNA {
         /**
          * Injects JavaScript code at the initialization of the new page.
          *
-         * Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
+         * Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before `window.onload`.
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param js the JS code

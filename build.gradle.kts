@@ -19,7 +19,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.Winterreisender"
-version = "0.1.0"
+version = "0.1.1"
 description = "webviewko"
 
 plugins {
@@ -41,7 +41,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
 
-    api("net.java.dev.jna:jna:5.11.0")
+    api("net.java.dev.jna:jna:5.12.0")
 
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
@@ -50,7 +50,7 @@ dependencies {
     dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
     dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 
-    //testImplementation("net.java.dev.jna:jna-platform:5.11.0")
+    testImplementation("net.java.dev.jna:jna-platform:5.12.0")
     //testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     //dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
@@ -83,7 +83,6 @@ tasks.jar {
     }
 }
 
-
 tasks.shadowJar {
     manifest {
         attributes(mapOf(
@@ -93,8 +92,6 @@ tasks.shadowJar {
         )
     }
 }
-
-
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"

@@ -22,45 +22,41 @@ import com.sun.jna.Pointer
 import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 
 /**
- * The window size hints used by `WebviewKo.size`
- *
- * A Wrapper of WEBVIEW_HINT_NONE, WEBVIEW_HINT_MIN, WEBVIEW_HINT_MAX and WEBVIEW_HINT_FIXED
- *
- */
-enum class WindowHint(val value :Int) {
-    /**
-    * Width and height are default size
-     */
-    None(WebviewJNA.WEBVIEW_HINT_NONE),
-
-    /**
-     * Width and height are minimum bounds
-     */
-    Minimum(WebviewJNA.WEBVIEW_HINT_MIN),
-
-    /**
-     * Width and height are maximum bounds
-     */
-    Maximum(WebviewJNA.WEBVIEW_HINT_MAX),
-
-    /**
-     * Window size can not be changed by a user
-     */
-    Fixed(WebviewJNA.WEBVIEW_HINT_FIXED)
-}
-
-
-/**
  * The High level binding to webview in Kotlin
  */
 class WebviewKo(debug: Int = 0) {
     private val lib: WebviewLibrary = WebviewJNA.getLib()
     private val pWebview: Pointer = lib.webview_create(debug,Pointer.NULL)!!
 
+    /**
+     * The window size hints used by `WebviewKo.size`
+     *
+     * A Wrapper of WEBVIEW_HINT_NONE, WEBVIEW_HINT_MIN, WEBVIEW_HINT_MAX and WEBVIEW_HINT_FIXED
+     *
+     */
+    enum class WindowHint(val value :Int) {
+        /**
+         * Width and height are default size
+         */
+        None(WebviewJNA.WEBVIEW_HINT_NONE),
 
-    // If you add a window parameter, you need to add it to constructor, thus your user must have access to com.sun.jna.Pointer
-    // then your user must install jna whether they want. Or they'll get an error: Cannot access class 'com.sun.jna.Pointer'
-    // Even if you use the api() in Gradle, adding it to constructor made it impossible to exclude JNA for users
+        /**
+         * Width and height are minimum bounds
+         */
+        Minimum(WebviewJNA.WEBVIEW_HINT_MIN),
+
+        /**
+         * Width and height are maximum bounds
+         */
+        Maximum(WebviewJNA.WEBVIEW_HINT_MAX),
+
+        /**
+         * Window size can not be changed by a user
+         */
+        Fixed(WebviewJNA.WEBVIEW_HINT_FIXED)
+    }
+
+
 
     /**
      * Updates the title of the native window.

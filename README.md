@@ -15,8 +15,7 @@ See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https:/
 
 **English** | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](README.zh-Hant.md) 
 
-
-webviewko is a project to bind [webview](https://github.com/webview/webview) (a tiny cross-platform webview library) with Kotlin and JNA for both Java and Kotlin, inspired by [wiverson/webviewjar](https://github.com/wiverson/webviewjar).  
+webviewko provides a Kotlin/Java binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
 ![screenshot](screenshot.jpg)
 
@@ -92,7 +91,7 @@ lib.webview_destroy(pWebview);
 More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
 
 
-## Documents
+## Documentation
 
 **See [docs](https://winterreisender.github.io/webviewko/) for the full document**
 

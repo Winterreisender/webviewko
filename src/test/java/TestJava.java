@@ -31,7 +31,7 @@ public class TestJava {
 
         WebviewKo webview = new WebviewKo();
         webview.title("Java Test");
-        webview.size(1024,768,WindowHint.None);
+        webview.size(1024,768,WebviewKo.WindowHint.None);
         webview.url("https://example.com");
 
         webview.show();
@@ -43,7 +43,7 @@ public class TestJava {
 
         WebviewKo webview = new WebviewKo();
         webview.title("Java Test");
-        webview.size(1024,768,WindowHint.None);
+        webview.size(1024,768,WebviewKo.WindowHint.None);
 
         webview.bind("increment", (WebviewKo w,String msg)-> {
                 System.out.println(msg);
@@ -160,7 +160,7 @@ public class TestJava {
         Thread t1 = new Thread(()->{
             webviewkoWindow.set(new WebviewKo());
             webviewkoWindow.get().title("thread test");
-            webviewkoWindow.get().size(600,500,WindowHint.None);
+            webviewkoWindow.get().size(600,500,WebviewKo.WindowHint.None);
             webviewkoWindow.get().url("https://example.com");
             webviewkoWindow.get().show();
 

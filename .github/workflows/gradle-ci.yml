@@ -24,6 +24,11 @@ jobs:
               with:
                   gradle-version: 7.4.2
 
+            - name: build with Gradle
+              uses: gradle/gradle-build-action@v2
+              with:
+                arguments: build -x test
+
             - name: jar with Gradle
               uses: gradle/gradle-build-action@v2
               with:
@@ -40,5 +45,5 @@ jobs:
             - name: Upload
               uses: actions/upload-artifact@v2
               with:
-                  name: Package
+                  name: gradle-ci-package
                   path: staging

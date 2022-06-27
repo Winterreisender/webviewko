@@ -4,5 +4,6 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion///Poin
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewJNA.WebviewLibrary.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint///PointingToDeclaration/com/github/winterreisender/webviewko/WebviewKo.WindowHint.html
 com.github.winterreisender.webviewko
 

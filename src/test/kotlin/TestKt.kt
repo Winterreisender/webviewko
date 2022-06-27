@@ -19,15 +19,18 @@
 import com.github.winterreisender.webviewko.WebviewJNA
 import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 import com.github.winterreisender.webviewko.WebviewKo
-import com.github.winterreisender.webviewko.WindowHint
+import com.github.winterreisender.webviewko.WebviewKo.WindowHint
 import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
-import kotlinx.serialization.json.*
+import com.sun.jna.platform.win32.*
+import com.sun.jna.platform.win32.WinDef.HWND
 import java.awt.*
+import javax.swing.*
+import kotlinx.serialization.json.*
+
 import kotlin.test.BeforeTest
 import kotlin.test.Test
-import kotlin.test.Ignore
 
 
 internal class TestKt {
@@ -329,51 +332,60 @@ internal class TestKt {
         }
     }
 
-    /*
-    import com.sun.jna.platform.win32.Kernel32
-    import com.sun.jna.platform.win32.User32
-    import com.sun.jna.platform.win32.WinDef.HWND
-    // Not working fine
-     @Ignore fun `awt0`() {
+
+    // Experimental
+     @Test fun `awt0`() {
          if (!Desktop.isDesktopSupported()) return
 
-         val c = Canvas().apply {
-             size = Dimension(800,500)
-         }
-
-         val f = Frame("Hello").apply {
-             layout = FlowLayout()
-             size = Dimension(800,800)
-             add(c)
-             Button("Hello").also(::add)
-         }
-
-         var pWin :Pointer? = Pointer.NULL
-
          with(WebviewJNA.getLib()) {
+             // Create webview window
              val pWebview = webview_create(1, null)
-             pWin = webview_get_window(pWebview)
+             val pWin = webview_get_window(pWebview)
+             webview_set_size(pWebview, 800, 500, WebviewJNA.WEBVIEW_HINT_FIXED)
+             User32.INSTANCE.SetWindowLong(HWND(pWin),WinUser.GWL_STYLE, WinUser.WS_CHILD or WinUser.WS_VISIBLE)
 
+             // The Swing Window
+             lateinit var c :Canvas
+             JFrame("Hello").apply {
+                 layout = FlowLayout()
+                 size = Dimension(800,800)
 
-             f.isVisible = true
-             val r = User32.INSTANCE.SetParent(HWND(pWin),HWND(getComponentPointer(c)))
+                 Canvas().apply {
+                     size = Dimension(800,500)
+                 }.also{ add(it); c=it }
+                 JButton("Change URL").apply {
+                     addActionListener {
+                         webview_dispatch(pWebview,object :WebviewLibrary.webview_dispatch_fn_callback {
+                             override fun apply(webview: Pointer?, arg: Pointer?) {
+                                 webview_navigate(pWebview, "about:blank")
+                             }
+                         })
 
-             println("${pWin} ${getComponentPointer(c)}")
+                     }
+                 }.also(::add)
+                 isVisible = true
+             }
 
-             println(Kernel32.INSTANCE.GetLastError())
+             // Set webview as a child window
+             User32.INSTANCE.SetParent(HWND(pWin),HWND(getComponentPointer(c)))
 
-             webview_set_title(pWebview, "Hello")
-             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_MAX)
+             // Initialize
              webview_navigate(pWebview, "https://example.com")
              webview_run(pWebview)
              webview_destroy(pWebview)
          }
-
-         Thread.sleep(90000L)
-
      }
 
-     */
+    // This cause: Invalid memory access
+    //val classEx = WinUser.WNDCLASSEX().apply {
+    //    lpfnWndProc = WinUser.WindowProc { hwnd, uMsg, wParam, lParam -> User32.INSTANCE.DefWindowProc(hwnd, uMsg, wParam, lParam) }
+    //    hInstance = null
+    //    style = 1 or 2;
+    //    lpszClassName = "testWndReg"
+    //}
+    //User32.INSTANCE.RegisterClassEx(classEx).let { assert(it.toInt() != 0) }
+    //val hwnd = User32Util.createWindowEx(0,"testWndReg","testWnd",WinUser.WS_TILEDWINDOW,0,0,800,800, null,null,null,null)
+
 
 
 }
