@@ -1,0 +1,6 @@
+headers = WebView2Loader_dll/WebView2.h
+headerFilter = WebView2Loader_dll/WebView2.h
+
+compilerOpts = -Isrc/nativeMain/nativeInterop/cinterop/
+staticLibraries = WebView2Loader.dll.lib
+libraryPaths = src/nativeMain/nativeInterop/cinterop/WebView2Loader_dll

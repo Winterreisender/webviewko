@@ -1,17 +1,13 @@
 # webviewko
 
-![Top language](https://img.shields.io/github/languages/top/Winterreisender/webviewko?color=b99bf8&logo=kotlin)
-![Java](https://img.shields.io/badge/Java-11,17-orange?logo=java)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-b69bef?logo=kotlin&logoColor=white)
+![os](https://img.shields.io/badge/os-windows%20%7C%20linux%20%7C%20macos-blue)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko)
 
-![dev release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=dev&include_prereleases)
+![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![Gradle CI](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 [![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
-
-<!-- 
-See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry) for language tags
--->
 
 [English](../README.md) | [中文(简体)](README.zh-Hans.md) | **中文(繁體)**
 
@@ -90,7 +86,7 @@ lib.webview_run(pWebview);
 lib.webview_destroy(pWebview);
 ```
 
-更多例子,諸如綁定JS回調、在線程間共享實例: 請看 [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) 和 [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+更多例子,諸如綁定JS回調、在線程間共享實例: 請看 [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/kotlin/TestKt.kt) 和 [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
 
 
 ## 文檔
@@ -214,7 +210,7 @@ lib.webview_run(pWebview);
 lib.webview_destroy(pWebview);
 ```
 
-更多例子,諸如綁定JS回調、在線程間共享實例: 請看 [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestKt.kt) 和 [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+更多例子,諸如綁定JS回調、在線程間共享實例: 請看 [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/kotlin/TestKt.kt) 和 [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
 
 
 ## 文檔

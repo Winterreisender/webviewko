@@ -19,7 +19,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 group = "com.github.Winterreisender"
-version = "0.1.1"
+version = "0.1.3"
 description = "webviewko"
 
 plugins {
@@ -99,12 +99,12 @@ tasks.withType<JavaCompile> {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = "1.8"
 }
 
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "11"
+    jvmTarget = "1.8"
 }
 
 publishing {
