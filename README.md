@@ -1,6 +1,7 @@
 # webviewko
 
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-b69bef?logo=kotlin&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative(experimental)-b69bef?logo=kotlin&logoColor=white)
 ![os](https://img.shields.io/badge/os-windows%20%7C%20linux%20%7C%20macos-blue)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko) 
 
@@ -90,6 +91,9 @@ lib.webview_destroy(pWebview);
 
 More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/kotlin/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
 
+### Kotlin/Native Bindings
+
+There's an experimental and under developing Kotlin/Native binding in [experimental](experimental/kotlin-native/)
 
 ## Documentation
 
