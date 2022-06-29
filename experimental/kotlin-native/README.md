@@ -9,7 +9,7 @@ gradle runReleaseExecutableNative
 
 # Then you'll get lld-link: error: undefined symbol: std::__throw_bad_array_new_length()
 # In `~\.konan\dependencies`, replace `msys2-mingw-w64-x86_64-1` and `llvm-11.1.0-windows-x64-essentials` with the latest (14.0.5) version of Clang
-# junction ./msys2-mingw-w64-x86_64-1 C:\Users\guest_3slo32w\scoop\apps\msys2\current\mingw64
+# junction ./msys2-mingw-w64-x86_64-1 ~\scoop\apps\msys2\current\mingw64
 
 gradle runDebugExecutableNative
 

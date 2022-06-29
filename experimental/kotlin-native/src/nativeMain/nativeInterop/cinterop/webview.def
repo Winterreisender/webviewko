@@ -1,6 +1,6 @@
-headers = webview/webview.h
-headerFilter = webview/webview.h
+headers = webview/webview.h webview/webview_kotlin_glue.h
+headerFilter = webview/webview.h webview/webview_kotlin_glue.h
 
 compilerOpts = -Isrc/nativeMain/nativeInterop/cinterop/
-staticLibraries = libwebview.a
+staticLibraries = libwebview.dll.a
 libraryPaths = src/nativeMain/nativeInterop/cinterop/webview
