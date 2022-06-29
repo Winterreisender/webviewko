@@ -18,6 +18,7 @@
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
+import kotlinx.coroutines.*
 import kotlin.test.Test
 
 
@@ -62,6 +63,8 @@ internal class TestKt {
                 }
                 "{count: $r}"
             }
+
+
 
             html("""
                 <button id="increment">Tap me</button>
