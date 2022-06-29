@@ -87,8 +87,23 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
-        throw NotImplementedError()
+        val ctx = BindContext(w,{fn(it)})
+        webview_bind(
+            w,
+            name,
+            staticCFunction { seq,req,arg ->
+                val c = arg!!.asStableRef<BindContext>().get()
+                val r = c.callback(req?.toKString())
+                webview_return(c.webview,seq?.toKString(),0,r)
+            },
+            StableRef.create(ctx).asCPointer()
+        )
     }
+
+    class BindContext(
+        val webview :webview_t? = null,
+        val callback :(String?)->String? = {null}
+    )
 
     /**
      * Removes a callback that was previously set by `webview_bind`.
@@ -106,8 +121,20 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        throw NotImplementedError()
+        val ctx = DispatchContext({fn()})
+        webview_dispatch(
+            w,
+            staticCFunction { w,arg ->
+                val c = arg!!.asStableRef<DispatchContext>().get()
+                c.callback()
+            },
+            StableRef.create(ctx).asCPointer()
+        )
     }
+
+    class DispatchContext(
+        val callback :()->Unit = {}
+    )
 
     /**
      * Runs the main loop and destroy it when terminated.
