@@ -31,17 +31,17 @@ kotlin {
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
-        hostOs == "Mac OS X" -> macosX64("native")
-        hostOs == "Linux" -> linuxX64("native")
-        isMingwX64 -> mingwX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+        isMingwX64 -> mingwX64("mingwX64")
+        //hostOs == "Linux" -> linuxX64("native")
+        //hostOs == "Mac OS X" -> macosX64("native")
+        else -> throw GradleException("$hostOs is not supported.")
     }
 
     nativeTarget.apply {
         compilations.getByName("main") {
             cinterops {
-                val libwebviewDll by creating {
-                    defFile(project.file("src/nativeMain/nativeInterop/cinterop/webview.def"))
+                val libwebview by creating {
+                    defFile(project.file("src/mingwX64Main/nativeInterop/cinterop/webview.def"))
                     // There is a cinteropLibwebviewDllNative in Gradle, still don't know how to use.
                     //copy {
                     //    from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
@@ -95,12 +95,12 @@ kotlin {
                 api("net.java.dev.jna:jna-platform:5.12.0")
             }
         }
-        val nativeMain by getting {
+        val mingwX64Main by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
             }
         }
-        val nativeTest by getting
+        val mingwX64Test by getting
     }
 }
 
