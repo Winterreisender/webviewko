@@ -1,37 +1,27 @@
+import kotlinx.cli.*
+fun main(args: Array<String>) {
+    with(ArgParser("webviewko")) {
+        val url    by argument(ArgType.String, description = "URI/URL to navigate")
+        val title  by option(ArgType.String, shortName = "t", description = "Window title").default("webviewko")
+        val width  by option(ArgType.Int, description = "Window width in px").default(800)
+        val height by option(ArgType.Int, description = "Window height in px").default(600)
+        val hint   by option(ArgType.Choice<WebviewKo.WindowHint>(), description = "Window hint").default(WebviewKo.WindowHint.None)
+        val init   by option(ArgType.String, description = "JS to run on page loading").default("")
+        val debug  by option(ArgType.Boolean, description = "Debug mode").default(false)
+        parse(args)
 
-fun main() {
-    with(WebviewKo(1)) {
-        title("Title")
-        size(800,600)
-        url("https://example.com")
-        init("""console.log("Hello, from  init")""")
-
-        bind("increment") {
-            println("req: $it")
-            val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
-            println(r)
-            title(r.toString())
-            if(r==8) {
-                terminate()
+        try {
+            WebviewKo(if(debug) 1 else 0).let {
+                it.title(title)
+                it.size(width, height, hint)
+                if (init.isNotEmpty() ) {
+                    it.init(init)
+                }
+                it.navigate(url)
+                it.show()
             }
-            "{count: $r}"
+        } catch (e: Throwable) {
+            e.printStackTrace()
         }
-
-        html("""
-                <button id="increment">Tap me</button>
-                <div>You tapped <span id="count">0</span> time(s).</div>
-                <script>
-                  const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
-                  document.addEventListener("DOMContentLoaded", () => {
-                    incrementElement.addEventListener("click", () => {
-                      window.increment(countElement.innerText).then(result => {
-                        countElement.textContent = result.count;
-                      });
-                    });
-                  });
-                </script>
-            """.trimIndent())
-
-        show()
     }
 }

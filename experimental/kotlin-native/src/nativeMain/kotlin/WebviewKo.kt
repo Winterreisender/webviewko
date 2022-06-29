@@ -2,14 +2,14 @@ import kotlinx.cinterop.*
 import kotlinx.coroutines.sync.Mutex
 import platform.posix.uintptr_t
 import webview.*
-
+import kotlin.native.concurrent.freeze
 
 /**
  * The High level binding to webview in Kotlin
  */
+
 actual class WebviewKo actual constructor(debug: Int) {
     private val w :webview_t? = webview_create(debug, null)
-    private val mutex = Mutex()
 
     /**
      * Updates the title of the native window.
@@ -88,6 +88,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
         val ctx = BindContext(w,{fn(it)})
+        ctx.freeze()
         webview_bind(
             w,
             name,
@@ -121,19 +122,20 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = DispatchContext({fn()})
+        val ctx = DispatchContext(this,fn)
+        ctx.freeze()
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
                 val c = arg!!.asStableRef<DispatchContext>().get()
-                c.callback()
+                c.callback(c.webviewKo)
             },
             StableRef.create(ctx).asCPointer()
         )
     }
-
     class DispatchContext(
-        val callback :()->Unit = {}
+        val webviewKo: WebviewKo,
+        val callback : WebviewKo.() ->Unit = {}
     )
 
     /**

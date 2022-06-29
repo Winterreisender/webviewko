@@ -97,7 +97,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
     actual fun bind(name :String, fn : WebviewKo.(String?)->String) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
-        actual override fun apply(seq: String?, req: String?, arg: Pointer?) {
+        override fun apply(seq: String?, req: String?, arg: Pointer?) {
             lib.webview_return(pWebview, seq, 0, fn(req))
         }
     })
@@ -119,7 +119,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn : WebviewKo.()->Unit) = lib.webview_dispatch(pWebview,object : WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback {
-        actual override fun apply(webview: Pointer?, arg: Pointer?) {
+        override fun apply(webview: Pointer?, arg: Pointer?) {
             fn()
         }
     })

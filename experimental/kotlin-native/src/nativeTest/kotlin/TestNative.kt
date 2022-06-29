@@ -4,7 +4,9 @@ import kotlinx.coroutines.launch
 import webview.*
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
+import kotlin.native.concurrent.freeze
 import kotlin.test.Test
+
 
 class TestNative {
     @Test
@@ -29,7 +31,11 @@ class TestNative {
                 println(r)
                 title(r.toString())
                 if(r==8) {
-                    terminate()
+                    dispatch {
+                        title("8")
+                        //eval("""alert('Hello')""")
+                        //terminate()
+                    }
                 }
                 "{count: $r}"
             }
@@ -51,6 +57,25 @@ class TestNative {
 
             show()
         }
+    }
+
+    @Test fun `multi windows`() {
+        val webviewKo1 = WebviewKo().apply {
+            title("1")
+            size(900, 500)
+            url("https://example.com")
+        }
+
+        webviewKo1.freeze()
+
+        val w1 = Worker.start().execute(TransferMode.SAFE, {webviewKo1}) { it ->
+            it.dispatch {
+                it.title("Hello From Thread")
+            }
+        }
+
+        webviewKo1.show()
+        w1.consume {  }
     }
 
 

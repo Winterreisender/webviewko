@@ -1,6 +1,7 @@
 # webviewko
 
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-b69bef?logo=kotlin&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative(experimental)-b69bef?logo=kotlin&logoColor=white)
 ![os](https://img.shields.io/badge/os-windows%20%7C%20linux%20%7C%20macos-blue)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko)
 

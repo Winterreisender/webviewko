@@ -18,12 +18,10 @@
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
-import kotlinx.coroutines.*
 import kotlin.test.Test
 
 
-internal class TestKt {
-
+internal class Test {
     @Test fun `apiLayer simple`() {
         with(WebviewKo()) {
             title("Title")

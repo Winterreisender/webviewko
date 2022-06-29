@@ -19,13 +19,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    //js(IR) {
-    //    browser {
-    //        commonWebpackConfig {
-    //            cssSupport.enabled = true
-    //        }
-    //    }
-    //}
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
@@ -41,8 +35,11 @@ kotlin {
                 val libwebview by creating {
                     defFile(project.file("src/nativeMain/nativeInterop/cinterop/webview.def"))
                 }
-
-
+            }
+            copy {
+                from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
+                into(buildDir.resolve("bin/native/debugExecutable/"))
+                into(buildDir.resolve("bin/native/releaseExecutable"))
             }
         }
         binaries {
@@ -76,9 +73,16 @@ kotlin {
                 //implementation(kotlin("test"))
             }
         }
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                api("net.java.dev.jna:jna-platform:5.12.0")
+                //implementation(kotlin("test"))
+            }
+        }
         val nativeMain by getting {
-
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+            }
         }
         val nativeTest by getting
     }
