@@ -1,3 +1,8 @@
+# webviewko experimental Kotlin/Native support
+
+
+<!--
+
 # Works on window
 
 ```shell
@@ -18,3 +23,5 @@ gradle runDebugExecutableNative
 cp src/nativeMain/nativeInterop/cinterop/WebView2Loader_dll/WebView2Loader.dll build/bin/native/debugExecutable 
 gradle runDebugExecutableNative
 ```
+
+-->
