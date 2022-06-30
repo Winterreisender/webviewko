@@ -1,4 +1,5 @@
 import kotlinx.cli.*
+import com.github.winterreisender.webviewko.WebviewKo
 fun main(args: Array<String>) {
     with(ArgParser("webviewko")) {
         val url    by argument(ArgType.String, description = "URI/URL to navigate")

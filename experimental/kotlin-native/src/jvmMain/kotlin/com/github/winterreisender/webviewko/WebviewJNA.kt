@@ -1,29 +1,7 @@
-/*
- * Copyright (c) 2022  Winterreisender
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX short identifier: **Apache-2.0**
- */
-
+package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
 import java.nio.file.Files
-
-// JNA Bindings
-// In the most ideal situation, Pointer.NULL should not be null for type safe.
-// But we have `Pointer.NULL = null` and thus `Pointer.NULL` is not `Pointer`. This is a Kotlin/Java interop issue
-// So we always use `Pointer?` for C interop.
 
 /**
  * A JNA binding to webview.
@@ -65,13 +43,13 @@ class WebviewJNA {
          * @return a `WebviewLibrary` contains native webview functions or null if failed to load
          *
          */
-        fun getLibOrNull() :WebviewLibrary? {
+        fun getLibOrNull() : WebviewLibrary? {
             if (Platform.getOSType() == Platform.WINDOWS) {
-                val file = Native.extractFromResourcePath("WebView2Loader.dll",WebviewJNA::class.java.classLoader)
+                val file = Native.extractFromResourcePath("WebView2Loader.dll", WebviewJNA::class.java.classLoader)
                 val dest = file.toPath().parent.resolve("WebView2Loader.dll")
                 // Why there's not something like DO_NOTHING_IF_EXISTING?
                 if(Files.notExists(dest)) {
-                    Files.move(file.toPath(),dest)
+                    Files.move(file.toPath(), dest)
                 }
             }
             return Native.load("webview", WebviewLibrary::class.java)
@@ -84,13 +62,13 @@ class WebviewJNA {
          * @throws `NullPointerException` if failed to load webview lib
          *
          */
-        fun getLib() :WebviewLibrary = getLibOrNull()!! //TODO: Throw a custom Exception
+        fun getLib() : WebviewLibrary = getLibOrNull()!! //TODO: Throw a custom Exception
 
         /**
          * Same as `getLib`
          */
         @Deprecated("",ReplaceWith("getLib"))
-        fun getInstance() :WebviewLibrary = getLib()
+        fun getInstance() : WebviewLibrary = getLib()
 
     }
 
@@ -106,10 +84,10 @@ class WebviewJNA {
          *
          * @return a webview handle
          */
-        fun webview_create(debug :Int = 0, window :Pointer? = Pointer.NULL) :Pointer?
+        fun webview_create(debug :Int = 0, window : Pointer? = Pointer.NULL) : Pointer?
 
         // Destroys a webview and closes the native window.
-        fun webview_destroy(webview :Pointer?)
+        fun webview_destroy(webview : Pointer?)
 
         /**
          * Runs the main loop until it's terminated.
@@ -118,7 +96,7 @@ class WebviewJNA {
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          */
-        fun webview_run(webview :Pointer?)
+        fun webview_run(webview : Pointer?)
 
 
         /**
@@ -128,7 +106,7 @@ class WebviewJNA {
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          */
-        fun webview_terminate(webview :Pointer?)
+        fun webview_terminate(webview : Pointer?)
 
         /**
          * Posts a function to be executed on the main thread.
@@ -140,9 +118,9 @@ class WebviewJNA {
          * @param fn the callback
          * @param args please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
          */
-        fun webview_dispatch(webview :Pointer?, fn: webview_dispatch_fn_callback, args :Pointer? = Pointer.NULL)
+        fun webview_dispatch(webview : Pointer?, fn: webview_dispatch_fn_callback, args : Pointer? = Pointer.NULL)
         interface webview_dispatch_fn_callback : Callback {
-            fun apply(webview :Pointer?, arg :Pointer? = Pointer.NULL)
+            fun apply(webview : Pointer?, arg : Pointer? = Pointer.NULL)
         }
 
         /**
@@ -153,7 +131,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          */
         @Deprecated("Not suggested to use")
-        fun webview_get_window(webview :Pointer?) :Pointer?
+        fun webview_get_window(webview : Pointer?) : Pointer?
 
         /**
          * Updates the title of the native window.
@@ -163,7 +141,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param title the new title
          */
-        fun webview_set_title(webview :Pointer?, title :String)
+        fun webview_set_title(webview : Pointer?, title :String)
 
         /**
          * Updates the size of the native window.
@@ -173,7 +151,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
          */
-        fun webview_set_size(webview :Pointer?, width :Int, height :Int, hints :Int = WEBVIEW_HINT_NONE)
+        fun webview_set_size(webview : Pointer?, width :Int, height :Int, hints :Int = WEBVIEW_HINT_NONE)
 
         /**
          * Navigates webview to the given URL
@@ -183,7 +161,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param url the URL or URI
          * */
-        fun webview_navigate(webview :Pointer?, url :String)
+        fun webview_navigate(webview : Pointer?, url :String)
 
 
         /**
@@ -192,7 +170,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param html the HTML content
          */
-        fun webview_set_html(webview :Pointer?, html :String)
+        fun webview_set_html(webview : Pointer?, html :String)
 
         /**
          * Injects JavaScript code at the initialization of the new page.
@@ -202,7 +180,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param js the JS code
          */
-        fun webview_init(webview :Pointer?, js :String)
+        fun webview_init(webview : Pointer?, js :String)
 
         /**
          * Evaluates arbitrary JavaScript code.
@@ -212,7 +190,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param js the JS code
          */
-        fun webview_eval(webview :Pointer?, js :String)
+        fun webview_eval(webview : Pointer?, js :String)
 
         /**
          * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.
@@ -224,7 +202,7 @@ class WebviewJNA {
          * @param callback the Kotlin/Java callback function wrapper in an interface, use `webview_return` to response to the JS request.
          * @param arg the context. please keep it `Pointer.NULL` unless you know what you're doing.
          */
-        fun webview_bind(webview :Pointer?, name :String, callback: webview_bind_fn_callback, arg :Pointer? = Pointer.NULL)
+        fun webview_bind(webview : Pointer?, name :String, callback: webview_bind_fn_callback, arg : Pointer? = Pointer.NULL)
 
         /**
          * Removes a Kotlin/Java callback that was previously set by `webview_bind`.
@@ -232,7 +210,7 @@ class WebviewJNA {
          * @param webview the handle of webview, usually returned by `webview_create`
          * @param name the name of JS function used in `webview_bind`
          */
-        fun webview_unbind(webview :Pointer?, name :String)
+        fun webview_unbind(webview : Pointer?, name :String)
 
         /**
          * The callback interface for `webview_bind` due to JNA's function mapping rules.
@@ -247,7 +225,7 @@ class WebviewJNA {
              * @param req request string is a JSON array of all the arguments passed to the JavaScript function.
              * @param arg please ignore it and keep it `Pointer.NULL` unless you know what you're doing.
              */
-            fun apply(seq :String?, req :String?, arg :Pointer? = Pointer.NULL)
+            fun apply(seq :String?, req :String?, arg : Pointer? = Pointer.NULL)
         }
 
         /**
@@ -260,8 +238,7 @@ class WebviewJNA {
          * @param status If status is zero - result is expected to be a valid JSON result value. If status is not zero - result is an error JSON object.
          * @param result the JSON result value to response
          */
-        fun webview_return(webview :Pointer?, seq :String?, status :Int, result :String)
+        fun webview_return(webview : Pointer?, seq :String?, status :Int, result :String)
 
     }
 }
-

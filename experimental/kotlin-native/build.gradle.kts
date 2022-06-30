@@ -1,12 +1,19 @@
 plugins {
     kotlin("multiplatform") version "1.7.0"
+    id("maven-publish")
+    id("org.jetbrains.dokka") version "1.7.0"
 }
 
 group = "com.github.winterreisender"
-version = "1.0-SNAP"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
+    dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
 kotlin {
@@ -18,6 +25,7 @@ kotlin {
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
+
     }
 
     val hostOs = System.getProperty("os.name")
@@ -32,15 +40,18 @@ kotlin {
     nativeTarget.apply {
         compilations.getByName("main") {
             cinterops {
-                val libwebview by creating {
+                val libwebviewDll by creating {
                     defFile(project.file("src/nativeMain/nativeInterop/cinterop/webview.def"))
+                    // There is a cinteropLibwebviewDllNative in Gradle, still don't know how to use.
+                    //copy {
+                    //    from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
+                    //    into(buildDir.resolve("bin/native/debugExecutable/"))
+                    //    into(buildDir.resolve("bin/native/debugTest/"))
+                    //    into(buildDir.resolve("bin/native/releaseExecutable"))
+                    //}
                 }
             }
-            copy {
-                from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
-                into(buildDir.resolve("bin/native/debugExecutable/"))
-                into(buildDir.resolve("bin/native/releaseExecutable"))
-            }
+
         }
         binaries {
             executable {
@@ -57,7 +68,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+                //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+            }
+            tasks.dokkaHtml.configure {
+                outputDirectory.set(rootDir.resolve("docs/kdoc"))
+            }
+
+            tasks.dokkaJavadoc.configure {
+                outputDirectory.set(rootDir.resolve("docs/javadoc"))
             }
         }
         val commonTest by getting {
@@ -70,13 +88,11 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 api("net.java.dev.jna:jna:5.12.0")
-                //implementation(kotlin("test"))
             }
         }
         val jvmTest by getting {
             dependencies {
                 api("net.java.dev.jna:jna-platform:5.12.0")
-                //implementation(kotlin("test"))
             }
         }
         val nativeMain by getting {
@@ -88,4 +104,12 @@ kotlin {
     }
 }
 
+/*
+publishing {
+    repositories {
+        maven {
 
+        }
+    }
+}
+*/

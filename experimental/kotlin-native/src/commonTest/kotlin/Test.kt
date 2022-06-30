@@ -15,6 +15,7 @@
  *
  * SPDX short identifier: **Apache-2.0**
  */
+import com.github.winterreisender.webviewko.WebviewKo
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*

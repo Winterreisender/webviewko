@@ -1,8 +1,9 @@
+package com.github.winterreisender.webviewko
+
 import kotlinx.cinterop.*
-import kotlinx.coroutines.sync.Mutex
-import platform.posix.uintptr_t
 import webview.*
 import kotlin.native.concurrent.freeze
+
 
 /**
  * The High level binding to webview in Kotlin

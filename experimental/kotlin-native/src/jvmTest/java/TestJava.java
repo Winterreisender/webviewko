@@ -16,6 +16,8 @@
  * SPDX short identifier: **Apache-2.0**
  */
 
+import com.github.winterreisender.webviewko.WebviewJNA;
+import com.github.winterreisender.webviewko.WebviewKo;
 import com.sun.jna.Pointer;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;

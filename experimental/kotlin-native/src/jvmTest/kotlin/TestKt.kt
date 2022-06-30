@@ -16,6 +16,8 @@
  * SPDX short identifier: **Apache-2.0**
  */
 
+import com.github.winterreisender.webviewko.WebviewJNA
+import com.github.winterreisender.webviewko.WebviewKo
 import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
@@ -329,7 +331,7 @@ internal class TestKt {
 
 
     // Experimental
-     @Test fun `awt0`() {
+     @Test fun awt0() {
          if (!Desktop.isDesktopSupported()) return
 
          with(WebviewJNA.getLib()) {

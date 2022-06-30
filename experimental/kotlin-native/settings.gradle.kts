@@ -1,3 +1,3 @@
 
-rootProject.name = "webviewkoX"
+rootProject.name = "webviewko"
 

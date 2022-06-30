@@ -1,6 +1,4 @@
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.github.winterreisender.webviewko.WebviewKo
 import webview.*
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
