@@ -1,7 +1,7 @@
 # webviewko
 
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FNative(experimental)-7F52FF?logo=kotlin&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=white)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko) 
 
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
@@ -29,11 +29,10 @@ If you want to use jar files, see [GitHub Release](https://github.com/Winterreis
 
 ### 2. Use webviewko
 
-For Kotlin:
+For Kotlin/JVM and Kotlin/Native:
 
 ```kotlin
 import com.github.winterreisender.webviewko.*
-import com.sun.jna.Pointer;
 
 with(WebviewKo()) {
     title("Basic Example")
@@ -56,20 +55,16 @@ webview.url("https://example.com");
 webview.show();
 ```
 
-#### Native API
+#### Native API using JNA
 
 You can also use JNA bindings directly:
 
 ```kotlin
 import com.github.winterreisender.webviewko.*
-import com.github.winterreisender.webviewko.WebviewJNA.WebviewLibrary
 import com.sun.jna.Pointer
-import java.beans.JavaBean
 
 with(WebviewJNA.getLib()) {
     val pWebview = webview_create(1, Pointer.NULL)
-    webview_set_title(pWebview, "Hello")
-    webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
     webview_navigate(pWebview, "https://example.com")
     webview_run(pWebview)
     webview_destroy(pWebview)
@@ -81,18 +76,27 @@ or in Java:
 ```java
 WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
 Pointer pWebview = lib.webview_create(1, Pointer.NULL);
-lib.webview_set_title(pWebview, "Hello");
-lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
 lib.webview_navigate(pWebview, "https://example.com");
 lib.webview_run(pWebview);
 lib.webview_destroy(pWebview);
 ```
 
-More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/test/kotlin/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/test/java/TestJava.java)
+More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/kotlin/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/java/TestJava.java)
 
 ### Kotlin/Native Bindings
 
-There's an experimental and under developing Kotlin/Native binding in [experimental](experimental/kotlin-native/)
+webviewko also provides a Kotlin/Native binding for Windows (Linux and macOS is working in progrss) with the same API as JVM.
+
+You can also use the C API directly:
+
+```kotlin
+val w : webview_t = webview_create(0,null)!!
+webview_set_size(w, 800, 600, 0)
+webview_navigate(w, "https://example.com")
+webview_run(w)
+webview_destroy(w)
+```
+
 
 ## Documentation
 

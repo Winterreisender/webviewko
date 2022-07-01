@@ -1,5 +1,5 @@
 jdk:
-   - openjdk11
+   - openjdk8
 
 #before_install:
 #   - sdk install java 11.0.10-open
