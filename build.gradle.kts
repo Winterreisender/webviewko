@@ -134,13 +134,23 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
-
 /*
 publishing {
     repositories {
         maven {
-
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Winterreisender/webviewko")
+            credentials {
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
         }
     }
 }
 */
+
