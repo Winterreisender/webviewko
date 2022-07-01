@@ -50,3 +50,8 @@ jobs:
               with:
                   name: gradle-ci-package
                   path: staging
+
+            -   name: publish with Gradle
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: publish
