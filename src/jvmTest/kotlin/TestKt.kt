@@ -1,16 +1,16 @@
 /*
- * Copyright (C) 2022.
+ * Copyright (C) 2022. Winterreisender
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
+ *  See the License for the specific language governing permissions and
  * limitations under the License.
  *
  * SPDX short identifier: Apache-2.0
@@ -305,7 +305,6 @@ internal class TestKt {
 
         val t1 = Thread {
             with(WebviewKo()) {
-                println(ProcessHandle.current().pid())
                 title("1")
                 size(900, 500)
                 url("https://bing.com")
@@ -315,7 +314,6 @@ internal class TestKt {
 
         Thread {
             with(WebviewKo()) {
-                println(ProcessHandle.current().pid())
                 title("1")
                 size(900, 500)
                 url("https://example.com")
