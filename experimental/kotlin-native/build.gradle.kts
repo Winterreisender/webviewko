@@ -1,11 +1,14 @@
 plugins {
     kotlin("multiplatform") version "1.7.0"
+    `java-library`
     id("maven-publish")
     id("org.jetbrains.dokka") version "1.7.0"
+    id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
 group = "com.github.winterreisender"
 version = "0.2.0"
+description = "webviewko"
 
 repositories {
     mavenCentral()
@@ -16,16 +19,26 @@ dependencies {
     dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(rootDir.resolve("docs/kdoc"))
+}
+
+tasks.dokkaJavadoc.configure {
+    outputDirectory.set(rootDir.resolve("docs/javadoc"))
+}
+
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "11"
+            kotlinOptions.jvmTarget = "1.8"
         }
         withJava()
+        java {
+            withSourcesJar()
+        }
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
-
     }
 
     val hostOs = System.getProperty("os.name")
@@ -102,6 +115,25 @@ kotlin {
         }
         val mingwX64Test by getting
     }
+}
+
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveClassifier.set("all")
+    val main by kotlin.jvm().compilations
+    from(main.output)
+    configurations += main.compileDependencyFiles as Configuration
+    configurations += main.runtimeDependencyFiles as Configuration
+
+    manifest {
+        attributes(mapOf(
+            "ImplementationTitle" to project.name,
+            "Implementation-Version" to project.version)
+        )
+    }
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
 }
 
 /*
