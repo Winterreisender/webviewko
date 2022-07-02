@@ -8,13 +8,13 @@ on:
 jobs:
     build:
         runs-on: windows-latest
-        environment: action-packages
+        environment: "action-packages"
         steps:
             - uses: actions/checkout@v3
-            - name: Setup Java JDK 17
+            - name: Setup Java JDK
               uses: actions/setup-java@v3
               with:
-                  java-version: '11'
+                  java-version: '8'
                   distribution: 'temurin'
 
             - name: Make gradlew executable
@@ -56,3 +56,6 @@ jobs:
                 uses: gradle/gradle-build-action@v2
                 with:
                     arguments: publish
+                env:
+                    USERNAME: ${{ secrets.USERNAME }}
+                    TOKEN: ${{ secrets.TOKEN }}

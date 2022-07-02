@@ -25,7 +25,7 @@ plugins {
 }
 
 group = "com.github.winterreisender"
-version = "0.2.0"
+version = "0.2.0-SNAPSHOT"
 description = "webviewko"
 
 repositories {
@@ -159,8 +159,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/Winterreisender/webviewko")
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+                username =  System.getenv("USERNAME")
+                password = System.getenv("TOKEN") //project.findProperty("gpr.key") as String? ?:
             }
         }
     }
