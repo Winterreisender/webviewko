@@ -1,3 +1,4 @@
 *.html linguist-language=kotlin
 *.css linguist-language=kotlin
 *.js linguist-language=kotlin
+*.h linguist-language=kotlin
