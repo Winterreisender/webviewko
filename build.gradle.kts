@@ -95,7 +95,7 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "main"
-                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=.")
+                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
                 //linkerOpts("-v")
                 //linkerOpts("-lole32", "-lshell32", "-lshlwapi", "-luser32") //"-lWebView2Loader.dll")
             }
