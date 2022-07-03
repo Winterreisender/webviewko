@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        runs-on: windows-latest
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - name: Setup Java JDK
@@ -23,11 +23,6 @@ jobs:
               uses: gradle/gradle-build-action@v2
               with:
                   gradle-version: 7.4.2
-
-            - name: build with Gradle
-              uses: gradle/gradle-build-action@v2
-              with:
-                arguments: build -x mingwX64Test -x jvmTest
 
             - name: shadowJar with Gradle
               uses: gradle/gradle-build-action@v2
