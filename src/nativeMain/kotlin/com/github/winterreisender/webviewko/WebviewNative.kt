@@ -15,7 +15,7 @@
  *
  * SPDX short identifier: Apache-2.0
  */
-
+/*
 package com.github.winterreisender.webviewko
 
 import kotlinx.cinterop.*
@@ -194,3 +194,5 @@ object WebviewNative {
     fun webview_return(w :webview_t?, seq :String?, status :Int, result :String) = webview.webview_return(w,seq,status,result)
 
 }
+
+ */

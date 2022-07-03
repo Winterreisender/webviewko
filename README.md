@@ -85,7 +85,7 @@ More examples like binding a Kotlin/Java callback or running in a thread: see [T
 
 ### Kotlin/Native Bindings
 
-webviewko also provides a Kotlin/Native binding for Windows (Linux and macOS is working in progrss) with the same API as JVM.
+webviewko also provides a Kotlin/Native binding for Windows and Linux with the same API as JVM.
 
 You can also use the C API directly:
 

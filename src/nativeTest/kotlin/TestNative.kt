@@ -1,5 +1,5 @@
 import com.github.winterreisender.webviewko.WebviewKo
-import webview.*
+import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.freeze

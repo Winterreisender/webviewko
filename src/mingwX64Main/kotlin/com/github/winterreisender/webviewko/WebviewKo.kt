@@ -19,7 +19,7 @@
 package com.github.winterreisender.webviewko
 
 import kotlinx.cinterop.*
-import webview.*
+import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.freeze
 
 

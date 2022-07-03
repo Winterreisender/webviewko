@@ -45,6 +45,8 @@ tasks.dokkaJavadoc.configure {
     outputDirectory.set(rootDir.resolve("docs/javadoc"))
 }
 
+lateinit var osPrefix :String
+
 kotlin {
     jvm {
         compilations.all {
@@ -62,22 +64,23 @@ kotlin {
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
-        isMingwX64 -> mingwX64("mingwX64")
-        hostOs == "Linux" -> linuxX64("linuxX64")
+        isMingwX64 -> mingwX64("native")
+        hostOs == "Linux" -> linuxX64("native")
         //hostOs == "Mac OS X" -> macosX64("native")
         else -> throw GradleException("$hostOs is not supported.")
+    }
+    osPrefix = when {
+        hostOs == "Linux" -> "linuxX64"
+        isMingwX64 -> "mingwX64"
+        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
     nativeTarget.apply {
         compilations.getByName("main") {
             cinterops {
-                val libwebview by creating {
-                    val osPrefix = when {
-                        hostOs == "Linux" -> "linuxX64"
-                        isMingwX64 -> "mingwX64"
-                        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
-                    }
-                    defFile(project.file("src/${osPrefix}Main/nativeInterop/cinterop/webview.def"))
+                val cwebview by creating {
+                    defFile(project.file("src/nativeMain/nativeInterop/cinterop/webview.def"))
+                    packageName("${group}.cwebview")
                     // There is a cinteropLibwebviewDllNative in Gradle, still don't know how to use.
                     //copy {
                     //    from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
@@ -105,6 +108,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
             tasks.dokkaHtml.configure {
@@ -119,6 +123,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+
             }
         }
         val jvmMain by getting {
@@ -126,29 +131,29 @@ kotlin {
                 api("net.java.dev.jna:jna:5.12.0")
             }
         }
-        val jvmTest by getting {
+
+        val jvmTest by getting
+
+        val nativeMain by getting {
             dependencies {
-                api("net.java.dev.jna:jna-platform:5.12.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
             }
         }
 
-        if(isMingwX64) {
-            val mingwX64Main by getting {
-                dependencies {
-                    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
-                }
+        val nativeTest by getting
+    }
+
+    publishing {
+        publications {
+            matching {it.name == "native"}.all {
+                val targetPublication = this@all
+                tasks.withType<AbstractPublishToMaven>()
+                    .matching { it.publication == targetPublication }
+                    .configureEach {
+                        publication.artifactId = "webviewko-${osPrefix}"
+                    }
             }
 
-            val mingwX64Test by getting
-        }
-
-        if(hostOs == "Linux") {
-            val linuxX64Main by getting {
-                dependencies {
-                    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
-                }
-            }
-            val linuxX64Test by getting
         }
     }
 }
@@ -184,7 +189,13 @@ publishing {
         }
     }
     publications {
-
+        //publications {
+        //    create<MavenPublication>("maven") {
+        //        artifactId = "webviewko-${osPrefix}"
+        //        components.forEach { println(it.name) }
+        //        from(components["kotlin"])
+        //    }
+        //}
     }
 }
 
