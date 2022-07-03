@@ -132,7 +132,11 @@ kotlin {
             }
         }
 
-        val jvmTest by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation("net.java.dev.jna:jna-platform:5.12.0")
+            }
+        }
 
         val nativeMain by getting {
             dependencies {

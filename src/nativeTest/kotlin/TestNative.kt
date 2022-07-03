@@ -3,11 +3,12 @@ import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.freeze
+import kotlin.test.Ignore
 import kotlin.test.Test
 
 
 class TestNative {
-    @Test
+    @Ignore
     fun test0() {
         val w : webview_t? = webview_create(0,null)
         webview_set_size(w, 800, 600, 0)
@@ -16,7 +17,7 @@ class TestNative {
         webview_destroy(w)
     }
 
-    @Test fun `api Full`() {
+    @Ignore fun `api Full`() {
         with(WebviewKo(1)) {
             title("Title")
             size(800,600)
@@ -57,7 +58,7 @@ class TestNative {
         }
     }
 
-    @Test fun `multi windows`() {
+    @Ignore fun `multi windows`() {
         val webviewKo1 = WebviewKo().apply {
             title("1")
             size(900, 500)

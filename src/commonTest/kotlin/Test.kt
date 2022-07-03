@@ -19,11 +19,12 @@ import com.github.winterreisender.webviewko.WebviewKo
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
+import kotlin.test.Ignore
 import kotlin.test.Test
 
 
 internal class Test {
-    @Test fun `apiLayer simple`() {
+    @Ignore fun `apiLayer simple`() {
         with(WebviewKo()) {
             title("Title")
             size(800, 600)
@@ -33,7 +34,7 @@ internal class Test {
         }
     }
 
-    @Test fun `webview example basic`() {
+    @Ignore fun `webview example basic`() {
         // This tests the example from webview: https://github.com/webview/webview/blob/master/examples/basic.cc
 
         with(WebviewKo()) {
@@ -45,7 +46,7 @@ internal class Test {
     }
 
 
-    @Test fun `api Full`() {
+    @Ignore fun `api Full`() {
         with(WebviewKo(1)) {
             title("Title")
             size(800,600)
@@ -85,7 +86,7 @@ internal class Test {
     }
 
 
-    @Test fun `json Test`() {
+    @Ignore fun `json Test`() {
         // Example about using third part Json Serialization (kotlinx-serialization-json)
 
 
