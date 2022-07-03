@@ -34,11 +34,8 @@ jobs:
               with:
                   arguments: publishToMavenLocal
 
-            - name: Copy Jars to Staging
-              run: mkdir staging && cp -r build/libs/*.jar staging/
-
             - name: Copy Maven Repo to Staging
-              run: cp -r ~/.m2/repository/com/github/Winterreisender/* staging/
+              run: cp -r ~/.m2/repository/com/github/winterreisender/ staging/
 
             - name: Upload
               uses: actions/upload-artifact@v2

@@ -188,9 +188,13 @@ publishing {
             url = uri("https://maven.pkg.github.com/Winterreisender/webviewko")
             credentials {
                 username =  System.getenv("USERNAME")
-                password = System.getenv("TOKEN") //project.findProperty("gpr.key") as String? ?:
+                password = System.getenv("TOKEN")
             }
         }
+        //maven {
+        //    name = "GitHubPages"
+        //    url = uri("file://${rootDir.resolve("docs/maven-repo")}")
+        //}
     }
     publications {
         //publications {
