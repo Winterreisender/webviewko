@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2022. Winterreisender
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * SPDX short identifier: Apache-2.0
+ */
+
 package com.github.winterreisender.webviewko
 
 import kotlinx.cinterop.*
@@ -10,7 +28,14 @@ import kotlin.native.concurrent.freeze
  */
 
 actual class WebviewKo actual constructor(debug: Int) {
-    private val w :webview_t? = webview_create(debug, null)
+
+    // Freeze the object (disable changes) for sharing between threads
+    private val w :webview_t
+
+    init {
+        w = webview_create(debug, null)!!
+        freeze()
+    }
 
     /**
      * Updates the title of the native window.
@@ -88,23 +113,22 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
-        val ctx = BindContext(w,{fn(it)})
-        ctx.freeze()
+        val ctx = BindContext(this, fn).freeze()
         webview_bind(
-            w,
-            name,
+            w,name,
             staticCFunction { seq,req,arg ->
-                val c = arg!!.asStableRef<BindContext>().get()
-                val r = c.callback(req?.toKString())
-                webview_return(c.webview,seq?.toKString(),0,r)
+                with(arg!!.asStableRef<BindContext>().get()) {
+                    val r = webviewKo.callback(req?.toKString())
+                    webview_return(webviewKo.w, seq?.toKString(),0,r)
+                }
             },
             StableRef.create(ctx).asCPointer()
         )
     }
 
     class BindContext(
-        val webview :webview_t? = null,
-        val callback :(String?)->String? = {null}
+        val webviewKo: WebviewKo,
+        val callback :WebviewKo.(String?)->String? = {null}
     )
 
     /**
@@ -123,8 +147,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = DispatchContext(this,fn)
-        ctx.freeze()
+        val ctx = DispatchContext(this,fn).freeze()
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
@@ -157,4 +180,5 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun terminate() = webview_terminate(w)
 
+    fun getWebviewPointer() = w
 }

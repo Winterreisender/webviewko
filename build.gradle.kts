@@ -63,7 +63,7 @@ kotlin {
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
         isMingwX64 -> mingwX64("mingwX64")
-        //hostOs == "Linux" -> linuxX64("native")
+        hostOs == "Linux" -> linuxX64("linuxX64")
         //hostOs == "Mac OS X" -> macosX64("native")
         else -> throw GradleException("$hostOs is not supported.")
     }
@@ -72,7 +72,12 @@ kotlin {
         compilations.getByName("main") {
             cinterops {
                 val libwebview by creating {
-                    defFile(project.file("src/mingwX64Main/nativeInterop/cinterop/webview.def"))
+                    val osPrefix = when {
+                        hostOs == "Linux" -> "linuxX64"
+                        isMingwX64 -> "mingwX64"
+                        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+                    }
+                    defFile(project.file("src/${osPrefix}Main/nativeInterop/cinterop/webview.def"))
                     // There is a cinteropLibwebviewDllNative in Gradle, still don't know how to use.
                     //copy {
                     //    from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
@@ -87,6 +92,7 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "main"
+                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=.")
                 //linkerOpts("-v")
                 //linkerOpts("-lole32", "-lshell32", "-lshlwapi", "-luser32") //"-lWebView2Loader.dll")
             }
@@ -125,12 +131,25 @@ kotlin {
                 api("net.java.dev.jna:jna-platform:5.12.0")
             }
         }
-        val mingwX64Main by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+
+        if(isMingwX64) {
+            val mingwX64Main by getting {
+                dependencies {
+                    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+                }
             }
+
+            val mingwX64Test by getting
         }
-        val mingwX64Test by getting
+
+        if(hostOs == "Linux") {
+            val linuxX64Main by getting {
+                dependencies {
+                    implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+                }
+            }
+            val linuxX64Test by getting
+        }
     }
 }
 
