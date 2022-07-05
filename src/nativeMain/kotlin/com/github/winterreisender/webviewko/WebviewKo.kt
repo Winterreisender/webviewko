@@ -24,7 +24,7 @@ import kotlin.native.concurrent.freeze
 
 
 /**
- * The High level binding to webview in Kotlin
+ * The Kotlin/Native binding to webview in Kotlin
  */
 
 actual class WebviewKo actual constructor(debug: Int) {

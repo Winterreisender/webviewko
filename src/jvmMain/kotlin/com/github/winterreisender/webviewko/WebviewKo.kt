@@ -21,7 +21,7 @@ package com.github.winterreisender.webviewko
 import com.sun.jna.Pointer
 
 /**
- * The High level binding to webview in Kotlin
+ * The JVM binding to webview in Kotlin
  */
 
 actual class WebviewKo actual constructor(debug: Int) {

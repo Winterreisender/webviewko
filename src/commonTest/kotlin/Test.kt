@@ -25,20 +25,46 @@ import kotlin.test.Test
 
 
 internal class Test {
-    @Ignore fun `apiLayer simple`() {
-        with(WebviewKo()) {
+    // A simplest test showed in README
+    @Test fun `demo simple`() {
+        WebviewKo().run {
             title("Title")
             size(800, 600)
             url("https://example.com")
             show()
-            println("Goodbye webview")
+        }
+    }
+
+    // A interactive test showed in README
+    @Test fun `demo interact`() {
+        WebviewKo().run {
+            title("Test")
+            init("""console.log("Hello, from  init")""")
+            bind("increment") {
+                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                println(r.toString())
+                if(r==8)
+                    terminate()
+                "{count: $r}"
+            }
+            html("""
+                <button id="increment">Tap me</button>
+                <div>You tapped <span id="count">0</span> time(s).</div>
+                <script>
+                const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
+                  document.addEventListener("DOMContentLoaded", () => {
+                    incrementElement.addEventListener("click", () => {
+                      window.increment(countElement.innerText).then(result => {
+                        countElement.textContent = result.count;
+                      });});});
+                 </script>""".trimIndent())
+                show()
         }
     }
 
     @Ignore fun `webview example basic`() {
         // This tests the example from webview: https://github.com/webview/webview/blob/master/examples/basic.cc
-
-        with(WebviewKo()) {
+        WebviewKo().run {
             title("Basic Example")
             size(480, 320, WebviewKo.WindowHint.None)
             html("Thanks for using webview!")
@@ -48,7 +74,7 @@ internal class Test {
 
 
     @Ignore fun `api Full`() {
-        with(WebviewKo(1)) {
+        WebviewKo(1).run {
             title("Title")
             size(800,600)
             url("https://example.com")
@@ -64,8 +90,6 @@ internal class Test {
                 }
                 "{count: $r}"
             }
-
-
 
             html("""
                 <button id="increment">Tap me</button>
@@ -89,9 +113,7 @@ internal class Test {
 
     @Ignore fun `json Test`() {
         // Example about using third part Json Serialization (kotlinx-serialization-json)
-
-
-        with(WebviewKo(1)) {
+        WebviewKo(1).run {
             title("Title")
             size(800,600)
             url("https://example.com")

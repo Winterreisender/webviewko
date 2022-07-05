@@ -26,15 +26,16 @@ import java.awt.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TestJava {
+
+    // The example showed in README
     @Test
-    void apiSimple() {
+    void demoSimple() {
         if (!Desktop.isDesktopSupported()) return;
 
         WebviewKo webview = new WebviewKo(0);
-        webview.title("Java Test");
+        webview.title("Test");
         webview.size(1024,768,WebviewKo.WindowHint.None);
         webview.url("https://example.com");
-
         webview.show();
     }
 

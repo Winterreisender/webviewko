@@ -23,7 +23,7 @@ webviewko provides a Kotlin/JVM and a Kotlin/Native(experimental) binding to [we
 
 ### 1. Import webviewko
 
-If you're using a build system like Gradle or Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko)
+If you're using a build system like Gradle or Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko) or [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
 
@@ -32,12 +32,12 @@ If you want to use jar files, see [GitHub Release](https://github.com/Winterreis
 For Kotlin/JVM and Kotlin/Native:
 
 ```kotlin
-import com.github.winterreisender.webviewko.*
+import com.github.winterreisender.webviewko.WebviewKo
 
-with(WebviewKo()) {
-    title("Basic Example")
-    size(480, 320, WindowHint.None)
-    html("Thanks for using webview!")
+WebviewKo().run {
+    title("Title")
+    size(800, 600)
+    url("https://example.com")
     show()
 }
 ```
@@ -45,62 +45,62 @@ with(WebviewKo()) {
 For Java:
 
 ```java
-import com.github.winterreisender.webviewko.*;
+import com.github.winterreisender.webviewko.WebviewKo;
 
-WebviewKo webview = new WebviewKo();
-webview.title("webviewKo Java Test");
-webview.size(1024,768,WindowHint.None);
+WebviewKo webview = new WebviewKo(0);
+webview.title("Test");
+webview.size(1024,768,WebviewKo.WindowHint.None);
 webview.url("https://example.com");
-
 webview.show();
 ```
 
-#### Native API using JNA
+### 3. Interact with webview
 
-You can also use JNA bindings directly:
+You can use `bind`,`init`,`dispatch` and `eval` to interact with your webview:
 
 ```kotlin
-import com.github.winterreisender.webviewko.*
-import com.sun.jna.Pointer
+import com.github.winterreisender.webviewko.WebviewKo
 
-with(WebviewJNA.getLib()) {
-    val pWebview = webview_create(1, Pointer.NULL)
-    webview_navigate(pWebview, "https://example.com")
-    webview_run(pWebview)
-    webview_destroy(pWebview)
+WebviewKo().run {
+    title("Test")
+    init("""console.log("Hello, from  init")""")
+    bind("increment") {
+        val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+        println(r.toString())
+        if(r==8) terminate()
+        "{count: $r}"
+    }
+  
+    html("""<button id="increment">Tap me</button>
+        <div>You tapped <span id="count">0</span> time(s).</div>
+        <script>const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
+          document.addEventListener("DOMContentLoaded", () => {
+            incrementElement.addEventListener("click", () => {
+              window.increment(countElement.innerText).then(result => {
+                countElement.textContent = result.count;
+              });});});
+         </script>""".trimIndent())
+    show()
 }
 ```
 
-or in Java:
-
-```java
-WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
-Pointer pWebview = lib.webview_create(1, Pointer.NULL);
-lib.webview_navigate(pWebview, "https://example.com");
-lib.webview_run(pWebview);
-lib.webview_destroy(pWebview);
-```
-
-More examples like binding a Kotlin/Java callback or running in a thread: see [TestKt.kt](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/kotlin/TestKt.kt) and [TestJava.java](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/java/TestJava.java)
-
-### Kotlin/Native Bindings
-
-webviewko also provides a Kotlin/Native binding for Windows and Linux with the same API as JVM.
-
-You can also use the C API directly:
-
-```kotlin
-val w : webview_t = webview_create(0,null)!!
-webview_set_size(w, 800, 600, 0)
-webview_navigate(w, "https://example.com")
-webview_run(w)
-webview_destroy(w)
-```
+<!-- You can also use JNA and Kotlin/Native bindings directly -->
 
 
 ## Documentation
 
-**See [docs](https://winterreisender.github.io/webviewko/) for the full document**
+- [Api Reference KDoc](https://winterreisender.github.io/webviewko/docs/kdoc/index.html)
+- [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)
+- Examples
+  - [Test](https://github.com/Winterreisender/webviewko/blob/main/src/commonTest/kotlin/Test.kt) (Kotlin/Multiplatform)
+  - [TestKt](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/kotlin/TestKt.kt) (Kotlin/JVM)
+  - [TestJava](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/java/TestJava.java) (Java)
+  - [TestNative](https://github.com/Winterreisender/webviewko/blob/main/src/nativeTest/kotlin/TestNative.kt) (Kotlin/Native)
+- [webview Documentation](https://webview.dev/)
+
+## Demos
+
+A commandline interface: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
 
 ## Contribution
 
