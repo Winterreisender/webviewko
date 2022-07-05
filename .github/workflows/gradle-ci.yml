@@ -29,6 +29,13 @@ jobs:
               with:
                   arguments: shadowJar
 
+            # - name: build with Gradle
+            #   uses: gradle/gradle-build-action@v2
+            #   with:
+            #       arguments: build -x allTests
+            #   env:
+            #       IN_GITHUB_ACTION: 1
+
             - name: publishToMavenLocal with Gradle
               uses: gradle/gradle-build-action@v2
               with:

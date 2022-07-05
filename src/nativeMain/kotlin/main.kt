@@ -24,9 +24,10 @@ import kotlinx.cli.*
 import com.github.winterreisender.webviewko.WebviewKo
 
 
-fun main(args: Array<String>) {
+fun main(args: Array<String>)
+{
     with(ArgParser("webviewko")) {
-        val url    by argument(ArgType.String, description = "URI/URL to navigate")
+        val url    by argument(ArgType.String, description = "URI/URL to navigate").optional()
         val title  by option(ArgType.String, shortName = "t", description = "Window title").default("webviewko")
         val width  by option(ArgType.Int, description = "Window width in px").default(800)
         val height by option(ArgType.Int, description = "Window height in px").default(600)
@@ -35,6 +36,7 @@ fun main(args: Array<String>) {
         val debug  by option(ArgType.Boolean, description = "Debug mode").default(false)
         parse(args)
 
+
         try {
             WebviewKo(if(debug) 1 else 0).let {
                 it.title(title)
@@ -42,11 +44,12 @@ fun main(args: Array<String>) {
                 if (init.isNotEmpty() ) {
                     it.init(init)
                 }
-                it.navigate(url)
+                it.navigate(url ?: "https://github.com/Winterreisender/webviewkoCLI/wiki/Webviewko-CLI-Help")
                 it.show()
             }
         } catch (e: Throwable) {
             e.printStackTrace()
         }
     }
+
 }

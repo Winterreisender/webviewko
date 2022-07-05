@@ -66,11 +66,12 @@ kotlin {
     val nativeTarget = when {
         isMingwX64 -> mingwX64("native")
         hostOs == "Linux" -> linuxX64("native")
-        //hostOs == "Mac OS X" -> macosX64("native")
+        hostOs == "Mac OS X" -> macosX64("native") // Not tested
         else -> throw GradleException("$hostOs is not supported.")
     }
     osPrefix = when {
         hostOs == "Linux" -> "linuxX64"
+        hostOs == "Mac OS X" -> "macosX64"
         isMingwX64 -> "mingwX64"
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
@@ -81,13 +82,6 @@ kotlin {
                 val cwebview by creating {
                     defFile(project.file("src/nativeMain/nativeInterop/cinterop/webview.def"))
                     packageName("${group}.cwebview")
-                    // There is a cinteropLibwebviewDllNative in Gradle, still don't know how to use.
-                    //copy {
-                    //    from("src/nativeMain/nativeInterop/cinterop/webview/*.dll")
-                    //    into(buildDir.resolve("bin/native/debugExecutable/"))
-                    //    into(buildDir.resolve("bin/native/debugTest/"))
-                    //    into(buildDir.resolve("bin/native/releaseExecutable"))
-                    //}
                 }
             }
 
@@ -96,10 +90,16 @@ kotlin {
             executable {
                 entryPoint = "main"
                 if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
-                //linkerOpts("-v")
-                //linkerOpts("-lole32", "-lshell32", "-lshlwapi", "-luser32") //"-lWebView2Loader.dll")
+
+                // Copy dll,so to executable file's folder. This does not include debugTest
+                copy {
+                    from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
+                    into(outputDirectory)
+                    into(outputDirectory.toPath().parent.resolve("debugTest"))
+                    include("*.dll", "*.dylib", "*.so")
+                    duplicatesStrategy= DuplicatesStrategy.WARN
+                }
             }
-            // The best way for static link is to wait for Kotlin/Native to upgrade their Mingw (9.0.0) to a newer version
         }
 
 
@@ -108,7 +108,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
             tasks.dokkaHtml.configure {
