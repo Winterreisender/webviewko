@@ -25,6 +25,11 @@ jobs:
               with:
                   gradle-version: 7.4.2
 
+            -   name: clean with Gradle
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: clean
+
             -   name: publish with Gradle
                 uses: gradle/gradle-build-action@v2
                 with:
@@ -51,6 +56,11 @@ jobs:
               uses: gradle/gradle-build-action@v2
               with:
                   gradle-version: 7.4.2
+
+            -   name: clean with Gradle
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: clean
 
             -   name: publishNativePublicationToGitHubPackagesRepository with Gradle
                 uses: gradle/gradle-build-action@v2
