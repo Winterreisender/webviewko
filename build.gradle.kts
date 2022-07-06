@@ -86,21 +86,21 @@ kotlin {
             }
 
         }
-        binaries {
-            executable {
-                entryPoint = "main"
-                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
-
-                // Copy dll,so to executable file's folder. This does not include debugTest
-                copy {
-                    from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
-                    into(outputDirectory)
-                    into(outputDirectory.toPath().parent.resolve("debugTest"))
-                    include("*.dll", "*.dylib", "*.so")
-                    duplicatesStrategy= DuplicatesStrategy.WARN
-                }
-            }
-        }
+        //binaries {
+        //    executable {
+        //        entryPoint = "main"
+        //        if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
+        //
+        //        // Copy dll,so to executable file's folder. This does not include debugTest
+        //        copy {
+        //            from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
+        //            into(outputDirectory)
+        //            into(outputDirectory.toPath().parent.resolve("debugTest"))
+        //            include("*.dll", "*.dylib", "*.so")
+        //            duplicatesStrategy= DuplicatesStrategy.WARN
+        //        }
+        //    }
+        //}
 
 
     }
@@ -153,7 +153,7 @@ kotlin {
                 tasks.withType<AbstractPublishToMaven>()
                     .matching { it.publication == targetPublication }
                     .configureEach {
-                        publication.artifactId = "webviewko-${osPrefix}"
+                        publication.artifactId = "webviewko-${osPrefix}".toLowerCase()
                     }
             }
 
