@@ -6,8 +6,35 @@ on:
     workflow_dispatch:
 
 jobs:
-    build:
+    build-windows:
         runs-on: windows-latest
+        environment: "action-packages"
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Java JDK
+              uses: actions/setup-java@v3
+              with:
+                  java-version: '8'
+                  distribution: 'temurin'
+
+            - name: Make gradlew executable
+              run: chmod +x ./gradlew
+
+            - name: Setup Gradle
+              uses: gradle/gradle-build-action@v2
+              with:
+                  gradle-version: 7.4.2
+
+            -   name: publish with Gradle
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: publish
+                env:
+                    USERNAME: ${{ secrets.USERNAME }}
+                    TOKEN: ${{ secrets.TOKEN }}
+
+    build-linux:
+        runs-on: ubuntu-latest
         environment: "action-packages"
         steps:
             - uses: actions/checkout@v3

@@ -8,7 +8,7 @@ import kotlin.test.Test
 
 
 class TestNative {
-    @Ignore
+    @Test
     fun test0() {
         val w : webview_t? = webview_create(0,null)
         webview_set_size(w, 800, 600, 0)

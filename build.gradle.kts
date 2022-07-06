@@ -206,4 +206,6 @@ publishing {
     }
 }
 
-
+/**
+ * TODO: Eliminate all chaos. All lower case, all GitHub Packages, unified name
+ */

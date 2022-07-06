@@ -2,7 +2,7 @@ headers = webview/webview.h
 headerFilter = webview/webview.h
 
 compilerOpts.mingw = -Isrc/nativeMain/nativeInterop/cinterop/
-staticLibraries.mingw = webview.lib
+staticLibraries.mingw = libwebview.dll.a
 libraryPaths.mingw = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
 
 compilerOpts.linux = -Isrc/nativeMain/nativeInterop/cinterop/
