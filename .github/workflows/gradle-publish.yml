@@ -1,4 +1,4 @@
-name: Publish Maven Packages for Windows
+name: Publish GitHub Packages
 
 on:
     release:
@@ -52,10 +52,10 @@ jobs:
               with:
                   gradle-version: 7.4.2
 
-            -   name: publish with Gradle
+            -   name: publishNativePublicationToGitHubPackagesRepository with Gradle
                 uses: gradle/gradle-build-action@v2
                 with:
-                    arguments: publish
+                    arguments: publishNativePublicationToGitHubPackagesRepository
                 env:
                     USERNAME: ${{ secrets.USERNAME }}
                     TOKEN: ${{ secrets.TOKEN }}
