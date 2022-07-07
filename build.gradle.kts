@@ -190,12 +190,20 @@ publishing {
                 password = System.getenv("TOKEN")
             }
         }
-        //maven {
-        //    name = "GitHubPages"
-        //    url = uri("file://${rootDir.resolve("docs/maven-repo")}")
-        //}
+        maven {
+            name = "GitHubPages"
+            url = uri("file://${rootDir.resolve("docs/maven-repo")}")
+        }
     }
     publications {
+        matching {it.name == "native"}.all {
+            val targetPublication = this@all
+            tasks.withType<AbstractPublishToMaven>()
+                .matching { it.publication == targetPublication }
+                .configureEach {
+                    publication.artifactId = "webviewko-${osPrefix}".toLowerCase()
+                }
+        }
         //publications {
         //    create<MavenPublication>("maven") {
         //        artifactId = "webviewko-${osPrefix}"
