@@ -50,7 +50,6 @@ jobs:
 
     build-linux:
         runs-on: ubuntu-latest
-        environment: "action-packages"
         steps:
             - uses: actions/checkout@v3
             - name: Setup Java JDK

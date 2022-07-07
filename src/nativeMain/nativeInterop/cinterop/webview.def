@@ -6,10 +6,10 @@ staticLibraries.mingw = libwebview.dll.a
 libraryPaths.mingw = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
 
 compilerOpts.linux = -Isrc/nativeMain/nativeInterop/cinterop/
-linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
+#linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
 
 compilerOpts.osx = -Isrc/nativeMain/nativeInterop/cinterop/
-linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
+#linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
 
 # compilerOpts.android =
 # linkerOpts.android =
