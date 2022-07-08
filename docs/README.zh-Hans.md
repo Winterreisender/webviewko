@@ -1,13 +1,12 @@
 # webviewko
 
-![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=white)
-![license](https://img.shields.io/github/license/Winterreisender/webviewko)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
 
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
-[![Gradle CI](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
-[![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
+[![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
+![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 
 [English](../README.md) | **中文(简体)** | [中文(繁體)](README.zh-Hant.md) 
 
@@ -77,7 +76,7 @@ WebviewKo().run {
               window.increment(countElement.innerText).then(result => {
                 countElement.textContent = result.count;
               });});});
-         </script>""".trimIndent())
+         </script>""")
     show()
 }
 ```

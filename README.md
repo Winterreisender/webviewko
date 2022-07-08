@@ -1,13 +1,12 @@
 # webviewko
 
-![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=white)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=white)
-![license](https://img.shields.io/github/license/Winterreisender/webviewko) 
+![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639) 
 
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
-[![Gradle CI](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
-![GitHub last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
-[![JitPack](https://jitpack.io/v/Winterreisender/webviewko.svg)](https://jitpack.io/#Winterreisender/webviewko)
+[![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
+![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 
 <!-- 
 See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry)
@@ -15,7 +14,7 @@ See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https:/
 
 **English** | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](docs/README.zh-Hant.md) 
 
-webviewko provides a Kotlin/JVM and a Kotlin/Native(experimental) binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
+webviewko provides a Kotlin/JVM and a Kotlin/Native binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
 ![screenshot](screenshot.jpg)
 
@@ -23,9 +22,13 @@ webviewko provides a Kotlin/JVM and a Kotlin/Native(experimental) binding to [we
 
 ### 1. Import webviewko
 
-If you're using a build system like Gradle or Maven, see [webviewko in JitPack.io](https://jitpack.io/#Winterreisender/webviewko) or [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)
+If you're using a build system like Gradle or Maven, you may have a look at [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
+
+Other helpful resources: 
+- [Use webviewko GitHub Packages for Kotlin/JVM and Java](https://github.com/Winterreisender/webviewko/wiki/How-to-use#use-github-packages-for-kotlinjvm-and-java)
+- [Use webviewko GitHub Packages for Kotlin/Native](https://github.com/Winterreisender/webviewko/wiki/How-to-use#use-github-packages-for-kotlinnative)
 
 ### 2. Use webviewko
 
@@ -79,7 +82,7 @@ WebviewKo().run {
               window.increment(countElement.innerText).then(result => {
                 countElement.textContent = result.count;
               });});});
-         </script>""".trimIndent())
+         </script>""")
     show()
 }
 ```
@@ -100,7 +103,7 @@ WebviewKo().run {
 
 ## Demos
 
-A commandline interface: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
+A commandline interface for JVM and Native: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
 
 ## Contribution
 
@@ -127,4 +130,4 @@ See the License for the specific language governing permissions and limitations 
 
 SPDX short identifier: **Apache-2.0**
 
-![OSI Approved](https://opensource.org/files/OSIApproved_100X125.png)
+<img src="https://opensource.org/sites/default/files/public/OSIApproved.svg" width="100" />

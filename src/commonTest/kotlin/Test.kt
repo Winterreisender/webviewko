@@ -22,10 +22,8 @@ import kotlinx.serialization.json.*
 import kotlin.test.Ignore
 import kotlin.test.Test
 
-
-
 internal class Test {
-    // A simplest test showed in README
+    // A simple test showed in README
     @Test fun `demo simple`() {
         WebviewKo().run {
             title("Title")
@@ -35,7 +33,7 @@ internal class Test {
         }
     }
 
-    // A interactive test showed in README
+    // An interactive test showed in README
     @Test fun `demo interact`() {
         WebviewKo().run {
             title("Test")
@@ -57,7 +55,7 @@ internal class Test {
                       window.increment(countElement.innerText).then(result => {
                         countElement.textContent = result.count;
                       });});});
-                 </script>""".trimIndent())
+                 </script>""")
                 show()
         }
     }

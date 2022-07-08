@@ -21,7 +21,6 @@ package com.github.winterreisender.webviewko
 import kotlinx.cinterop.*
 import webview.*
 
-
 /**
  * A Native binding to webview for Kotlin/Native
  */
@@ -45,8 +44,6 @@ object WebviewNative {
      * Window size can not be changed by a user
      */
     const val WEBVIEW_HINT_FIXED = 3
-
-    //All 15 C functions in webview.h
 
     /**
      * Creates a new webview instance.
@@ -194,5 +191,4 @@ object WebviewNative {
     fun webview_return(w :webview_t?, seq :String?, status :Int, result :String) = webview.webview_return(w,seq,status,result)
 
 }
-
- */
+*/

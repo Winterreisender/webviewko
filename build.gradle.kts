@@ -32,17 +32,8 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
-    dokkaJavadocPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.7.0")
-}
-
 tasks.dokkaHtml.configure {
     outputDirectory.set(rootDir.resolve("docs/kdoc"))
-}
-
-tasks.dokkaJavadoc.configure {
-    outputDirectory.set(rootDir.resolve("docs/javadoc"))
 }
 
 lateinit var osPrefix :String
