@@ -180,5 +180,11 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun terminate() = webview_terminate(w)
 
+    /**
+     * Return the C Pointer of the webview.
+     *
+     * @return the C Pointer (webview_t) of the webview
+     *
+     */
     fun getWebviewPointer() = w
 }

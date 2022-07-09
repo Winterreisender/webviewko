@@ -19,8 +19,7 @@ webviewko 是一个 [webview](https://github.com/webview/webview) (轻量级跨�
 
 ### 1. 导入 webviewko
 
-如果你在用 Gradle 或者 Maven 等构建系统, 请看 [JitPack.io上的webviewko](https://jitpack.io/#Winterreisender/webviewko)。若你要用Kotlin/Native/Windows包，请看[GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)。
-
+如果你在用 Gradle 或者 Maven 等构建系统, 请看 [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)。
 
 如果你想手动导入jar文件, 请到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下载。
 

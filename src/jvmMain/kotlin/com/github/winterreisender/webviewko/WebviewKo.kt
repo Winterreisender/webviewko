@@ -163,5 +163,11 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun terminate() = lib.webview_terminate(pWebview)
 
+    /**
+     * Return the Pointer of the webview.
+     *
+     * @return the JNA Pointer of the webview
+     *
+     */
     fun getWebviewPointer() = pWebview
 }

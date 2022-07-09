@@ -65,7 +65,6 @@ class WebviewJNA {
             if (Platform.getOSType() == Platform.WINDOWS) {
                 val file = Native.extractFromResourcePath("WebView2Loader.dll", WebviewJNA::class.java.classLoader)
                 val dest = file.toPath().parent.resolve("WebView2Loader.dll")
-                // Why there's not something like DO_NOTHING_IF_EXISTING?
                 if(Files.notExists(dest)) {
                     Files.move(file.toPath(), dest)
                 }
