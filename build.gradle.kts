@@ -17,7 +17,7 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "1.7.0"
+    kotlin("multiplatform") version "1.7.10"
     id("maven-publish")
     `java-library`
     id("org.jetbrains.dokka") version "1.7.0"
