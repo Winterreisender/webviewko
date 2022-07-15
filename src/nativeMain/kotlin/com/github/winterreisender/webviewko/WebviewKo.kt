@@ -22,6 +22,8 @@ import kotlinx.cinterop.*
 import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.freeze
 
+typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> String>
+typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
 /**
  * The Kotlin/Native binding to webview in Kotlin
@@ -90,7 +92,7 @@ actual class WebviewKo actual constructor(debug: Int) {
         webview_set_size(w, width, height, hints.ordinal)
 
     /**
-     * Injects JavaScript code at the initialization of the new page.
+     * Injects JS code at the initialization of the new page.
      *
      * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
      *
@@ -99,7 +101,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     actual fun init(js: String) = webview_init(w,js)
 
     /**
-     * Evaluates arbitrary JavaScript code.
+     * Evaluates arbitrary JS code.
      *
      * Evaluation happens asynchronously, also the result of the expression is ignored. Use the `webview_bind` function if you want to receive notifications about the results of the evaluation.
      *
@@ -107,33 +109,36 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun eval(js: String) = webview_eval(w,js)
 
+
     /**
-     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.
+     * Binds a Kotlin function callback so that it will appear under the given name as a global JS function.
      *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function.
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function. If you need binding a C function, see [WebviewKo.cBind]
      *
-     * @param name the name of the global JavaScript function
+     * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
-        val ctx = BindContext(this, fn).freeze()
+        val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
         webview_bind(
             w,name,
             staticCFunction { seq,req,arg ->
-                with(arg!!.asStableRef<BindContext>().get()) {
-                    val r = webviewKo.callback(req?.toKString())
-                    webview_return(webviewKo.w, seq?.toKString(),0,r)
-                }
+                initRuntimeIfNeeded()
+                val (webviewKo,callback) = arg!!.asStableRef<BindContext>().get()
+                webview_return(
+                    webviewKo.w, seq?.toKString(),0,
+                    callback(webviewKo, req?.toKString())
+                )
             },
-            StableRef.create(ctx).asCPointer()
+            ctx.asCPointer()
         )
-        // TODO: Prevent memory leak using stableRef.dispose()
+        // TODO: Prevent memory leak using ctx.dispose()
+        // The correct time to use ctx.dispose() is after the final callback, before the webview_destroy. So,there are 4 solution:
+        // 1. Make a thick wrapper like Go bindings, add glue code, binding array etc.
+        // 2. Wait for webview_unbind(w, arg), add binding name array and cleanup all contexts in WebviewKo.terminate and WebviewKo.run
+        // 3. Do nothing. About 16 bytes memory leak per bind is not unacceptable in "Modern Software Engineering" (?
+        // 4. Leave it to the users. Provide pure C API. See [cBind]
     }
-
-    class BindContext(
-        val webviewKo: WebviewKo,
-        val callback :WebviewKo.(String?)->String? = {null}
-    )
 
     /**
      * Removes a callback that was previously set by `webview_bind`.
@@ -151,20 +156,17 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = DispatchContext(this,fn).freeze()
+        val ctx = StableRef.create(DispatchContext(this,fn)).freeze()
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
-                val c = arg!!.asStableRef<DispatchContext>().get()
-                c.callback(c.webviewKo)
+                initRuntimeIfNeeded()
+                val (webviewKo,callback) = arg!!.asStableRef<DispatchContext>().get()
+                callback(webviewKo)
             },
-            StableRef.create(ctx).asCPointer()
+            ctx.asCPointer()
         )
     }
-    class DispatchContext(
-        val webviewKo: WebviewKo,
-        val callback : WebviewKo.() ->Unit = {}
-    )
 
     /**
      * Runs the main loop and destroy it when terminated.
@@ -193,11 +195,11 @@ actual class WebviewKo actual constructor(debug: Int) {
     fun getWebviewPointer() = w
 
     /**
-     * Binds a C callback so that it will appear under the given name as a global JavaScript function.
+     * Binds a C callback so that it will appear under the given name as a global JS function.
      *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function. Internally it uses `webview_init`. Use `webview_return` to response to the JS request.
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function. Internally it uses `webview_init`. If you need binding a Kotlin function, see [WebviewKo.bind]
      *
-     * @param name the name of the global JavaScript function
+     * @param name the name of the global JS function
      * @param callback the C callback function [staticCFunction].
      * @param arg the context.
      */
@@ -213,5 +215,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback [staticCFunction]
      * @param args the arguments for `fn`
      */
-    fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>) = webview_dispatch(w,fn,args)
+    fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
+        = webview_dispatch(w,fn,args)
 }
+
