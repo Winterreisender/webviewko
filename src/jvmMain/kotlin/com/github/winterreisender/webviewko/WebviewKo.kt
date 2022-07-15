@@ -69,7 +69,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
      */
-    actual fun size(width: Int, height: Int, hints: WindowHint) = lib.webview_set_size(pWebview, width, height, hints.ordinal)
+    actual fun size(width: Int, height: Int, hints: WindowHint) =
+        lib.webview_set_size(pWebview, width, height, hints.ordinal)
 
 
     /**
@@ -78,8 +79,11 @@ actual class WebviewKo actual constructor(debug: Int) {
      * A Wrapper of WEBVIEW_HINT_NONE, WEBVIEW_HINT_MIN, WEBVIEW_HINT_MAX and WEBVIEW_HINT_FIXED
      *
      */
-    actual enum class WindowHint {
-        None, Min, Max, Fixed
+    actual enum class WindowHint(v :Int) {
+        None(WebviewJNA.WEBVIEW_HINT_NONE),
+        Min(WebviewJNA.WEBVIEW_HINT_MIN),
+        Max(WebviewJNA.WEBVIEW_HINT_MAX),
+        Fixed(WebviewJNA.WEBVIEW_HINT_FIXED)
     }
 
     /**

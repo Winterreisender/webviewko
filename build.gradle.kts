@@ -20,12 +20,12 @@ plugins {
     kotlin("multiplatform") version "1.7.10"
     id("maven-publish")
     `java-library`
-    id("org.jetbrains.dokka") version "1.7.0"
+    id("org.jetbrains.dokka") version "1.7.10"
     id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
 group = "com.github.winterreisender"
-version = "0.2.0"
+version = "0.3.0-SNAPSHOT"
 description = "webviewko"
 
 repositories {
@@ -77,21 +77,18 @@ kotlin {
             }
 
         }
-        //binaries {
-        //    executable {
-        //        entryPoint = "main"
-        //        if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
-        //
-        //        // Copy dll,so to executable file's folder. This does not include debugTest
-        //        copy {
-        //            from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
-        //            into(outputDirectory)
-        //            into(outputDirectory.toPath().parent.resolve("debugTest"))
-        //            include("*.dll", "*.dylib", "*.so")
-        //            duplicatesStrategy= DuplicatesStrategy.WARN
-        //        }
-        //    }
-        //}
+        binaries {
+            test("native") {
+                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
+
+                copy {
+                    from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
+                    into(outputDirectory)
+                    include("*.dll", "*.dylib", "*.so")
+                    duplicatesStrategy= DuplicatesStrategy.WARN
+                }
+            }
+        }
 
 
     }
@@ -102,18 +99,17 @@ kotlin {
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
             tasks.dokkaHtml.configure {
-                outputDirectory.set(rootDir.resolve("docs/kdoc"))
+                //outputDirectory.set(rootDir.resolve("docs/kdoc"))
             }
 
             tasks.dokkaJavadoc.configure {
-                outputDirectory.set(rootDir.resolve("docs/javadoc"))
+                //outputDirectory.set(rootDir.resolve("docs/javadoc"))
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
-
             }
         }
         val jvmMain by getting {
@@ -130,6 +126,10 @@ kotlin {
 
         val nativeMain by getting {
             dependencies {
+                //api(fileTree(mapOf(
+                //    "dir" to buildDir.resolve("classes/kotlin/native/main/cinterop"),
+                //    "include" to "*.klib"
+                //)))
                 implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
             }
         }
@@ -204,8 +204,3 @@ publishing {
         //}
     }
 }
-
-/**
- * TODO: Eliminate all chaos. All lower case, all GitHub Packages, unified name
- * FIXME: Linux can not find .so
- */

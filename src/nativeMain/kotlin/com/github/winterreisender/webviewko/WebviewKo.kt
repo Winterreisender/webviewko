@@ -73,8 +73,11 @@ actual class WebviewKo actual constructor(debug: Int) {
     actual fun html(v: String) = webview_set_html(w,v)
 
 
-    actual enum class WindowHint {
-        None, Min, Max, Fixed
+    actual enum class WindowHint(v :Int) {
+        None(WEBVIEW_HINT_NONE),
+        Min(WEBVIEW_HINT_MIN),
+        Max(WEBVIEW_HINT_MAX),
+        Fixed(WEBVIEW_HINT_FIXED)
     }
     /**
      * Updates the size of the native window.
@@ -124,6 +127,7 @@ actual class WebviewKo actual constructor(debug: Int) {
             },
             StableRef.create(ctx).asCPointer()
         )
+        // TODO: Prevent memory leak using stableRef.dispose()
     }
 
     class BindContext(
@@ -187,4 +191,27 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     fun getWebviewPointer() = w
+
+    /**
+     * Binds a C callback so that it will appear under the given name as a global JavaScript function.
+     *
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function. Internally it uses `webview_init`. Use `webview_return` to response to the JS request.
+     *
+     * @param name the name of the global JavaScript function
+     * @param callback the C callback function [staticCFunction].
+     * @param arg the context.
+     */
+    fun cBind(name :String, callback:  CPointer<CFunction<(CPointer<ByteVar /* = ByteVarOf<Byte> */>?, CPointer<ByteVar>?, COpaquePointer?) -> Unit>>?, arg :CValuesRef<*>) =
+        webview_bind(w,name,callback,arg)
+
+    /**
+     * Posts a C function to be executed on the main thread.
+     *
+     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
+     * You normally do not need to call this function, unless you want to tweak the native window.
+     *
+     * @param fn the callback [staticCFunction]
+     * @param args the arguments for `fn`
+     */
+    fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>) = webview_dispatch(w,fn,args)
 }

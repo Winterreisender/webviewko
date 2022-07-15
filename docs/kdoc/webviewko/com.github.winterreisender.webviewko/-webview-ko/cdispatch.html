@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>cdispatch</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+const savedDarkMode = storage ? JSON.parse(storage) : false
+if(savedDarkMode === true){
+    document.getElementsByTagName("html")[0].classList.add("theme-dark")
+}</script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>webviewko</span>
+            </a>
+    </div>
+    <div>
+0.3.0-SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector native-like" data-active="" data-filter=":dokkaHtml/nativeMain">native</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="webviewko::com.github.winterreisender.webviewko/WebviewKo/cdispatch/#kotlinx.cinterop.CPointer[kotlinx.cinterop.CFunction[kotlin.Function2[kotlinx.cinterop.CPointer[kotlinx.cinterop.CPointed]?,kotlinx.cinterop.CPointer[kotlinx.cinterop.CPointed]?,kotlin.Unit]]]?#kotlinx.cinterop.CValuesRef[*]/PointingToDeclaration//-1178245650">
+  <div class="breadcrumbs"><a href="../../../index.html">webviewko</a><span class="delimiter">/</span><a href="../index.html">com.github.winterreisender.webviewko</a><span class="delimiter">/</span><a href="index.html">WebviewKo</a><span class="delimiter">/</span><a href="cdispatch.html">cdispatch</a></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>cdispatch</span></span></h1>
+  </div>
+  <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
+    <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark native-like" data-filterable-current=":dokkaHtml/nativeMain" data-filterable-set=":dokkaHtml/nativeMain" data-active="" data-toggle=":dokkaHtml/nativeMain">native</button></div>
+<div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/nativeMain"><div class="symbol monospace strikethrough"><strike><span class="token keyword"></span></strike><strike><span class="token keyword">fun </span></strike><a href="cdispatch.html"><strike><span class="token function">cdispatch</span></strike></a><strike><span class="token punctuation">(</span></strike><span class="parameters "><span class="parameter ">fn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-pointer/index.html">CPointer</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-function/index.html">CFunction</a><span class="token operator">&lt;</span><span class="token keyword"></span><span class="token punctuation">(</span><span class="token keyword"></span><span data-unresolved-link="com.github.winterreisender.cwebview/webview_t///PointingToDeclaration/">webview_t</span><span class="token operator">?</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-opaque-pointer/index.html">COpaquePointer</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">args<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/-c-values-ref/index.html">CValuesRef</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><strike><span class="token punctuation">)</span></strike><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Posts a C function to be executed on the main thread.</p><p class="paragraph">It safely schedules the callback to be run on the main thread on the next main loop iteration. You normally do not need to call this function, unless you want to tweak the native window.</p><h2 class="">Parameters</h2><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/nativeMain" data-filterable-set=":dokkaHtml/nativeMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span><span>fn</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">the callback <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlinx.cinterop/index.html">staticCFunction</a></p></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/nativeMain" data-filterable-set=":dokkaHtml/nativeMain"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><span><span>args</span></span></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">the arguments for <code class="lang-kotlin">fn</code></p></div></div></div></div></div></div></div></div>  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2022 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>

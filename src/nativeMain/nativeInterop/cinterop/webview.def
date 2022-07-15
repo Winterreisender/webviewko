@@ -1,14 +1,14 @@
 headers = webview/webview.h
 headerFilter = webview/webview.h
+package = com.github.winterreisender.cwebview
 
-compilerOpts.mingw = -Isrc/nativeMain/nativeInterop/cinterop/
+compilerOpts = -Isrc/nativeMain/nativeInterop/cinterop/
+
 staticLibraries.mingw = libwebview.dll.a
-libraryPaths.mingw = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
+libraryPaths.mingw_x64 = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
 
-compilerOpts.linux = -Isrc/nativeMain/nativeInterop/cinterop/
 #linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
 
-compilerOpts.osx = -Isrc/nativeMain/nativeInterop/cinterop/
 #linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
 
 # compilerOpts.android =
