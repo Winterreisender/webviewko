@@ -14,9 +14,23 @@ See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https:/
 
 **English** | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](docs/README.zh-Hant.md) 
 
-webviewko provides a Kotlin/JVM and a Kotlin/Native binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
+webviewko provides a Kotlin/JVM and a Kotlin/Native binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform desktop GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
 ![screenshot](screenshot.jpg)
+
+<!--
+## Highlights
+
+### Kotlin/JVM and Java
+
+- Tiny size: The demo jar distribution is `<5MB`
+- Support Windows, Linux and macOS
+
+### Kotlin/Native
+
+- Tiny size: The demo is `<1MB` for Linux and `<1.5MB` for Windows
+- Support Windows and Linux
+-->
 
 ## Getting Started
 

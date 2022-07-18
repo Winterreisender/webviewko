@@ -210,7 +210,7 @@ class WebviewJNA {
         fun webview_eval(webview : Pointer?, js :String)
 
         /**
-         * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.
+         * Binds a Kotlin or Java callback so that it will appear under the given name as a global JavaScript function.
          *
          * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function. Internally it uses `webview_init`.
          *

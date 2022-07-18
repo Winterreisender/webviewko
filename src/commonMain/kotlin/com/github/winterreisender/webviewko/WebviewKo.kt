@@ -19,7 +19,7 @@
 package com.github.winterreisender.webviewko
 
 /**
- * The binding to webview for Kotlin Multiplatform
+ * The Kotlin Multiplatform binding to webview
  */
 expect class WebviewKo(debug: Int = 0) {
 
@@ -80,7 +80,7 @@ expect class WebviewKo(debug: Int = 0) {
     }
 
     /**
-     * Injects JavaScript code at the initialization of the new page.
+     * Injects JS code at the initialization of the new page.
      *
      * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
      *
@@ -89,7 +89,7 @@ expect class WebviewKo(debug: Int = 0) {
     fun init(js :String)
 
     /**
-     * Evaluates arbitrary JavaScript code.
+     * Evaluates arbitrary JS code.
      *
      * Evaluation happens asynchronously, also the result of the expression is ignored. Use the `webview_bind` function if you want to receive notifications about the results of the evaluation.
      *
@@ -99,12 +99,12 @@ expect class WebviewKo(debug: Int = 0) {
 
 
     /**
-     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.
+     * Binds a native Kotlin callback so that it will appear under the given name as a global JS function.
      *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function.
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function.
      *
-     * @param name the name of the global JavaScript function
-     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
     fun bind(name :String, fn : WebviewKo.(String?)->String)
 
@@ -119,7 +119,7 @@ expect class WebviewKo(debug: Int = 0) {
     /**
      * Posts a function to be executed on the main thread.
      *
-     * It safely schedules the callback to be run on the main thread on the next main loop iteration. Like `invokeLater` in Swing
+     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
      *
      * @param fn the function to be executed on the main thread.
      *

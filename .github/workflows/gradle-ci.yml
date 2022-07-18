@@ -24,11 +24,6 @@ jobs:
               with:
                   gradle-version: 7.4.2
 
-            - name: shadowJar with Gradle
-              uses: gradle/gradle-build-action@v2
-              with:
-                  arguments: shadowJar
-
             # - name: build with Gradle
             #   uses: gradle/gradle-build-action@v2
             #   with:
@@ -41,11 +36,19 @@ jobs:
               with:
                   arguments: publishToMavenLocal
 
-            - name: Copy Maven Repo to Staging
-              run: cp -r ~/.m2/repository/com/github/winterreisender/ staging/
-
-            - name: Upload
+            - name: Upload Maven Package
               uses: actions/upload-artifact@v2
               with:
                   name: gradle-ci-package
-                  path: staging
+                  path: ~/.m2/repository/com/github/winterreisender/
+
+            - name: shadowJar with Gradle
+              uses: gradle/gradle-build-action@v2
+              with:
+                  arguments: shadowJar
+
+            - name: Upload Jar Package
+              uses: actions/upload-artifact@v2
+              with:
+                  name: gradle-ci-package-jar
+                  path: build/libs/

@@ -87,7 +87,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     }
 
     /**
-     * Injects JavaScript code at the initialization of the new page.
+     * Injects JS code at the initialization of the new page.
      *
      * Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
      *
@@ -96,7 +96,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     actual fun init(js :String) = lib.webview_init(pWebview,js)
 
     /**
-     * Evaluates arbitrary JavaScript code.
+     * Evaluates arbitrary JS code.
      *
      * Evaluation happens asynchronously, also the result of the expression is ignored. Use the `webview_bind` function if you want to receive notifications about the results of the evaluation.
      *
@@ -113,11 +113,11 @@ actual class WebviewKo actual constructor(debug: Int) {
     //})
 
     /**
-     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JavaScript function.
+     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JS function.
      *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JavaScript function.
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function.
      *
-     * @param name the name of the global JavaScript function
+     * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
     actual fun bind(name :String, fn :WebviewKo.(String?)->String) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {

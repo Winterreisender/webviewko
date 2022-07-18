@@ -26,7 +26,7 @@ typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> String>
 typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
 /**
- * The Kotlin/Native binding to webview in Kotlin
+ * The Kotlin/Native binding to webview
  */
 
 actual class WebviewKo actual constructor(debug: Int) {
@@ -116,7 +116,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function. If you need binding a C function, see [WebviewKo.cBind]
      *
      * @param name the name of the global JS function
-     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
         val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
