@@ -26,7 +26,7 @@ import com.sun.jna.Pointer
 
 actual class WebviewKo actual constructor(debug: Int) {
     private val lib: WebviewJNA.WebviewLibrary = WebviewJNA.getLib()
-    private val pWebview: Pointer = lib.webview_create(debug, Pointer.NULL)!!
+    private val pWebview: Pointer = lib.webview_create(debug, Pointer.NULL) ?: throw Exception("Failed to create webview")
 
     /**
      * Updates the title of the native window.

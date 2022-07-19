@@ -56,12 +56,16 @@ class WebviewJNA {
 
 
         /**
-         * Return a WebviewLibrary or null (if failed) contains native webview functions.
+         * Return a WebviewLibrary contains native webview functions.
          *
-         * @return a `WebviewLibrary` contains native webview functions or null if failed to load
+         * For Java compatibility since [Result] does not work in Java. Use `getLibAsResult().getOrThrow()` for Kotlin/JVM
+         *
+         * @return a `WebviewLibrary` contains native webview functions
+         * @throws [IllegalStateException] if failed to load webview library
+         * @throws [UnsatisfiedLinkError] if can not find webview library
          *
          */
-        fun getLibOrNull() : WebviewLibrary? {
+        fun getLib() : WebviewLibrary {
             if (Platform.getOSType() == Platform.WINDOWS) {
                 val file = Native.extractFromResourcePath("WebView2Loader.dll", WebviewJNA::class.java.classLoader)
                 val dest = file.toPath().parent.resolve("WebView2Loader.dll")
@@ -69,24 +73,16 @@ class WebviewJNA {
                     Files.move(file.toPath(), dest)
                 }
             }
-            return Native.load("webview", WebviewLibrary::class.java)
+            return Native.load("libwebview", WebviewLibrary::class.java) ?: throw Exception("Failed to load webview library")
         }
 
         /**
-         * Return a WebviewLibrary contains native webview functions.
+         * Return a Result<WebviewLibrary,IllegalStateException> contains native webview functions.
          *
-         * @return a `WebviewLibrary` contains native webview functions
-         * @throws `NullPointerException` if failed to load webview lib
-         *
+         * @return a `Result<WebviewLibrary,Exception>` contains native webview functions
          */
-        fun getLib() : WebviewLibrary = getLibOrNull()!! //TODO: Throw a custom Exception
-
-        /**
-         * Same as `getLib`
-         */
-        @Deprecated("",ReplaceWith("getLib"))
-        fun getInstance() : WebviewLibrary = getLib()
-
+        fun getLibAsResult() :Result<WebviewLibrary> = runCatching { getLib() }
+        // getLibOrNull().let{ Result.success(it) } ?: Result.failure(IllegalStateException("Failed to load webview library"))
     }
 
     /**
@@ -147,7 +143,6 @@ class WebviewJNA {
          *
          * @param webview the handle of webview, usually returned by `webview_create`
          */
-        @Deprecated("Not suggested to use")
         fun webview_get_window(webview : Pointer?) : Pointer?
 
         /**

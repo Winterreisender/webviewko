@@ -17,6 +17,7 @@
  */
 
 import com.github.winterreisender.webviewko.WebviewJNA
+import com.github.winterreisender.webviewko.WebviewJNA.Companion.getLibAsResult
 import com.github.winterreisender.webviewko.WebviewKo
 import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
@@ -137,7 +138,7 @@ internal class TestKt {
     }
 
     @Test fun `jnaLayer simple`() {
-        with(WebviewJNA.getLib()) {
+        with(getLibAsResult().getOrThrow()) {
             val pWebview = webview_create(1, Pointer.NULL)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
@@ -150,7 +151,7 @@ internal class TestKt {
     @Test fun `jnaLayer bind`() {
         if (!Desktop.isDesktopSupported()) return
 
-        with(WebviewJNA.getLib()) {
+        with(getLibAsResult().getOrThrow()) {
             val pWebview = webview_create(1, Pointer.NULL)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
@@ -175,13 +176,13 @@ internal class TestKt {
                 override fun apply(seq: String?, req: String?, arg: Pointer?) {
                     println("seq: $seq")
                     println("req: $req")
-                    val r :Int = Regex("""\["(\d+)"]""").find(req!!)!!.groupValues[1].toInt() + 1
+                    val r: Int = Regex("""\["(\d+)"]""").find(req!!)!!.groupValues[1].toInt() + 1
                     println(r)
                     webview_return(pWebview, seq, 0, "{count: $r}")
                 }
 
             }
-            webview_bind(pWebview,"increment",callback)
+            webview_bind(pWebview, "increment", callback)
             webview_set_html(pWebview, html)
 
             webview_eval(pWebview, """console.log("Hello, from  eval")""")
@@ -244,7 +245,7 @@ internal class TestKt {
         // This test implemented a similar bind.c example in webview
         if (!Desktop.isDesktopSupported()) return
 
-        with(WebviewJNA.getLib()) {
+        with(getLibAsResult().getOrThrow()) {
             val pWebview = webview_create(0, Pointer.NULL)
 
             val context = Context().apply {
@@ -276,7 +277,7 @@ internal class TestKt {
 
             val callback = object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
                 override fun apply(seq: String?, req: String?, arg: Pointer?) {
-                    val context2 = Structure.newInstance(Context::class.java,arg)
+                    val context2 = Structure.newInstance(Context::class.java, arg)
                     with(context2) {
                         read() // read from native memory
                         count++
@@ -286,7 +287,7 @@ internal class TestKt {
                 }
 
             }
-            webview_bind(pWebview,"increment",callback, context.pointer)
+            webview_bind(pWebview, "increment", callback, context.pointer)
             webview_set_html(pWebview, html)
 
             webview_eval(pWebview, """console.log("Hello, from  eval")""")
@@ -332,43 +333,43 @@ internal class TestKt {
      @Test fun awt0() {
          if (!Desktop.isDesktopSupported()) return
 
-         with(WebviewJNA.getLib()) {
-             // Create webview window
-             val pWebview = webview_create(1, null)
-             val pWin = webview_get_window(pWebview)
-             webview_set_size(pWebview, 800, 500, WebviewJNA.WEBVIEW_HINT_FIXED)
-             User32.INSTANCE.SetWindowLong(HWND(pWin),WinUser.GWL_STYLE, WinUser.WS_CHILD or WinUser.WS_VISIBLE)
+        with(getLibAsResult().getOrThrow()) {
+            // Create webview window
+            val pWebview = webview_create(1, null)
+            val pWin = webview_get_window(pWebview)
+            webview_set_size(pWebview, 800, 500, WebviewJNA.WEBVIEW_HINT_FIXED)
+            User32.INSTANCE.SetWindowLong(HWND(pWin), WinUser.GWL_STYLE, WinUser.WS_CHILD or WinUser.WS_VISIBLE)
 
-             // The Swing Window
-             lateinit var c :Canvas
-             JFrame("Hello").apply {
-                 layout = FlowLayout()
-                 size = Dimension(800,800)
+            // The Swing Window
+            lateinit var c: Canvas
+            JFrame("Hello").apply {
+                layout = FlowLayout()
+                size = Dimension(800, 800)
 
-                 Canvas().apply {
-                     size = Dimension(800,500)
-                 }.also{ add(it); c=it }
-                 JButton("Change URL").apply {
-                     addActionListener {
-                         webview_dispatch(pWebview,object : WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback {
-                             override fun apply(webview: Pointer?, arg: Pointer?) {
-                                 webview_navigate(pWebview, "about:blank")
-                             }
-                         })
+                Canvas().apply {
+                    size = Dimension(800, 500)
+                }.also { add(it); c = it }
+                JButton("Change URL").apply {
+                    addActionListener {
+                        webview_dispatch(pWebview, object : WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback {
+                            override fun apply(webview: Pointer?, arg: Pointer?) {
+                                webview_navigate(pWebview, "about:blank")
+                            }
+                        })
 
-                     }
-                 }.also(::add)
-                 isVisible = true
-             }
+                    }
+                }.also(::add)
+                isVisible = true
+            }
 
-             // Set webview as a child window
-             User32.INSTANCE.SetParent(HWND(pWin),HWND(getComponentPointer(c)))
+            // Set webview as a child window
+            User32.INSTANCE.SetParent(HWND(pWin), HWND(getComponentPointer(c)))
 
-             // Initialize
-             webview_navigate(pWebview, "https://example.com")
-             webview_run(pWebview)
-             webview_destroy(pWebview)
-         }
+            // Initialize
+            webview_navigate(pWebview, "https://example.com")
+            webview_run(pWebview)
+            webview_destroy(pWebview)
+        }
      }
 
     // This cause: Invalid memory access
