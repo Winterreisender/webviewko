@@ -148,21 +148,4 @@ internal class Test {
             show()
         }
     }
-
-    @Test fun gracefullyExitTest() {
-        runCatching {
-            WebviewKo().run {
-                title("Title")
-                size(800,600)
-                url("https://example.com")
-            }
-        }.fold(
-            onSuccess = {
-                println("Goodbye!")
-            },
-            onFailure = {
-                println("Something is wrong: $it. Goodbye!")
-            }
-        )
-    }
 }

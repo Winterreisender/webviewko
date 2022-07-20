@@ -63,7 +63,6 @@ public class TestJava {
         if (!Desktop.isDesktopSupported())  return;
 
         WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
-
         Pointer pWebview = lib.webview_create(1, Pointer.NULL);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);

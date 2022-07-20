@@ -35,7 +35,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     private val w :webview_t
 
     init {
-        w = webview_create(debug, null) ?: throw Exception("Failed to create webview")
+        w = webview_create(debug, null)!!
         freeze()
     }
 
