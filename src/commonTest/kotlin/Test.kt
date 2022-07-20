@@ -109,7 +109,7 @@ internal class Test {
     }
 
 
-    @Ignore fun `json Test`() {
+    @Test fun `json Test`() {
         // Example about using third part Json Serialization (kotlinx-serialization-json)
         WebviewKo(1).run {
             title("Title")

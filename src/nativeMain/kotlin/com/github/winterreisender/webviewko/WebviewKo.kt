@@ -32,12 +32,8 @@ typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 actual class WebviewKo actual constructor(debug: Int) {
 
     // Freeze the object (disable changes) for sharing between threads
-    private val w :webview_t
-
-    init {
-        w = webview_create(debug, null)!!
-        freeze()
-    }
+    private val w :webview_t = webview_create(debug, null)!!
+    private val disposeList = mutableListOf<StableRef<Any>>()
 
     /**
      * Updates the title of the native window.
@@ -120,6 +116,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
         val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
+        disposeList.add(ctx)
+
         webview_bind(
             w,name,
             staticCFunction { seq,req,arg ->
@@ -132,7 +130,7 @@ actual class WebviewKo actual constructor(debug: Int) {
             },
             ctx.asCPointer()
         )
-        // TODO: Prevent memory leak using ctx.dispose()
+        // DONE: Prevent memory leak using ctx.dispose()
         // The correct time to use ctx.dispose() is after the final callback, before the webview_destroy. So,there are 4 solution:
         // 1. Make a thick wrapper like Go bindings, add glue code, binding array etc.
         // 2. Wait for webview_unbind(w, arg), add binding name array and cleanup all contexts in WebviewKo.terminate and WebviewKo.run
@@ -150,19 +148,22 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Posts a function to be executed on the main thread.
      *
-     * It safely schedules the callback to be run on the main thread on the next main loop iteration. Like `invokeLater` in Swing
+     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
+     * Please remember to call [WebviewKo.freeze] before sharing betweeb threads
      *
      * @param fn the function to be executed on the main thread.
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = StableRef.create(DispatchContext(this,fn)).freeze()
+        val ctx = StableRef.create(DispatchContext(this,fn).freeze()).freeze()
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
                 initRuntimeIfNeeded()
-                val (webviewKo,callback) = arg!!.asStableRef<DispatchContext>().get()
+                val ctx = arg!!.asStableRef<DispatchContext>()
+                val (webviewKo,callback) = ctx.get()
                 callback(webviewKo)
+                ctx.dispose()
             },
             ctx.asCPointer()
         )
@@ -176,6 +177,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     actual fun show() {
         webview_run(w)
         webview_destroy(w)
+        finalize()
     }
 
     /**
@@ -217,5 +219,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
         = webview_dispatch(w,fn,args)
+
+    fun finalize() = disposeList.forEach { it.dispose() }
 }
 

@@ -1,5 +1,11 @@
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.cwebview.*
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.staticCFunction
+import platform.posix.sleep
+import platform.posix.usleep
+import platform.windows.WRITE_CACHE_ENABLE
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.freeze
@@ -17,7 +23,7 @@ class TestNative {
         webview_destroy(w)
     }
 
-    @Ignore fun `api Full`() {
+    @Test fun `api Full`() {
         with(WebviewKo(1)) {
             title("Title")
             size(800,600)
@@ -39,6 +45,12 @@ class TestNative {
                 "{count: $r}"
             }
 
+            bind("testBind") {
+                ""
+            }
+
+
+
             html("""
                 <button id="increment">Tap me</button>
                 <div>You tapped <span id="count">0</span> time(s).</div>
@@ -58,24 +70,30 @@ class TestNative {
         }
     }
 
-    @Ignore fun `multi windows`() {
-        val webviewKo1 = WebviewKo().apply {
+    @Test fun `multi thread`() {
+        val webviewKo1 = WebviewKo(1).apply {
             title("1")
             size(900, 500)
             url("https://example.com")
+            bind("testBind") {
+                ""
+            }
+
+            bind("testBind2") {
+                ""
+            }
         }
 
         webviewKo1.freeze()
 
         val w1 = Worker.start().execute(TransferMode.SAFE, {webviewKo1}) { it ->
+            sleep(5u)
             it.dispatch {
-                it.title("Hello From Thread")
+                terminate()
             }
         }
 
         webviewKo1.show()
         w1.consume {  }
     }
-
-
 }
