@@ -60,7 +60,7 @@ internal class Test {
         }
     }
 
-    @Ignore fun `webview example basic`() {
+    @Test fun `webview example basic`() {
         // This tests the example from webview: https://github.com/webview/webview/blob/master/examples/basic.cc
         WebviewKo().run {
             title("Basic Example")
@@ -71,7 +71,7 @@ internal class Test {
     }
 
 
-    @Ignore fun `api Full`() {
+    @Test fun `api Full`() {
         WebviewKo(1).run {
             title("Title")
             size(800,600)
@@ -145,6 +145,25 @@ internal class Test {
                   });
                 </script>
             """.trimIndent())
+            show()
+        }
+    }
+
+    @Test fun fullscreen() {
+        WebviewKo().run {
+            size(800,600)
+            init("""
+                let w = window.open('');
+                w.document.write(`
+                // You HTML Content here
+                <html>
+                <body>
+                	<button onclick="document.querySelector('body').requestFullscreen()"> fullscreen </button>
+                </body>
+                </html>
+                `);
+            """.trimIndent())
+            navigate("about:blank")
             show()
         }
     }

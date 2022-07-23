@@ -9,7 +9,6 @@ import platform.windows.WRITE_CACHE_ENABLE
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.freeze
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 
