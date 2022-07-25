@@ -60,17 +60,6 @@ internal class Test {
         }
     }
 
-    @Test fun `webview example basic`() {
-        // This tests the example from webview: https://github.com/webview/webview/blob/master/examples/basic.cc
-        WebviewKo().run {
-            title("Basic Example")
-            size(480, 320, WebviewKo.WindowHint.None)
-            html("Thanks for using webview!")
-            show()
-        }
-    }
-
-
     @Test fun `api Full`() {
         WebviewKo(1).run {
             title("Title")
@@ -86,7 +75,21 @@ internal class Test {
                 if(r==8) {
                     terminate()
                 }
+
+                if(5 % 2 == 1) throw Exception("""Sth Wrong""")
                 "{count: $r}"
+            }
+
+            bind("nothingToBind") {
+
+            }
+
+            bind("nothingToBind2") {
+                Pair("",1)
+            }
+
+            bind("notImplemented") {
+                throw NotImplementedError("NotImplemented Now")
             }
 
             html("""
@@ -117,7 +120,7 @@ internal class Test {
             url("https://example.com")
             init("""console.log("Hello, from  init")""")
 
-            bind("increment") {
+            bindX("increment") {
                 // [7, {count: 2, max 8}]
                 val json = Json.parseToJsonElement(it!!)
                 val arg1 = json.jsonArray[0].jsonPrimitive.float
@@ -126,9 +129,12 @@ internal class Test {
 
                 println("$json $arg1 $count $max")
 
-                buildJsonObject {
-                    put("count", arrayOf(count+1,max).min())
-                }.toString()
+                Pair(
+                    buildJsonObject {
+                        put("count", arrayOf(count+1,max).min())
+                    }.toString(),
+                    0
+                )
             }
 
             html("""
@@ -166,5 +172,9 @@ internal class Test {
             navigate("about:blank")
             show()
         }
+    }
+
+    @Test fun test2 () {
+        kotlin.runCatching { throw NotImplementedError("") }.fold({error("")},{ println(it)})
     }
 }

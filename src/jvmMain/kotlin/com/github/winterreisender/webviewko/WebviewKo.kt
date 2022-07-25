@@ -120,11 +120,78 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
-    actual fun bind(name :String, fn :WebviewKo.(String?)->String) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
+    actual fun bindX(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
         override fun apply(seq: String?, req: String?, arg: Pointer?) {
-            lib.webview_return(pWebview, seq, 0, fn(req))
+            val (response,status) = fn(req) ?: return
+            println("$response,$status")
+            lib.webview_return(pWebview, seq, status, response)
         }
     })
+
+    // This is COOL but not good
+    @JvmName("bindKt")
+    actual inline fun <reified R : Any> bind(name :String, crossinline fn: WebviewKo.(String?) -> R) {
+        //val isError = 1
+        bindX(
+            name
+        ) { it ->
+            when (R::class) {
+                Pair::class   -> fn(it) as Pair<String, Int>
+                Result::class -> (fn(it) as Result<String>    ).fold({Pair(it,0)}, {Pair(""" "$it" """,1)})
+                String::class -> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
+                Unit::class   -> fn(it).let { null }
+                Nothing::class-> runCatching{ fn(it) }.fold({error("Unexpected Behavior: fun (*)->Nothing runs successfully.")}, {Pair(""" "$it" """,1)})
+                Any::class-> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
+                else -> throw IllegalArgumentException(R::class.simpleName)
+            }
+        }
+    }
+
+    // For Java Interop
+    @JvmName("bind")
+    fun bindJava(name :String, fn: WebviewKo.(String?) -> String) {
+        bindX(name) {
+            runCatching { fn(it) }.fold(
+                { Pair(it, 0) },
+                { Pair(""" "$it" """, 1) }
+            )
+        }
+    }
+
+    //@JvmName("__bindResult")
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Result<String>) {
+    //     bindX(name) { arg ->
+    //         fn(arg).fold(
+    //             {Pair(it,0)},
+    //             {Pair(""" "$it" """,1)}
+    //         )
+    //     }
+    // }
+    //
+    // @JvmName("__bindUnit")
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Unit) {
+    //     bindX(name) {
+    //         fn(it)
+    //         null
+    //     }
+    // }
+    //
+    // @JvmName("__bindPair")
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Pair<String, Int>) {
+    //     bindX(name) {
+    //         fn(it)
+    //     }
+    // }
+    //
+    // @JvmName("__bindAny")
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Any) {
+    //     bindX(name) {
+    //         runCatching { fn(it) as String }.fold(
+    //             { Pair(it, 0) },
+    //             { Pair(""" "$it" """, 1) }
+    //         )
+    //     }
+    // }
 
     /**
      * Removes a callback that was previously set by `webview_bind`.
@@ -174,4 +241,6 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     fun getWebviewPointer() = pWebview
+
+
 }

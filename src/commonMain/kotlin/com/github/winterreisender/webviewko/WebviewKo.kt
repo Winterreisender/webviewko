@@ -99,14 +99,26 @@ expect class WebviewKo(debug: Int = 0) {
 
 
     /**
-     * Binds a native Kotlin callback so that it will appear under the given name as a global JS function.
+     * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
      *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function.
+     * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Pair<String,Int>(Response,Status)?`.
+     * If status is zero - result is expected to be a valid JSON result value. If status is not zero - result is an error JSON object.
+
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status. If it returns null, the webview won't receive a feedback.
+     */
+    fun bindX(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?)
+
+    /**
+     * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
+     *
+     * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Unit`,`String` or `Pair<String,Int>`.
      *
      * @param name the name of the global JS function
-     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status.When `fn` return `Pair(Response,Status)` the webview will receive the response and status . When `fn` returns `String`, the Status is 0. When `fn` returns `Unit`, the webview won't receive a feedback.
      */
-    fun bind(name :String, fn : WebviewKo.(String?)->String)
+    inline fun <reified R : Any> bind(name :String, crossinline fn: WebviewKo.(String?) -> R)
+
 
     /**
      * Removes a callback that was previously set by `webview_bind`.
@@ -141,4 +153,5 @@ expect class WebviewKo(debug: Int = 0) {
      *
      */
     fun terminate()
+
 }

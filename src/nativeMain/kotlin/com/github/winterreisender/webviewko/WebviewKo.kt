@@ -22,8 +22,8 @@ import kotlinx.cinterop.*
 import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.freeze
 
-typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> String>
-typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
+private typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> Pair<String,Int>?>
+private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
 /**
  * The Kotlin/Native binding to webview
@@ -114,7 +114,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
-    actual fun bind(name: String, fn: WebviewKo.(String?) -> String) {
+    actual fun bindX(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
         val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
         disposeList.add(ctx)
 
@@ -123,10 +123,8 @@ actual class WebviewKo actual constructor(debug: Int) {
             staticCFunction { seq,req,arg ->
                 initRuntimeIfNeeded()
                 val (webviewKo,callback) = arg!!.asStableRef<BindContext>().get()
-                webview_return(
-                    webviewKo.w, seq?.toKString(),0,
-                    callback(webviewKo, req?.toKString())
-                )
+                val (response, status) = callback(webviewKo, req?.toKString()) ?: return@staticCFunction
+                webview_return(webviewKo.w, seq?.toKString(), status, response)
             },
             ctx.asCPointer()
         )
@@ -136,6 +134,22 @@ actual class WebviewKo actual constructor(debug: Int) {
         // 2. Wait for webview_unbind(w, arg), add binding name array and cleanup all contexts in WebviewKo.terminate and WebviewKo.run
         // 3. Do nothing. About 16 bytes memory leak per bind is not unacceptable in "Modern Software Engineering" (?
         // 4. Leave it to the users. Provide pure C API. See [cBind]
+    }
+
+    actual inline fun <reified R : Any> bind(name :String, crossinline fn: WebviewKo.(String?) -> R) {
+     //val isError = 1
+        bindX(
+            name
+        ) { it ->
+            when (R::class) {
+                Pair::class   -> fn(it) as Pair<String, Int>?
+                String::class -> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
+                Result::class -> (fn(it) as Result<String>    ).fold({Pair(it,0)}, {Pair(""" "$it" """,1)})
+                Unit::class   -> fn(it).let { null }
+                Nothing::class-> runCatching{ fn(it) }.fold({error("Unexpected Behavior: fun (*)->Nothing runs successfully.")}, {Pair(""" "$it" """,1)})
+                else -> throw IllegalArgumentException()
+            }
+        }
     }
 
     /**
@@ -220,6 +234,47 @@ actual class WebviewKo actual constructor(debug: Int) {
     fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
         = webview_dispatch(w,fn,args)
 
-    fun finalize() = disposeList.forEach { it.dispose() }
+    private fun finalize() = disposeList.forEach { it.dispose() }
+    
+    // This is good but not work
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> String) {
+    //     bindX(name) {
+    //         runCatching { fn(it) }.fold(
+    //             { Pair(it, 0) },
+    //             { Pair(""" "$it" """, 1) }
+    //         )
+    //     }
+    // }
+    //
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Result<String>) {
+    //     bindX(name) { arg ->
+    //         fn(arg).fold(
+    //             {Pair(it,0)},
+    //             {Pair(""" "$it" """,1)}
+    //         )
+    //     }
+    // }
+    //
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Unit) {
+    //     bindX(name) {
+    //         fn(it)
+    //         null
+    //     }
+    // }
+    //
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Pair<String, Int>) {
+    //     bindX(name) {
+    //         fn(it)
+    //     }
+    // }
+    //
+    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Any) {
+    //     bindX(name) {
+    //         runCatching { fn(it) as String }.fold(
+    //             { Pair(it, 0) },
+    //             { Pair(""" "$it" """, 1) }
+    //         )
+    //     }
+    // }
 }
 

@@ -19,6 +19,7 @@
 import com.github.winterreisender.webviewko.WebviewJNA;
 import com.github.winterreisender.webviewko.WebviewKo;
 import com.sun.jna.Pointer;
+import kotlin.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
@@ -43,19 +44,19 @@ public class TestJava {
     @Test void apiFull() {
         if (!Desktop.isDesktopSupported()) return;
 
-        WebviewKo webview = new WebviewKo(0);
-        webview.title("Java Test");
-        webview.size(1024,768,WebviewKo.WindowHint.None);
-
-        webview.bind("increment", (WebviewKo w,String msg)-> {
+        WebviewKo w = new WebviewKo(0);
+        w.title("Java Test");
+        w.size(1024,768,WebviewKo.WindowHint.None);
+        w.bind("increment", (WebviewKo webviewKo,String msg)-> {
                 System.out.println(msg);
-                w.title(msg);
+                webviewKo.title(msg);
                 return "{count: 7}";
         });
 
-        webview.html("<button id=\"increment\">Tap me</button><div>You tapped <span id=\"count\">0</span> time(s).</div><script>const [incrementElement, countElement] = document.querySelectorAll(\"#increment, #count\");document.addEventListener(\"DOMContentLoaded\", () => {incrementElement.addEventListener(\"click\", () => {window.increment(countElement.innerText).then(result => {countElement.textContent = result.count;});});});</script>");
 
-        webview.show();
+        w.html("<button id=\"increment\">Tap me</button><div>You tapped <span id=\"count\">0</span> time(s).</div><script>const [incrementElement, countElement] = document.querySelectorAll(\"#increment, #count\");document.addEventListener(\"DOMContentLoaded\", () => {incrementElement.addEventListener(\"click\", () => {window.increment(countElement.innerText).then(result => {countElement.textContent = result.count;});});});</script>");
+
+        w.show();
     }
 
     // A simple example using JNA layer api
