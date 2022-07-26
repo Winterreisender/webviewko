@@ -98,16 +98,21 @@ expect class WebviewKo(debug: Int = 0) {
     fun eval(js :String)
 
     /**
+     * Should be used in [bind] to throw an exception in JS
+     *
+     * This exception will be caught by [bind] and trigger the `Promise.reject(reason)` in JS.
+     *
+     * @param reason the reason shown in JS.
+     */
+    class JSRejectException(reason: String) : Throwable
+
+    /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
      *
-     * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Pair<String,Int>(Response,Status)?`.
-     * Result is expected to be a valid JSON result value.
-
      * @param name the name of the global JS function
-     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status. If it returns null, the webview won't receive a feedback.
-     * @param transferExceptions when it's true, it will catch all exceptions from `fn` and thrown to JS.
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
      */
-    fun bind(name :String, transferExceptions: Boolean = true, fn :WebviewKo.(String)->String)
+    fun bind(name :String, fn :WebviewKo.(String)->String)
 
     /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
@@ -153,5 +158,6 @@ expect class WebviewKo(debug: Int = 0) {
      *
      */
     fun terminate()
+
 
 }

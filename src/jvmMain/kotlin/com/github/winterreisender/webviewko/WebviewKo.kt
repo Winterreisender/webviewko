@@ -129,25 +129,35 @@ actual class WebviewKo actual constructor(debug: Int) {
         }
     })
 
-    @JvmName("bindKt")
-    actual fun bind(name :String, transferExceptions :Boolean, fn: WebviewKo.(String) -> String) {
+    /**
+     * Should be used in [bind] to throw an exception in JS
+     *
+     * This exception will be caught by [bind] and trigger the `Promise.reject(reason)` in JS.
+     *
+     * @param reason the reason shown in JS.
+     */
+    actual class JSRejectException actual constructor(reason :String) : Throwable(reason)
+
+    /**
+     * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
+     *
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
+     */
+    actual fun bind(name :String, fn: WebviewKo.(String) -> String) {
         bindRaw(name) {
             runCatching { fn(it ?: "") }.fold(
-                { Pair(it, 0) },
-                { if(transferExceptions) Pair(""" "$it" """, 1) else throw it }
+                onSuccess = { Pair(it, 0) },
+                onFailure =  {
+                    when(it) {
+                        is JSRejectException -> Pair(""" "${it.message}" """, 1)
+                        else -> throw it
+                    }
+                }
             )
         }
     }
 
-    @JvmName("bind")
-    fun bindJava(name :String, fn: WebviewKo.(String) -> String) {
-        bindRaw(name) {
-            runCatching { fn(it ?: "") }.fold(
-                { Pair(it, 0) },
-                { Pair(""" "$it" """, 1) }
-            )
-        }
-    }
 
     /**
      * Removes a callback that was previously set by `webview_bind`.

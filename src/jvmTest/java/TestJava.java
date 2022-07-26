@@ -19,7 +19,6 @@
 import com.github.winterreisender.webviewko.WebviewJNA;
 import com.github.winterreisender.webviewko.WebviewKo;
 import com.sun.jna.Pointer;
-import kotlin.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
@@ -47,15 +46,13 @@ public class TestJava {
         WebviewKo w = new WebviewKo(0);
         w.title("Java Test");
         w.size(1024,768,WebviewKo.WindowHint.None);
-        w.bind("increment", true ,(WebviewKo webviewKo,String msg)-> {
+        w.bind("increment" ,(WebviewKo webviewKo,String msg)-> {
                 System.out.println(msg);
                 webviewKo.title(msg);
                 return "{count: 7}";
         });
 
-
         w.html("<button id=\"increment\">Tap me</button><div>You tapped <span id=\"count\">0</span> time(s).</div><script>const [incrementElement, countElement] = document.querySelectorAll(\"#increment, #count\");document.addEventListener(\"DOMContentLoaded\", () => {incrementElement.addEventListener(\"click\", () => {window.increment(countElement.innerText).then(result => {countElement.textContent = result.count;});});});</script>");
-
         w.show();
     }
 

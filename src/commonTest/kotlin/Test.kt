@@ -66,7 +66,7 @@ internal class Test {
             url("https://example.com")
             init("""console.log("Hello, from  init")""")
 
-            bind("increment",true) {
+            bind("increment") {
                 println("req: $it")
                 val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r)
@@ -74,8 +74,6 @@ internal class Test {
                 if(r==8) {
                     terminate()
                 }
-
-                if(5 % 2 == 1) throw Exception("""Sth Wrong""")
                 "{count: $r}"
             }
 
@@ -83,12 +81,12 @@ internal class Test {
                 ""
             }
 
-            bind("nothingToBind2") {
-                ""
+            bind("ktExceptionTest") {
+                throw NotImplementedError() // Should crash
             }
 
-            bind("notImplemented",false) {
-                throw NotImplementedError("NotImplemented Now")
+            bind("jsRejectTest") {
+                throw WebviewKo.JSRejectException("NotImplemented") // Should call `Promise.reject(reason :string)` and Get an Exception in JS
             }
 
             html("""
