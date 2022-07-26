@@ -27,6 +27,8 @@ private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
 /**
  * The Kotlin/Native binding to webview
+ *
+ * @constructor create a webview or throws `Exception` if failed
  */
 
 actual class WebviewKo actual constructor(debug: Int) {

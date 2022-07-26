@@ -23,7 +23,7 @@ import com.sun.jna.Pointer
 /**
  * The JVM binding to webview in Kotlin
  *
- * @throws Exception if failed to create webview
+ * @constructor create a webview or throws `Exception` if failed
  */
 
 actual class WebviewKo actual constructor(debug: Int) {

@@ -20,6 +20,8 @@ package com.github.winterreisender.webviewko
 
 /**
  * The Kotlin Multiplatform binding to webview
+ *
+ * @constructor create a webview or throws `Exception` if failed
  */
 expect class WebviewKo(debug: Int = 0) {
 
