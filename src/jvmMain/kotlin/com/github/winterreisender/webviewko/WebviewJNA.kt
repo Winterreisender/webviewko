@@ -76,17 +76,10 @@ class WebviewJNA {
          * Return a WebviewLibrary contains native webview functions.
          *
          * @return a `WebviewLibrary` contains native webview functions
-         * @throws `NullPointerException` if failed to load webview lib
+         * @throws `Exception` if failed to load webview lib
          *
          */
-        fun getLib() : WebviewLibrary = getLibOrNull()!! //TODO: Throw a custom Exception
-
-        /**
-         * Same as `getLib`
-         */
-        @Deprecated("",ReplaceWith("getLib"))
-        fun getInstance() : WebviewLibrary = getLib()
-
+        fun getLib() : WebviewLibrary = getLibOrNull()  ?: throw Exception("Failed to load webview")
     }
 
     /**

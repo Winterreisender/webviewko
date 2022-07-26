@@ -97,17 +97,17 @@ expect class WebviewKo(debug: Int = 0) {
      */
     fun eval(js :String)
 
-
     /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
      *
      * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Pair<String,Int>(Response,Status)?`.
-     * If status is zero - result is expected to be a valid JSON result value. If status is not zero - result is an error JSON object.
+     * Result is expected to be a valid JSON result value.
 
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status. If it returns null, the webview won't receive a feedback.
+     * @param transferExceptions when it's true, it will catch all exceptions from `fn` and thrown to JS.
      */
-    fun bindX(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?)
+    fun bind(name :String, transferExceptions: Boolean = true, fn :WebviewKo.(String)->String)
 
     /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
@@ -117,7 +117,7 @@ expect class WebviewKo(debug: Int = 0) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status.When `fn` return `Pair(Response,Status)` the webview will receive the response and status . When `fn` returns `String`, the Status is 0. When `fn` returns `Unit`, the webview won't receive a feedback.
      */
-    inline fun <reified R : Any> bind(name :String, crossinline fn: WebviewKo.(String?) -> R)
+     //inline fun <reified R : Any> bindEx(name :String, crossinline fn: WebviewKo.(String?) -> R)
 
 
     /**

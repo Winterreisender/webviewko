@@ -1,11 +1,6 @@
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.cwebview.*
-import kotlinx.cinterop.StableRef
-import kotlinx.cinterop.asStableRef
-import kotlinx.cinterop.staticCFunction
 import platform.posix.sleep
-import platform.posix.usleep
-import platform.windows.WRITE_CACHE_ENABLE
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
 import kotlin.native.concurrent.freeze
@@ -31,7 +26,7 @@ class TestNative {
 
             bind("increment") {
                 println("req: $it")
-                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r)
                 title(r.toString())
                 if(r==8) {
@@ -95,4 +90,6 @@ class TestNative {
         webviewKo1.show()
         w1.consume {  }
     }
+
+
 }

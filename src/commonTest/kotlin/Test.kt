@@ -19,7 +19,6 @@ import com.github.winterreisender.webviewko.WebviewKo
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
-import kotlin.test.Ignore
 import kotlin.test.Test
 
 internal class Test {
@@ -39,7 +38,7 @@ internal class Test {
             title("Test")
             init("""console.log("Hello, from  init")""")
             bind("increment") {
-                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r.toString())
                 if(r==8)
                     terminate()
@@ -67,9 +66,9 @@ internal class Test {
             url("https://example.com")
             init("""console.log("Hello, from  init")""")
 
-            bind("increment") {
+            bind("increment",true) {
                 println("req: $it")
-                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r)
                 title(r.toString())
                 if(r==8) {
@@ -81,14 +80,14 @@ internal class Test {
             }
 
             bind("nothingToBind") {
-
+                ""
             }
 
             bind("nothingToBind2") {
-                Pair("",1)
+                ""
             }
 
-            bind("notImplemented") {
+            bind("notImplemented",false) {
                 throw NotImplementedError("NotImplemented Now")
             }
 
@@ -120,21 +119,18 @@ internal class Test {
             url("https://example.com")
             init("""console.log("Hello, from  init")""")
 
-            bindX("increment") {
+            bind("increment") {
                 // [7, {count: 2, max 8}]
-                val json = Json.parseToJsonElement(it!!)
+                val json = Json.parseToJsonElement(it)
                 val arg1 = json.jsonArray[0].jsonPrimitive.float
                 val count = json.jsonArray[1].jsonObject["count"]!!.jsonPrimitive.int
                 val max = json.jsonArray[1].jsonObject["max"]!!.jsonPrimitive.int
 
                 println("$json $arg1 $count $max")
 
-                Pair(
-                    buildJsonObject {
-                        put("count", arrayOf(count+1,max).min())
-                    }.toString(),
-                    0
-                )
+                buildJsonObject {
+                    put("count", arrayOf(count+1,max).min())
+                }.toString()
             }
 
             html("""
@@ -174,7 +170,5 @@ internal class Test {
         }
     }
 
-    @Test fun test2 () {
-        kotlin.runCatching { throw NotImplementedError("") }.fold({error("")},{ println(it)})
-    }
+
 }

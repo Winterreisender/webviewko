@@ -32,7 +32,7 @@ private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 actual class WebviewKo actual constructor(debug: Int) {
 
     // Freeze the object (disable changes) for sharing between threads
-    private val w :webview_t = webview_create(debug, null)!!
+    private val w :webview_t = webview_create(debug, null) ?: throw Exception("Failed to create webview")
     private val disposeList = mutableListOf<StableRef<Any>>()
 
     /**
@@ -114,7 +114,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
-    actual fun bindX(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
+    private fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
         val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
         disposeList.add(ctx)
 
@@ -128,27 +128,23 @@ actual class WebviewKo actual constructor(debug: Int) {
             },
             ctx.asCPointer()
         )
-        // DONE: Prevent memory leak using ctx.dispose()
-        // The correct time to use ctx.dispose() is after the final callback, before the webview_destroy. So,there are 4 solution:
-        // 1. Make a thick wrapper like Go bindings, add glue code, binding array etc.
-        // 2. Wait for webview_unbind(w, arg), add binding name array and cleanup all contexts in WebviewKo.terminate and WebviewKo.run
-        // 3. Do nothing. About 16 bytes memory leak per bind is not unacceptable in "Modern Software Engineering" (?
-        // 4. Leave it to the users. Provide pure C API. See [cBind]
     }
 
-    actual inline fun <reified R : Any> bind(name :String, crossinline fn: WebviewKo.(String?) -> R) {
-     //val isError = 1
-        bindX(
-            name
-        ) { it ->
-            when (R::class) {
-                Pair::class   -> fn(it) as Pair<String, Int>?
-                String::class -> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
-                Result::class -> (fn(it) as Result<String>    ).fold({Pair(it,0)}, {Pair(""" "$it" """,1)})
-                Unit::class   -> fn(it).let { null }
-                Nothing::class-> runCatching{ fn(it) }.fold({error("Unexpected Behavior: fun (*)->Nothing runs successfully.")}, {Pair(""" "$it" """,1)})
-                else -> throw IllegalArgumentException()
-            }
+    /**
+     * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
+     *
+     * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Pair<String,Int>(Response,Status)?`.
+     * If status is zero - result is expected to be a valid JSON result value. If status is not zero - result is an error JSON object.
+
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status. If it returns null, the webview won't receive a feedback.
+     */
+    actual fun bind(name :String, transferExceptions :Boolean, fn: WebviewKo.(String) -> String) {
+        bindRaw(name) {
+            runCatching { fn(it ?: "") }.fold(
+                { Pair(it, 0) },
+                { if(transferExceptions) Pair(""" "$it" """, 1) else throw it }
+            )
         }
     }
 
@@ -235,46 +231,22 @@ actual class WebviewKo actual constructor(debug: Int) {
         = webview_dispatch(w,fn,args)
 
     private fun finalize() = disposeList.forEach { it.dispose() }
-    
-    // This is good but not work
-    // actual fun bind(name :String, fn: WebviewKo.(String?) -> String) {
-    //     bindX(name) {
-    //         runCatching { fn(it) }.fold(
-    //             { Pair(it, 0) },
-    //             { Pair(""" "$it" """, 1) }
-    //         )
-    //     }
-    // }
-    //
-    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Result<String>) {
-    //     bindX(name) { arg ->
-    //         fn(arg).fold(
-    //             {Pair(it,0)},
-    //             {Pair(""" "$it" """,1)}
-    //         )
-    //     }
-    // }
-    //
-    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Unit) {
-    //     bindX(name) {
-    //         fn(it)
-    //         null
-    //     }
-    // }
-    //
-    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Pair<String, Int>) {
-    //     bindX(name) {
-    //         fn(it)
-    //     }
-    // }
-    //
-    // actual fun bind(name :String, fn: WebviewKo.(String?) -> Any) {
-    //     bindX(name) {
-    //         runCatching { fn(it) as String }.fold(
-    //             { Pair(it, 0) },
-    //             { Pair(""" "$it" """, 1) }
-    //         )
-    //     }
-    // }
+
 }
 
+
+//    inline fun <reified R : Any> bindEx(name :String, crossinline fn: WebviewKo.(String?) -> R) {
+//        //val isError = 1
+//        bindRaw(
+//            name
+//        ) { it ->
+//            when (R::class) {
+//                Result::class -> (fn(it) as Result<String>    ).fold({Pair(it,0)}, {Pair(""" "$it" """,1)})
+//                String::class -> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
+//                Unit::class   -> fn(it).let { null }
+//                Nothing::class-> runCatching{ fn(it) }.fold({error("Unexpected Behavior: fun (*)->Nothing runs successfully.")}, {Pair(""" "$it" """,1)})
+//                Any::class-> runCatching {fn(it) as String}.fold({Pair(it,0)}, {Pair(""" "$it" """,1)} )
+//                else -> throw IllegalArgumentException(R::class.simpleName)
+//            }
+//        }
+//    }

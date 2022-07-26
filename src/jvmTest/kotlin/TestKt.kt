@@ -71,7 +71,7 @@ internal class TestKt {
 
             bind("increment") {
                 println("req: $it")
-                val r :Int = Regex("""\["(\d+)"]""").find(it!!)!!.groupValues[1].toInt() + 1
+                val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r)
                 title(r.toString())
                 if(r==8) {
@@ -203,7 +203,7 @@ internal class TestKt {
 
             bind("increment") {
                 // [7, {count: 2, max 8}]
-                val json = Json.parseToJsonElement(it!!)
+                val json = Json.parseToJsonElement(it)
                 val arg1 = json.jsonArray[0].jsonPrimitive.float
                 val count = json.jsonArray[1].jsonObject["count"]!!.jsonPrimitive.int
                 val max = json.jsonArray[1].jsonObject["max"]!!.jsonPrimitive.int
@@ -371,15 +371,6 @@ internal class TestKt {
          }
      }
 
-    // This cause: Invalid memory access
-    //val classEx = WinUser.WNDCLASSEX().apply {
-    //    lpfnWndProc = WinUser.WindowProc { hwnd, uMsg, wParam, lParam -> User32.INSTANCE.DefWindowProc(hwnd, uMsg, wParam, lParam) }
-    //    hInstance = null
-    //    style = 1 or 2;
-    //    lpszClassName = "testWndReg"
-    //}
-    //User32.INSTANCE.RegisterClassEx(classEx).let { assert(it.toInt() != 0) }
-    //val hwnd = User32Util.createWindowEx(0,"testWndReg","testWnd",WinUser.WS_TILEDWINDOW,0,0,800,800, null,null,null,null)
 
 
 

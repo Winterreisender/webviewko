@@ -47,7 +47,7 @@ public class TestJava {
         WebviewKo w = new WebviewKo(0);
         w.title("Java Test");
         w.size(1024,768,WebviewKo.WindowHint.None);
-        w.bind("increment", (WebviewKo webviewKo,String msg)-> {
+        w.bind("increment", true ,(WebviewKo webviewKo,String msg)-> {
                 System.out.println(msg);
                 webviewKo.title(msg);
                 return "{count: 7}";
