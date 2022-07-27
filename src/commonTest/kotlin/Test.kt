@@ -66,7 +66,7 @@ internal class Test {
             url("https://example.com")
             init("""console.log("Hello, from  init")""")
 
-            bind("increment") {
+            bind("incrementKt") {
                 println("req: $it")
                 val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
                 println(r)
@@ -96,7 +96,7 @@ internal class Test {
                   const [incrementElement, countElement] = document.querySelectorAll("#increment, #count");
                   document.addEventListener("DOMContentLoaded", () => {
                     incrementElement.addEventListener("click", () => {
-                      window.increment(countElement.innerText).then(result => {
+                      window.incrementKt(countElement.innerText).then(result => {
                         countElement.textContent = result.count;
                       });
                     });
