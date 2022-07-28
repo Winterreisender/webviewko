@@ -98,13 +98,6 @@ kotlin {
             dependencies {
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
-            tasks.dokkaHtml.configure {
-                //outputDirectory.set(rootDir.resolve("docs/kdoc"))
-            }
-
-            tasks.dokkaJavadoc.configure {
-                //outputDirectory.set(rootDir.resolve("docs/javadoc"))
-            }
         }
         val commonTest by getting {
             dependencies {

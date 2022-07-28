@@ -92,7 +92,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Injects JS code at the initialization of the new page.
      *
-     * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
+     * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before `window.onload`.
      *
      * @param js the JS code
      */
@@ -172,7 +172,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * Posts a function to be executed on the main thread.
      *
      * It safely schedules the callback to be run on the main thread on the next main loop iteration.
-     * Please remember to call [WebviewKo.freeze] before sharing betweeb threads
+     * Please remember to call [WebviewKo.freeze] before sharing between threads
      *
      * @param fn the function to be executed on the main thread.
      *

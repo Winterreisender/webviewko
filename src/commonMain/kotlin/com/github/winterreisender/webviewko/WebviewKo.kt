@@ -160,6 +160,4 @@ expect class WebviewKo(debug: Int = 0) {
      *
      */
     fun terminate()
-
-
 }
