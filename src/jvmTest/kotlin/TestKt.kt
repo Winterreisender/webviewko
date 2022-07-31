@@ -26,6 +26,7 @@ import com.sun.jna.platform.win32.WinDef.HWND
 import java.awt.*
 import javax.swing.*
 import kotlinx.serialization.json.*
+import java.net.URLEncoder
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
@@ -370,8 +371,4 @@ internal class TestKt {
              webview_destroy(pWebview)
          }
      }
-
-
-
-
 }

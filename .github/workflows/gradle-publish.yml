@@ -1,4 +1,4 @@
-name: Publish GitHub Packages
+name: Publish Packages
 
 on:
     release:
@@ -34,19 +34,20 @@ jobs:
                 with:
                     arguments: publishToMavenLocal
 
-            -   name: Upload
+            -   name: Upload MavenLocal
                 uses: actions/upload-artifact@v2
                 with:
                     name: gradle-package-win
                     path: ~/.m2/repository/com/github/winterreisender/
 
-            -   name: publish with Gradle
+            -   name: publish all with Gradle
                 uses: gradle/gradle-build-action@v2
                 with:
                     arguments: publish
                 env:
                     USERNAME: ${{ secrets.USERNAME }}
                     TOKEN: ${{ secrets.TOKEN }}
+                    GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
 
     build-linux:
         runs-on: ubuntu-latest
@@ -76,16 +77,23 @@ jobs:
                 with:
                     arguments: publishToMavenLocal
 
-            -   name: Upload
+            -   name: Upload Maven Local
                 uses: actions/upload-artifact@v2
                 with:
                     name: gradle-package-linux
                     path: ~/.m2/repository/com/github/winterreisender/
 
-            -   name: publishNativePublicationToGitHubPackagesRepository with Gradle
+            -   name: publish Native to GitHub Packages
                 uses: gradle/gradle-build-action@v2
                 with:
                     arguments: publishNativePublicationToGitHubPackagesRepository
                 env:
                     USERNAME: ${{ secrets.USERNAME }}
                     TOKEN: ${{ secrets.TOKEN }}
+
+            -   name: publish Native to GitLab Packages
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: publishNativePublicationToGitLabPackagesRepository
+                env:
+                    GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}

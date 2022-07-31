@@ -174,10 +174,23 @@ publishing {
                 password = System.getenv("TOKEN")
             }
         }
+
         maven {
-            name = "GitHubPages"
-            url = uri("file://${rootDir.resolve("docs/maven-repo")}")
+            name = "GitLabPackages"
+            url = uri("https://gitlab.com/api/v4/projects/38224197/packages/maven")
+            credentials(HttpHeaderCredentials::class) {
+                name =  "Private-Token"
+                value = System.getenv("GITLAB_TOKEN")
+            }
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
         }
+
+        //maven {
+        //    name = "GitHubPages"
+        //    url = uri("file://${rootDir.resolve("docs/maven-repo")}")
+        //}
     }
     publications {
         matching {it.name == "native"}.all {
