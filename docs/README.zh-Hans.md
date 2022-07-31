@@ -3,7 +3,6 @@
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=FFFFFF)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
-
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
@@ -11,7 +10,7 @@
 [English](../README.md) | **中文(简体)** | [中文(繁體)](README.zh-Hant.md) 
 
 
-webviewko 是一个 [webview](https://github.com/webview/webview) (轻量级跨平台的网页视图库) 的 Kotlin 绑定, 支持 Java 和 Kotlin/Native.
+webviewko 是轻量跨平台的网页视图库 [webview](https://github.com/webview/webview) 的 Kotlin 绑定, 支持 Java 和 Kotlin/Native.
 
 ![screenshot](../screenshot.jpg)
 
@@ -19,9 +18,24 @@ webviewko 是一个 [webview](https://github.com/webview/webview) (轻量级跨�
 
 ### 1. 导入 webviewko
 
-如果你在用 Gradle 或者 Maven 等构建系统, 请看 [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)。
+如果你在用 Gradle 或者 Maven 等构建系统,我们建议您通过 GitLab Packages 来使用 webviewko.
 
-如果你想手动导入jar文件, 请到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下载。
+对于`build.gradle.kts`, 使用:
+
+```kotlin {3}
+repositories {
+    mavenCentral()
+    maven("https://gitlab.com/api/v4/projects/38224197/packages/maven") // 添加GitLab Packages作为Maven仓库
+}
+
+implementation("com.github.winterreisender:webviewko:0.3.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.3.0")        // Java 和 Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")   // Kotlin/Native Linux
+implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")   // Kotlin/Native Windows
+```
+详情请查看 [GitLab Packages 上的 webviewko](https://gitlab.com/Winterreisender/webviewko/-/packages/)
+
+如果需要手动导入jar文件, 请到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下载。
 
 ### 2. 使用 webviewko
 

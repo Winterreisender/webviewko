@@ -1,16 +1,16 @@
-﻿# webviewko
+﻿# webviewko 
 
-![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin/JVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin/Native-7F52FF?logo=kotlin&logoColor=FFFFFF)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
-
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 
-[English](../README.md) | [中文(简体)](README.zh-Hans.md) | **中文(繁體)**
+[English](../README.md) | [中文(简体)](docs/README.zh-Hans.md) | **中文(繁體)**
 
-webviewko 是一個 [webview](https://github.com/webview/webview) (輕量級跨平台的網頁視圖庫) 的 Kotlin 綁定, 支持 Java 和 Kotlin/Native.
+
+webviewko 是輕量跨平台的網頁視圖庫 [webview](https://github.com/webview/webview) 的 Kotlin 綁定, 支持 Java 和 Kotlin/Native.
 
 ![screenshot](../screenshot.jpg)
 
@@ -18,10 +18,24 @@ webviewko 是一個 [webview](https://github.com/webview/webview) (輕量級跨�
 
 ### 1. 導入 webviewko
 
-如果你在用 Gradle 或者 Maven 等構建系統, 請看[GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)。
+如果你在用 Gradle 或者 Maven 等構建系統,我們建議您通過 GitLab Packages 來使用 webviewko.
 
+對於`build.gradle.kts`, 使用:
 
-如果你想手動導入jar文件, 請到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下載。
+```kotlin {3}
+repositories {
+    mavenCentral()
+    maven("https://gitlab.com/api/v4/projects/38224197/packages/maven") // 添加GitLab Packages作為Maven倉庫
+}
+
+implementation("com.github.winterreisender:webviewko:0.3.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.3.0")        // Java 和 Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")   // Kotlin/Native Linux
+implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")   // Kotlin/Native Windows
+```
+詳情請查看 [GitLab Packages 上的 webviewko](https://gitlab.com/Winterreisender/webviewko/-/packages/)
+
+如果需要手動導入jar文件, 請到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下載。
 
 ### 2. 使用 webviewko
 

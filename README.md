@@ -2,8 +2,7 @@
 
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
 ![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-7F52FF?logo=kotlin&logoColor=FFFFFF)
-![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639) 
-
+![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
@@ -36,13 +35,25 @@ webviewko provides a Kotlin/JVM and a Kotlin/Native binding to [webview](https:/
 
 ### 1. Import webviewko
 
-If you're using a build system like Gradle or Maven, you may have a look at [GitHub Packages](https://github.com/Winterreisender?tab=packages&repo_name=webviewko)
+If you're using a build system like Gradle or Maven, it's recommended to import webviewko via [GitLab Packages](https://gitlab.com/Winterreisender/webviewko/-/packages/). 
+
+For `build.gradle.kts`, just use:
+
+```kotlin {3}
+repositories {
+    mavenCentral()
+    maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
+}
+
+implementation("com.github.winterreisender:webviewko:0.3.0")           // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.3.0")       // Java and Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")  // Kotlin/Native Linux x64
+implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")  // Kotlin/Native Windows x64
+```
+
+For more information, see [webviewko in GitLab Packages](https://gitlab.com/Winterreisender/webviewko/-/packages/)
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
-
-Other helpful resources: 
-- [Use webviewko GitHub Packages for Kotlin/JVM and Java](https://github.com/Winterreisender/webviewko/wiki/How-to-use#use-github-packages-for-kotlinjvm-and-java)
-- [Use webviewko GitHub Packages for Kotlin/Native](https://github.com/Winterreisender/webviewko/wiki/How-to-use#use-github-packages-for-kotlinnative)
 
 ### 2. Use webviewko
 
