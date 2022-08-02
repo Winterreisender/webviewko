@@ -1,5 +1,8 @@
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.cwebview.*
+import kotlinx.cinterop.StableRef
+import kotlinx.cinterop.asStableRef
+import kotlinx.cinterop.staticCFunction
 import platform.posix.sleep
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -89,6 +92,32 @@ class TestNative {
 
         webviewKo1.show()
         w1.consume {  }
+    }
+
+    @Test fun cnblog() {
+        val w = WebviewKo()
+        fun dispatch(fn: () -> Unit) {
+            val arg = StableRef.create(fn) // 拷贝
+            webview_dispatch(
+                w.getWebviewPointer(),
+                staticCFunction { _,arg ->
+                    initRuntimeIfNeeded()
+                    val context = arg!!.asStableRef<() -> Unit>()
+                    val func = context.get()
+                    func() // 输出 2
+                    context.dispose()
+                },
+                arg.asCPointer()
+            )
+        }
+        var i = 1
+        dispatch {
+            println(++i)
+        }
+
+        w.show()
+        println(i) // 输出2
+
     }
 
 

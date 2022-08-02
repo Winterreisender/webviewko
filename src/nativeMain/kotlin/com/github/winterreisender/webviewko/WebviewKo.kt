@@ -32,8 +32,6 @@ private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
  */
 
 actual class WebviewKo actual constructor(debug: Int) {
-
-    // Freeze the object (disable changes) for sharing between threads
     private val w :webview_t = webview_create(debug, null) ?: throw Exception("Failed to create webview")
     private val disposeList = mutableListOf<StableRef<Any>>()
 
@@ -243,7 +241,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
         = webview_dispatch(w,fn,args)
 
-    private fun finalize() = disposeList.forEach { it.dispose() }
+    protected fun finalize() = disposeList.forEach { it.dispose() }
 
 }
 
