@@ -1,8 +1,6 @@
 name: Publish Packages
 
 on:
-    release:
-        types: [published]
     workflow_dispatch:
 
 jobs:
@@ -84,7 +82,6 @@ jobs:
                     path: ~/.m2/repository/com/github/winterreisender/
 
 
-
             -   name: publish Native to GitHub Packages
                 uses: gradle/gradle-build-action@v2
                 with:
@@ -94,3 +91,9 @@ jobs:
                     TOKEN: ${{ secrets.TOKEN }}
 
 
+            -   name: publish Native to GitLab Packages
+                uses: gradle/gradle-build-action@v2
+                with:
+                    arguments: publishNativePublicationToGitLabPackagesRepository
+                env:
+                    GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
