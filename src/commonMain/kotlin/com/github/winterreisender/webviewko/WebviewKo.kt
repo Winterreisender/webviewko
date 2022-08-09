@@ -105,8 +105,9 @@ expect class WebviewKo(debug: Int = 0) {
      * This exception will be caught by [bind] and trigger the `Promise.reject(reason)` in JS.
      *
      * @param reason the reason shown in JS.
+     * @param json the JSON Exception object for JS. If it's not null, `reason` willed be covered
      */
-    class JSRejectException(reason: String) : Throwable
+    class JSRejectException(reason: String? = null, json: String? = null) : Throwable
 
     /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.

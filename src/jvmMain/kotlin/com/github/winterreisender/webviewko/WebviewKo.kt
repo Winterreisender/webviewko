@@ -20,6 +20,7 @@ package com.github.winterreisender.webviewko
 
 import com.sun.jna.Pointer
 
+
 /**
  * The JVM binding to webview in Kotlin
  *
@@ -106,14 +107,6 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun eval(js :String) = lib.webview_eval(pWebview, js)
 
-    // This does not work
-    //actual fun <T,R> bind(name :String, fn :(T)-> R, x :Int) = lib.webview_bind(pWebview, name, object :WebviewLibrary.webview_bind_fn_callback {
-    //    override actual fun apply(seq: String?, req: String?, arg: Pointer?) {
-    //        val msg = Json.decodeFromString<T>(req!!)
-    //        lib.webview_return(pWebview, seq, 0, Json.encodeToString(fn(req)))
-    //    }
-    //})
-
     /**
      * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JS function.
      *
@@ -135,8 +128,10 @@ actual class WebviewKo actual constructor(debug: Int) {
      * This exception will be caught by [bind] and trigger the `Promise.reject(reason)` in JS.
      *
      * @param reason the reason shown in JS.
+     * @param json the JSON Exception object for JS. If it's not null, `reason` willed be covered
      */
-    actual class JSRejectException actual constructor(reason :String) : Throwable(reason)
+    actual class JSRejectException actual constructor(reason: String?, json :String?) : Throwable(json ?: """ "$reason" """)
+
 
     /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
@@ -146,11 +141,11 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     actual fun bind(name :String, fn: WebviewKo.(String) -> String) {
         bindRaw(name) {
-            runCatching { fn(it ?: "") }.fold(
+            kotlin.runCatching { fn(it ?: "") }.fold(
                 onSuccess = { Pair(it, 0) },
                 onFailure =  {
                     when(it) {
-                        is JSRejectException -> Pair(""" "${it.message}" """, 1)
+                        is JSRejectException -> Pair(it.message ?: "", 1)
                         else -> throw it
                     }
                 }
@@ -227,3 +222,14 @@ actual class WebviewKo actual constructor(debug: Int) {
 //        }
 //    }
 //}
+
+// vararg not supported in lambda
+// implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+// import kotlinx.serialization.Serializable
+// import kotlinx.serialization.decodeFromString
+// import kotlinx.serialization.encodeToString
+// import kotlinx.serialization.json.Json
+// @Deprecated("Experimental")
+// inline fun <reified T :@Serializable Any, reified R :@Serializable Any> bindEx(name :String, crossinline fn :(vararg @Serializable T)-> @Serializable R) = bind(name) {
+//         Json.encodeToString(fn(Json.decodeFromString(it)))
+//     }

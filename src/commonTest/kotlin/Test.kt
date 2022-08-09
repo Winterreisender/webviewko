@@ -77,16 +77,24 @@ internal class Test {
                 "{count: $r}"
             }
 
-            bind("nothingToBind") {
-                ""
-            }
-
             bind("ktExceptionTest") {
                 throw NotImplementedError() // Should crash
             }
 
             bind("jsRejectTest") {
                 throw WebviewKo.JSRejectException("NotImplemented") // Should call `Promise.reject(reason :string)` and Get an Exception in JS
+            }
+
+            bind("jsRejectTest2") {
+                // Should call `Promise.reject(reason :string)` and Get an Exception in JS
+                throw WebviewKo.JSRejectException(json = """ 
+                    {
+                        "jsonrpc": "2.0",
+                        "code" : 1,
+                        "message" : "Nothing found",
+                        "data":null
+                    }
+                """.trimIndent())
             }
 
             html("""
