@@ -55,9 +55,9 @@ expect class WebviewKo(debug: Int = 0) {
     /**
      * Set webview HTML directly.
      *
-     * @param v the HTML content
+     * @param url the HTML content
      */
-    fun html(v :String)
+    fun html(url :String)
 
     /**
      * Updates the size of the native window.

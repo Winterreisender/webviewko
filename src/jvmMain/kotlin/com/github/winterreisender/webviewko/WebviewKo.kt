@@ -61,9 +61,9 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Set webview HTML directly.
      *
-     * @param v the HTML content
+     * @param url the HTML content
      */
-    actual fun html(v :String) = lib.webview_set_html(pWebview, v)
+    actual fun html(url :String) = lib.webview_set_html(pWebview, url)
 
     /**
      * Updates the size of the native window.

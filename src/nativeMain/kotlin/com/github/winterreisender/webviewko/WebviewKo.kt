@@ -20,6 +20,7 @@ package com.github.winterreisender.webviewko
 
 import kotlinx.cinterop.*
 import com.github.winterreisender.cwebview.*
+import kotlin.native.concurrent.AtomicReference
 import kotlin.native.concurrent.freeze
 
 private typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> Pair<String,Int>?>
@@ -33,7 +34,19 @@ private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
 actual class WebviewKo actual constructor(debug: Int) {
     private val w :webview_t = webview_create(debug, null) ?: throw Exception("Failed to create webview")
-    private val disposeList = mutableListOf<StableRef<Any>>()
+
+    // Garbage Collection List for bind and dispatch
+    private val disposeList = AtomicReference(listOf<StableRef<Any>>().freeze())
+    private fun addDispose(s: StableRef<Any>){
+        disposeList.value = mutableListOf<StableRef<Any>>().apply {
+            addAll(disposeList.value)
+            if(!contains(s)){
+                add(s)
+            }
+            freeze()
+        }
+    }
+    protected fun finalize() = disposeList.value.forEach { it.dispose() }
 
     /**
      * Updates the title of the native window.
@@ -66,9 +79,9 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Set webview HTML directly.
      *
-     * @param v the HTML content
+     * @param url the HTML content
      */
-    actual fun html(v: String) = webview_set_html(w,v)
+    actual fun html(url: String) = webview_set_html(w,url)
 
 
     actual enum class WindowHint(v :Int) {
@@ -115,8 +128,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
     private fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
-        val ctx = StableRef.create(BindContext(this, fn)).freeze() // typealias BindCtx == Pair
-        disposeList.add(ctx)
+        val ctx = StableRef.create(BindContext(this, fn).freeze())
+        addDispose(ctx.freeze())
 
         webview_bind(
             w,name,
@@ -177,7 +190,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = StableRef.create(DispatchContext(this,fn).freeze()).freeze()
+        val ctx = StableRef.create(DispatchContext(this,fn).freeze())
+        addDispose(ctx.freeze())
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
@@ -185,7 +199,6 @@ actual class WebviewKo actual constructor(debug: Int) {
                 val ctx = arg!!.asStableRef<DispatchContext>()
                 val (webviewKo,callback) = ctx.get()
                 callback(webviewKo)
-                ctx.dispose()
             },
             ctx.asCPointer()
         )
@@ -241,8 +254,6 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
         = webview_dispatch(w,fn,args)
-
-    protected fun finalize() = disposeList.forEach { it.dispose() }
 
 }
 

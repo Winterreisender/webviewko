@@ -94,31 +94,4 @@ class TestNative {
         w1.consume {  }
     }
 
-    @Test fun cnblog() {
-        val w = WebviewKo()
-        fun dispatch(fn: () -> Unit) {
-            val arg = StableRef.create(fn) // 拷贝
-            webview_dispatch(
-                w.getWebviewPointer(),
-                staticCFunction { _,arg ->
-                    initRuntimeIfNeeded()
-                    val context = arg!!.asStableRef<() -> Unit>()
-                    val func = context.get()
-                    func() // 输出 2
-                    context.dispose()
-                },
-                arg.asCPointer()
-            )
-        }
-        var i = 1
-        dispatch {
-            println(++i)
-        }
-
-        w.show()
-        println(i) // 输出2
-
-    }
-
-
 }
