@@ -26,6 +26,7 @@ import kotlin.native.concurrent.freeze
 private typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> Pair<String,Int>?>
 private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
 
+
 /**
  * The Kotlin/Native binding to webview
  *
@@ -226,7 +227,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Return the C Pointer of the webview.
      *
-     * @return the C Pointer (webview_t) of the webview
+     * @return the [CPointer], of the webview, aka [webview_t]
      *
      */
     fun getWebviewPointer() = w
@@ -240,6 +241,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param callback the C callback function [staticCFunction].
      * @param arg the context.
      */
+    @Deprecated("use bind")
     fun cBind(name :String, callback:  CPointer<CFunction<(CPointer<ByteVar /* = ByteVarOf<Byte> */>?, CPointer<ByteVar>?, COpaquePointer?) -> Unit>>?, arg :CValuesRef<*>) =
         webview_bind(w,name,callback,arg)
 
@@ -252,6 +254,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback [staticCFunction]
      * @param args the arguments for `fn`
      */
+
+    @Deprecated("use dispatch")
     fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
         = webview_dispatch(w,fn,args)
 

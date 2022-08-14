@@ -198,7 +198,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Return the Pointer of the webview.
      *
-     * @return the JNA Pointer of the webview
+     * @return the JNA [Pointer] of the webview
      *
      */
     fun getWebviewPointer() = pWebview
