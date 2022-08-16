@@ -51,9 +51,8 @@ implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")  // Kotlin
 implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")  // Kotlin/Native Windows x64
 ```
 
-For more information, see [webviewko in GitLab Packages](https://gitlab.com/Winterreisender/webviewko/-/packages/)
-
-If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)
+If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
+[Additional steps](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative) are required for Kotlin/Native. 
 
 ### 2. Use webviewko
 
