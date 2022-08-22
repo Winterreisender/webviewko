@@ -45,10 +45,10 @@ repositories {
     maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
 }
 
-implementation("com.github.winterreisender:webviewko:0.3.0")           // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.3.0")       // Java and Kotlin/JVM
-implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")  // Kotlin/Native Linux x64
-implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")  // Kotlin/Native Windows x64
+implementation("com.github.winterreisender:webviewko:0.4.0")           // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.4.0")       // Java and Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.4.0")  // Kotlin/Native Linux x64
+implementation("com.github.winterreisender:webviewko-mingwx64:0.4.0")  // Kotlin/Native Windows x64
 ```
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
