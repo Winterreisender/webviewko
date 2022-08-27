@@ -231,34 +231,6 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     fun getWebviewPointer() = w
-
-    /**
-     * Binds a C callback so that it will appear under the given name as a global JS function.
-     *
-     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function. Internally it uses `webview_init`. If you need binding a Kotlin function, see [WebviewKo.bind]
-     *
-     * @param name the name of the global JS function
-     * @param callback the C callback function [staticCFunction].
-     * @param arg the context.
-     */
-    @Deprecated("use bind")
-    fun cBind(name :String, callback:  CPointer<CFunction<(CPointer<ByteVar /* = ByteVarOf<Byte> */>?, CPointer<ByteVar>?, COpaquePointer?) -> Unit>>?, arg :CValuesRef<*>) =
-        webview_bind(w,name,callback,arg)
-
-    /**
-     * Posts a C function to be executed on the main thread.
-     *
-     * It safely schedules the callback to be run on the main thread on the next main loop iteration.
-     * You normally do not need to call this function, unless you want to tweak the native window.
-     *
-     * @param fn the callback [staticCFunction]
-     * @param args the arguments for `fn`
-     */
-
-    @Deprecated("use dispatch")
-    fun cDispatch(fn :CPointer<CFunction<(webview_t?, COpaquePointer?) -> Unit>>?, args :CValuesRef<*>)
-        = webview_dispatch(w,fn,args)
-
 }
 
 

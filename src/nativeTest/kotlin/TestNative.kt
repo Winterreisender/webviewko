@@ -46,8 +46,6 @@ class TestNative {
                 ""
             }
 
-
-
             html("""
                 <button id="increment">Tap me</button>
                 <div>You tapped <span id="count">0</span> time(s).</div>
