@@ -176,5 +176,22 @@ internal class Test {
         }
     }
 
+    @Test fun reopen0() {
+        WebviewKo().run {
+            size(800,600)
+            navigate("about:blank")
+            show()
+        }
+        WebviewKo().run {
+            size(800,600)
+            navigate("about:blank")
+            show()
+        }
+        WebviewKo().run {
+            size(800,600)
+            navigate("about:blank")
+            show()
+        }
+    }
 
 }

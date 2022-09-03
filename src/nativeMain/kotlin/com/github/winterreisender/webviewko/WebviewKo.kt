@@ -47,7 +47,10 @@ actual class WebviewKo actual constructor(debug: Int) {
             freeze()
         }
     }
-    protected fun finalize() = disposeList.value.forEach { it.dispose() }
+    protected fun finalize() {
+        disposeList.value.forEach { it.dispose() }
+        webview_destroy(w)
+    }
 
     /**
      * Updates the title of the native window.
@@ -73,16 +76,16 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you. Same as [url]
      *
-     * @param v the URL or URI
+     * @param url the URL or URI
      * */
-    actual fun navigate(v: String) = webview_navigate(w,v)
+    actual fun navigate(url: String) = webview_navigate(w,url)
 
     /**
      * Set webview HTML directly.
      *
-     * @param url the HTML content
+     * @param v the HTML content
      */
-    actual fun html(url: String) = webview_set_html(w,url)
+    actual fun html(v: String) = webview_set_html(w,v)
 
 
     actual enum class WindowHint(v :Int) {
@@ -210,11 +213,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * This will block the thread.
      */
-    actual fun show() {
-        webview_run(w)
-        webview_destroy(w)
-        finalize()
-    }
+    actual fun show() = webview_run(w)
 
     /**
      * Stops the main loop.

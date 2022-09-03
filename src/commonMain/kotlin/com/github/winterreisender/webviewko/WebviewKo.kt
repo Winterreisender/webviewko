@@ -48,16 +48,16 @@ expect class WebviewKo(debug: Int = 0) {
      *
      * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you. Same as [url]
      *
-     * @param v the URL or URI
+     * @param url the URL or URI
      * */
-    fun navigate(v: String)
+    fun navigate(url: String)
 
     /**
      * Set webview HTML directly.
      *
-     * @param url the HTML content
+     * @param v the HTML content
      */
-    fun html(url :String)
+    fun html(v :String)
 
     /**
      * Updates the size of the native window.
@@ -105,7 +105,7 @@ expect class WebviewKo(debug: Int = 0) {
      * This exception will be caught by [bind] and trigger the `Promise.reject(reason)` in JS.
      *
      * @param reason the reason shown in JS.
-     * @param json the JSON Exception object for JS. If it's not null, `reason` willed be covered
+     * @param json the JSON Exception object for JS. If it's not null, `reason` will have no effect.
      */
     class JSRejectException(reason: String? = null, json: String? = null) : Throwable
 

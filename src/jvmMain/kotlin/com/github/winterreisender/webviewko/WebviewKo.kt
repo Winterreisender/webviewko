@@ -54,16 +54,16 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * URL may be a data URI, i.e. "data:text/text,...". It is often ok not to url-encode it properly, webview will re-encode it for you. Same as [url]
      *
-     * @param v the URL or URI
+     * @param url the URL or URI
      * */
-    actual fun navigate(v: String) = url(v)
+    actual fun navigate(url: String) = url(url)
 
     /**
      * Set webview HTML directly.
      *
-     * @param url the HTML content
+     * @param v the HTML content
      */
-    actual fun html(url :String) = lib.webview_set_html(pWebview, url)
+    actual fun html(v :String) = lib.webview_set_html(pWebview, v)
 
     /**
      * Updates the size of the native window.
@@ -182,10 +182,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * This will block the thread.
      */
-    actual fun show() {
-        lib.webview_run(pWebview)
-        lib.webview_destroy(pWebview)
-    }
+    actual fun show() = lib.webview_run(pWebview)
 
     /**
      * Stops the main loop.
@@ -202,6 +199,10 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     fun getWebviewPointer() = pWebview
+
+    protected fun finalize() {
+        lib.webview_destroy(pWebview)
+    }
 
 }
 
