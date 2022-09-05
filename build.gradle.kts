@@ -52,6 +52,12 @@ kotlin {
         }
     }
 
+    js(BOTH) {
+        nodejs {
+
+        }
+    }
+
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
     val nativeTarget = when {
@@ -117,12 +123,23 @@ kotlin {
             }
         }
 
+        val jsMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+                implementation(npm("ffi-napi", "4.x"))
+                //implementation(npm("@types/ffi-napi", "4.x"))
+            }
+        }
+
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+                implementation(npm("is-sorted", "1.x"))
+            }
+        }
+
         val nativeMain by getting {
             dependencies {
-                //api(fileTree(mapOf(
-                //    "dir" to buildDir.resolve("classes/kotlin/native/main/cinterop"),
-                //    "include" to "*.klib"
-                //)))
                 implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
             }
         }
@@ -209,4 +226,7 @@ publishing {
         //    }
         //}
     }
+}
+dependencies {
+    implementation(kotlin("stdlib-js"))
 }

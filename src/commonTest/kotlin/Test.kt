@@ -23,7 +23,7 @@ import kotlin.test.Test
 
 internal class Test {
     // A simple test showed in README
-    @Test fun `demo simple`() {
+    @Test fun demo_simple() {
         WebviewKo().run {
             title("Title")
             size(800, 600)
@@ -33,7 +33,7 @@ internal class Test {
     }
 
     // An interactive test showed in README
-    @Test fun `demo interact`() {
+    @Test fun demo_interact() {
         WebviewKo().run {
             title("Test")
             init("""console.log("Hello, from  init")""")
@@ -59,7 +59,7 @@ internal class Test {
         }
     }
 
-    @Test fun `api Full`() {
+    @Test fun api_Full() {
         WebviewKo(1).run {
             title("Title")
             size(800,600)
@@ -117,7 +117,7 @@ internal class Test {
     }
 
 
-    @Test fun `json Test`() {
+    @Test fun jsonTest() {
         // Example about using third part Json Serialization (kotlinx-serialization-json)
         WebviewKo(1).run {
             title("Title")
