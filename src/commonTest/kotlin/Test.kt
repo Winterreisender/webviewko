@@ -34,11 +34,12 @@ internal class Test {
 
     // An interactive test showed in README
     @Test fun demo_interact() {
-        WebviewKo().run {
+        WebviewKo(1).run {
             title("Test")
             init("""console.log("Hello, from  init")""")
             bind("increment") {
-                val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
+                // val r :Int = Regex("""\["(\d+)"]""").find(it)!!.groupValues[1].toInt() + 1
+                val r :Int = it.removePrefix("[\"").removeSuffix("\"]").toInt() + 1
                 println(r.toString())
                 if(r==8)
                     terminate()

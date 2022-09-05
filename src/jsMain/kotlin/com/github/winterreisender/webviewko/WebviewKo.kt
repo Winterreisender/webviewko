@@ -15,7 +15,33 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status.When `fn` return `Pair(Response,Status)` the webview will receive the response and status . When `fn` returns `String`, the Status is 0. When `fn` returns `Unit`, the webview won't receive a feedback.
      */
-    //inline fun <reified R : Any> bindEx(name :String, crossinline fn: WebviewKo.(String?) -> R)
+
+    private var ffi :dynamic = null
+    private var lib :dynamic = null
+    private var webview :dynamic = null
+
+    init {
+        js("""this.ffi = require('ffi-napi');""")
+        js("""this.lib = new this.ffi.Library('webview.dll', { 
+            'webview_create'   : [ 'pointer', [ 'int', 'pointer' ] ],
+            'webview_run'      : [ 'void'   , [ 'pointer' ] ],
+            'webview_terminate': [ 'void'   , [ 'pointer' ] ],
+            'webview_destroy'  : [ 'void'   , [ 'pointer' ] ],
+            'webview_set_title': [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_set_html' : [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_navigate' : [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_init'     : [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_eval'     : [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_dispatch' : [ 'void'   , [ 'pointer', 'pointer'] ],
+            'webview_bind'     : [ 'void'   , [ 'pointer', 'string', 'pointer', 'pointer' ] ],
+            'webview_return'   : [ 'void'   , [ 'pointer', 'string', 'int', 'string' ] ],
+            'webview_unbind'   : [ 'void'   , [ 'pointer', 'string' ] ],
+            'webview_set_size' : [ 'void'   , [ 'pointer', 'int', 'int', 'int' ] ],
+        });""")
+        js("""this.webview = this.lib.webview_create(debug,null)""")
+        js("""process.on('exit', function() { this.lib; this.ffi; this.webview; })""") // avoid GC
+    }
+
     /**
      * Updates the title of the native window.
      *
@@ -24,6 +50,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param v the new title
      */
     actual fun title(v: String) {
+        js("""this.lib.webview_set_title(this.webview,v)""")
     }
 
     /**
@@ -33,8 +60,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * @param v the URL or URI
      * */
-    actual fun url(v: String) {
-    }
+    actual fun url(v: String) = navigate(v)
 
     /**
      * Navigates webview to the given URL
@@ -44,6 +70,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param url the URL or URI
      * */
     actual fun navigate(url: String) {
+        js("""this.lib.webview_navigate(this.webview,url)""")
     }
 
     /**
@@ -52,6 +79,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param v the HTML content
      */
     actual fun html(v: String) {
+        js("""this.lib.webview_set_html(this.webview,v)""")
     }
 
     /**
@@ -62,6 +90,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
      */
     actual fun size(width: Int, height: Int, hints: WindowHint) {
+        val hintsJS = hints.ordinal
+        js("""this.lib.webview_set_size(this.webview,width,height,hintsJS)""")
     }
 
     /**
@@ -77,11 +107,12 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Injects JS code at the initialization of the new page.
      *
-     * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
+     * Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
      *
      * @param js the JS code
      */
     actual fun init(js: String) {
+        js("""this.lib.webview_init(this.webview,js)""")
     }
 
     /**
@@ -92,6 +123,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param js the JS code
      */
     actual fun eval(js: String) {
+        js("""this.lib.webview_eval(this.webview,js)""")
     }
 
     /**
@@ -111,6 +143,20 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
      */
     actual fun bind(name: String, fn: WebviewKo.(String) -> String) {
+
+        val fn :(req :String)->String = { fn(this,it.also(::println)) }
+        val isSuccess :Int = 1
+        js("""var callback = this.ffi.Callback('void',['string','string','pointer'], function(seq,req,arg) {
+            console.log(seq);
+            var result = fn(req);
+            this.lib.webview_return(this.webview,seq,isSuccess,result);
+        });""")
+
+        js("""this.lib.webview_bind(this.webview, name, callback, null)""")
+        js("""process.on('exit', function() { callback; })""") // avoid GC
+
+        TODO()
+
     }
 
     /**
@@ -119,6 +165,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param name the name of JS function used in `webview_bind`
      */
     actual fun unbind(name: String) {
+        js("""this.lib.webview_unbind(this.webview,name)""")
     }
 
     /**
@@ -130,6 +177,11 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
+        val fn :(dynamic,dynamic)->Unit = { _,_ -> fn() }
+        js("""callback = this.ffi.Callback('void',['pointer','pointer'], fn);""")
+        js("""this.lib.webview_dispatch(this.webview,callback)""")
+        js("""process.on('exit', function() { callback; })""") // avoid GC
+        TODO()
     }
 
     /**
@@ -138,6 +190,8 @@ actual class WebviewKo actual constructor(debug: Int) {
      * This will block the thread.
      */
     actual fun show() {
+        js("""this.lib.webview_run(this.webview)""")
+        js("""this.lib.webview_destroy(this.webview)""")
     }
 
     /**
@@ -147,7 +201,6 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun terminate() {
+        js("""this.lib.webview_terminate(this.webview)""")
     }
-
-
 }

@@ -30,7 +30,7 @@ import java.nio.file.Files
 class WebviewJNA {
     companion object {
         /**
-         * The name of JNA LIBRARY
+         * The name of0 JNA LIBRARY
          */
         const val JNA_LIBRARY_NAME = "webview"
 

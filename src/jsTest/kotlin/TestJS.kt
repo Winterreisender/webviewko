@@ -1,3 +1,4 @@
+import com.github.winterreisender.webviewko.WebviewKo
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -15,7 +16,6 @@ internal class TestKt {
     }
 
     @Test fun test1() {
-
         js("""console.log( process.cwd())""")
         js("""var ffi = require('ffi-napi');""")
         js("""var webview = new ffi.Library('webview.dll', { 
@@ -31,5 +31,15 @@ internal class TestKt {
         js("""webview.webview_navigate(w,'https://example.com')""")
         js("""webview.webview_run(w)""")
         js("""webview.webview_destroy(w)""")
+    }
+
+    @Test fun test2() {
+        WebviewKo(1).run {
+            title("Nodejs")
+            size(800,600)
+            navigate("https://example.com")
+            show()
+        }
+
     }
 }
