@@ -1,7 +1,7 @@
 package com.github.winterreisender.webviewko
 
 /**
- * The Kotlin Multiplatform binding to webview
+ * The Kotlin/JS binding to webview
  *
  * @constructor create a webview or throws `Exception` if failed
  */

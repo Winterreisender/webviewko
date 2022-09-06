@@ -28,10 +28,10 @@ repositories {
     maven("https://gitlab.com/api/v4/projects/38224197/packages/maven") // 添加GitLab Packages作为Maven仓库
 }
 
-implementation("com.github.winterreisender:webviewko:0.3.0")            // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.3.0")        // Java 和 Kotlin/JVM
-implementation("com.github.winterreisender:webviewko-linuxx64:0.3.0")   // Kotlin/Native Linux
-implementation("com.github.winterreisender:webviewko-mingwx64:0.3.0")   // Kotlin/Native Windows
+implementation("com.github.winterreisender:webviewko:0.4.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.4.0")        // Java 和 Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.4.0")   // Kotlin/Native Linux
+implementation("com.github.winterreisender:webviewko-mingwx64:0.4.0")   // Kotlin/Native Windows
 ```
 详情请查看 [GitLab Packages 上的 webviewko](https://gitlab.com/Winterreisender/webviewko/-/packages/)
 
