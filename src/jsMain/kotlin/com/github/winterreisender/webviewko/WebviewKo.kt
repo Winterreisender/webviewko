@@ -39,7 +39,6 @@ actual class WebviewKo actual constructor(debug: Int) {
             'webview_set_size' : [ 'void'   , [ 'pointer', 'int', 'int', 'int' ] ],
         });""")
         js("""this.webview = this.lib.webview_create(debug,null)""")
-        js("""process.on('exit', function() { this.lib; this.ffi; this.webview; })""") // avoid GC
     }
 
     /**
@@ -143,19 +142,28 @@ actual class WebviewKo actual constructor(debug: Int) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
      */
     actual fun bind(name: String, fn: WebviewKo.(String) -> String) {
+        val fn :(req :String?)->Pair<String,Int> = {
+            kotlin.runCatching { fn(it ?: "") }.fold(
+                onSuccess = { Pair(it, 0) },
+                onFailure =  {
+                    when(it) {
+                        is JSRejectException -> Pair(it.message ?: "", 1)
+                        else -> throw it
+                    }
+                }
+            )
+        }
 
-        val fn :(req :String)->String = { fn(this,it.also(::println)) }
-        val isSuccess :Int = 1
+        js("""var resolve = (function (seq,result,isError) { this.lib.webview_return(this.webview,seq,isError,result); }).bind(this); """) //TODO: webview_return not work
         js("""var callback = this.ffi.Callback('void',['string','string','pointer'], function(seq,req,arg) {
-            console.log(seq);
-            var result = fn(req);
-            this.lib.webview_return(this.webview,seq,isSuccess,result);
+            var resultAndError = fn(req);
+            var result = resultAndError.first
+            var isError = resultAndError.second
+            resolve(seq,result,isError);
         });""")
 
         js("""this.lib.webview_bind(this.webview, name, callback, null)""")
         js("""process.on('exit', function() { callback; })""") // avoid GC
-
-        TODO()
 
     }
 
@@ -181,7 +189,6 @@ actual class WebviewKo actual constructor(debug: Int) {
         js("""callback = this.ffi.Callback('void',['pointer','pointer'], fn);""")
         js("""this.lib.webview_dispatch(this.webview,callback)""")
         js("""process.on('exit', function() { callback; })""") // avoid GC
-        TODO()
     }
 
     /**
