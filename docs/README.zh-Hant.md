@@ -1,7 +1,8 @@
 ﻿# webviewko 
 
-![Kotlin](https://img.shields.io/badge/Kotlin/JVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
-![Kotlin](https://img.shields.io/badge/Kotlin/Native-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-262D3A?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin%2FJS-339933?logo=kotlin&logoColor=FFFFFF)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
