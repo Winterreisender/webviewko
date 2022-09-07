@@ -22,7 +22,7 @@ actual class WebviewKo actual constructor(debug: Int) {
 
     init {
         js("""this.ffi = require('ffi-napi');""")
-        js("""this.lib = new this.ffi.Library('webview.dll', { 
+        js("""this.lib = new this.ffi.Library('webview' + this.ffi.LIB_EXT, { 
             'webview_create'   : [ 'pointer', [ 'int', 'pointer' ] ],
             'webview_run'      : [ 'void'   , [ 'pointer' ] ],
             'webview_terminate': [ 'void'   , [ 'pointer' ] ],

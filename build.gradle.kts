@@ -134,7 +134,6 @@ kotlin {
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
-                implementation(npm("is-sorted", "1.x"))
             }
         }
 
