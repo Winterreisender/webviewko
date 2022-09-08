@@ -180,9 +180,9 @@ escape-string-regexp@4.0.0:
   resolved "https://registry.npmmirror.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
-ffi-napi@4.x:
+ffi-napi@^4.0.3:
   version "4.0.3"
-  resolved "https://registry.npmmirror.com/ffi-napi/-/ffi-napi-4.0.3.tgz#27a8d42a8ea938457154895c59761fbf1a10f441"
+  resolved "https://registry.yarnpkg.com/ffi-napi/-/ffi-napi-4.0.3.tgz#27a8d42a8ea938457154895c59761fbf1a10f441"
   integrity sha512-PMdLCIvDY9mS32RxZ0XGb95sonPRal8aqRhLbeEtWKZTe2A87qRFG9HjOhvG8EX2UmQw5XNRMIOT+1MYlWmdeg==
   dependencies:
     debug "^4.1.1"
@@ -567,6 +567,13 @@ typescript@3.9.5:
   version "3.9.5"
   resolved "https://registry.npmmirror.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
+
+webview-nodejs@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/webview-nodejs/-/webview-nodejs-0.0.8.tgz#09c61cd6f746f30f81dc3ceaf669df909ddc724d"
+  integrity sha512-T0wouJ7KxfRXwM/ZS56UN4l0jmFPpSVDNIYgHpxjw2pyhMZvzbhEUNxRreXpEla+OdzZU3nUEB5b/UvUCjCZHQ==
+  dependencies:
+    ffi-napi "^4.0.3"
 
 workerpool@6.2.1:
   version "6.2.1"

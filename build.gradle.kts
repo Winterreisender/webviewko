@@ -52,7 +52,7 @@ kotlin {
         }
     }
 
-    js(BOTH) {
+    js(LEGACY) {
         nodejs {
 
         }
@@ -126,8 +126,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("ffi-napi", "4.x"))
-                //implementation(npm("@types/ffi-napi", "4.x"))
+                implementation(npm("webview-nodejs", "0.0.8", generateExternals = false))
             }
         }
 
