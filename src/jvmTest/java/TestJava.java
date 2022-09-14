@@ -36,7 +36,7 @@ public class TestJava {
         webview.title("Test");
         webview.size(1024,768,WebviewKo.WindowHint.None);
         webview.url("https://example.com");
-        webview.show();
+        webview.start();
     }
 
 
@@ -53,7 +53,7 @@ public class TestJava {
         });
 
         w.html("<button id=\"increment\">Tap me</button><div>You tapped <span id=\"count\">0</span> time(s).</div><script>const [incrementElement, countElement] = document.querySelectorAll(\"#increment, #count\");document.addEventListener(\"DOMContentLoaded\", () => {incrementElement.addEventListener(\"click\", () => {window.increment(countElement.innerText).then(result => {countElement.textContent = result.count;});});});</script>");
-        w.show();
+        w.start();
     }
 
     // A simple example using JNA layer api
@@ -132,7 +132,7 @@ public class TestJava {
             webviewkoWindow.get().title("thread test");
             webviewkoWindow.get().size(600,500,WebviewKo.WindowHint.None);
             webviewkoWindow.get().url("https://example.com");
-            webviewkoWindow.get().show();
+            webviewkoWindow.get().start();
 
         });
         t1.start();

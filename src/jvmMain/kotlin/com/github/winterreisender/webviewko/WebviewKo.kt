@@ -21,6 +21,7 @@ package com.github.winterreisender.webviewko
 import com.sun.jna.Pointer
 
 
+
 /**
  * The Kotlin/JVM binding to webview
  *
@@ -70,7 +71,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * Accepts a WEBVIEW_HINT
      *
-     * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
+     * @param hints can be one of [WindowHint]
      */
     actual fun size(width: Int, height: Int, hints: WindowHint) =
         lib.webview_set_size(pWebview, width, height, hints.ordinal)
@@ -178,11 +179,11 @@ actual class WebviewKo actual constructor(debug: Int) {
 
 
     /**
-     * Runs the main loop and destroy it when terminated.
+     * Runs the main loop until it's terminated. **After this function exits - you must destroy the webview**.
      *
      * This will block the thread.
      */
-    actual fun show() = lib.webview_run(pWebview)
+    actual fun start() = lib.webview_run(pWebview)
 
     /**
      * Stops the main loop.
@@ -200,7 +201,23 @@ actual class WebviewKo actual constructor(debug: Int) {
      */
     fun getWebviewPointer() = pWebview
 
-    protected fun finalize() {
+    /**
+     * Destroy the webview and close the native window.
+     *
+     * You must destroy the webview after [start]
+     *
+     */
+    actual fun destroy() {
+        lib.webview_destroy(pWebview)
+    }
+
+    /**
+     * Runs the main loop until it's terminated and destroy the webview after that.
+     *
+     * This will block the thread. This is the same as calling [start] and [destroy] serially
+     */
+    actual fun show() {
+        lib.webview_run(pWebview)
         lib.webview_destroy(pWebview)
     }
 

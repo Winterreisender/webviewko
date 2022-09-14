@@ -38,7 +38,7 @@ internal class TestKt {
             title("Nodejs")
             size(800,600)
             navigate("https://example.com")
-            show()
+            start()
         }
 
     }

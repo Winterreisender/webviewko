@@ -11,9 +11,8 @@ actual class WebviewKo actual constructor(debug: Int) {
     private var webview :dynamic = null
 
     init {
-        js("""var webviewnode = require('webview-nodejs')""")
-        webview = js("""new webviewnode.Webview(debug == 1);""")
-
+        js("""var webviewNodeJS = require('webview-nodejs')""")
+        webview = js("""new webviewNodeJS.Webview(debug == 1);""")
     }
 
     /**
@@ -31,7 +30,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * Accepts a WEBVIEW_HINT
      *
-     * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
+     * @param hints can be one of [WindowHint]
      */
     actual fun size(width: Int, height: Int, hints: WindowHint) {
         webview.size(width,height,hints.ordinal)
@@ -125,7 +124,7 @@ actual class WebviewKo actual constructor(debug: Int) {
     /**
      * Injects JS code at the initialization of the new page.
      *
-     * Same as `initJS`. Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
+     * Every time the webview will open a new page - this initialization code will be executed. It is guaranteed that code is executed before window.onload.
      *
      * @param js the JS code
      */
@@ -154,22 +153,40 @@ actual class WebviewKo actual constructor(debug: Int) {
     }
 
     /**
-     * Runs the main loop and destroy it when terminated.
+     * Runs the main loop until it's terminated. **After this function exits - you must destroy the webview**.
      *
      * This will block the thread.
      */
-    actual fun show() {
-        webview.show()
+    actual fun start() {
+        webview.start()
     }
 
     /**
-     * Stops the main loop.
+     * Runs the main loop until it's terminated. **After this function exits - you must destroy the webview**.
+     *
+     * This will block the thread.
+     */
+    actual fun terminate() {
+        webview.terminate()
+    }
+
+    /**
+     * Destroy the webview and close the native window.
      *
      * It is safe to call this function from another other background thread.
      *
      */
-    actual fun terminate() {
-        webview.terminate()
+    actual fun destroy() {
+        webview.destroy()
+    }
+
+    /**
+     * Runs the main loop until it's terminated and destroy the webview after that.
+     *
+     * This will block the thread. This is the same as calling [start] and [destroy] serially
+     */
+    actual fun show() {
+        webview.show()
     }
 
 }

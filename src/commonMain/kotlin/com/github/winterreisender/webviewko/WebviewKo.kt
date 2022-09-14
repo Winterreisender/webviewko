@@ -64,7 +64,7 @@ expect class WebviewKo(debug: Int = 0) {
      *
      * Accepts a WEBVIEW_HINT
      *
-     * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
+     * @param hints can be one of [WindowHint]
      */
     fun size(width: Int, height: Int, hints: WindowHint = WindowHint.None)
 
@@ -148,9 +148,16 @@ expect class WebviewKo(debug: Int = 0) {
 
 
     /**
-     * Runs the main loop and destroy it when terminated.
+     * Runs the main loop until it's terminated. **After this function exits - you must destroy the webview**.
      *
      * This will block the thread.
+     */
+    fun start()
+
+    /**
+     * Runs the main loop until it's terminated and destroy the webview after that.
+     *
+     * This will block the thread. This is the same as calling [start] and [destroy] serially
      */
     fun show()
 
@@ -158,7 +165,14 @@ expect class WebviewKo(debug: Int = 0) {
      * Stops the main loop.
      *
      * It is safe to call this function from another other background thread.
-     *
      */
     fun terminate()
+
+    /**
+     * Destroy the webview and close the native window.
+     *
+     * You must destroy the webview after [start]
+     *
+     */
+    fun destroy()
 }

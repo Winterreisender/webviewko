@@ -99,7 +99,7 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      * Accepts a WEBVIEW_HINT
      *
-     * @param hints can be one of `WEBVIEW_HINT_NONE`, `WEBVIEW_HINT_MIN`, `WEBVIEW_HINT_MAX` or `WEBVIEW_HINT_FIXED`
+     * @param hints can be one of [WindowHint]
      */
     actual fun size(width: Int, height: Int, hints: WindowHint) =
         webview_set_size(w, width, height, hints.ordinal)
@@ -209,11 +209,11 @@ actual class WebviewKo actual constructor(debug: Int) {
     }
 
     /**
-     * Runs the main loop and destroy it when terminated.
+     * Runs the main loop until it's terminated. **After this function exits - you must destroy the webview**.
      *
      * This will block the thread.
      */
-    actual fun show() = webview_run(w)
+    actual fun start() = webview_run(w)
 
     /**
      * Stops the main loop.
@@ -222,6 +222,24 @@ actual class WebviewKo actual constructor(debug: Int) {
      *
      */
     actual fun terminate() = webview_terminate(w)
+
+    /**
+     * Destroy the webview and close the native window.
+     *
+     * You must destroy the webview after [start]
+     *
+     */
+    actual fun destroy() = webview_destroy(w)
+
+    /**
+     * Runs the main loop until it's terminated and destroy the webview after that.
+     *
+     * This will block the thread. This is the same as calling [start] and [destroy] serially
+     */
+    actual fun show() {
+        webview_run(w)
+        webview_destroy(w)
+    }
 
     /**
      * Return the C Pointer of the webview.

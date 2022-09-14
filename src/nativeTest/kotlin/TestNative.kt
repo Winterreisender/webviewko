@@ -1,8 +1,5 @@
 import com.github.winterreisender.webviewko.WebviewKo
 import com.github.winterreisender.cwebview.*
-import kotlinx.cinterop.StableRef
-import kotlinx.cinterop.asStableRef
-import kotlinx.cinterop.staticCFunction
 import platform.posix.sleep
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -61,7 +58,7 @@ class TestNative {
                 </script>
             """.trimIndent())
 
-            show()
+            start()
         }
     }
 
@@ -88,7 +85,7 @@ class TestNative {
             }
         }
 
-        webviewKo1.show()
+        webviewKo1.start()
         w1.consume {  }
     }
 

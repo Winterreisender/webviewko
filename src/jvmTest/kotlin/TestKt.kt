@@ -26,19 +26,10 @@ import com.sun.jna.platform.win32.WinDef.HWND
 import java.awt.*
 import javax.swing.*
 import kotlinx.serialization.json.*
-import java.net.URLEncoder
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 
 internal class TestKt {
-    @BeforeTest fun initialize() {
-        println("Start testing")
-        if (!Desktop.isDesktopSupported()) {
-            println("Desktop Not Supported. All tests ignored")
-        }
-    }
-
     @Test fun `apiLayer simple`() {
         if (!Desktop.isDesktopSupported()) return
 
@@ -46,7 +37,7 @@ internal class TestKt {
             title("Title")
             size(800, 600)
             url("https://example.com")
-            show()
+            start()
             println("Goodbye webview")
         }
     }
@@ -58,7 +49,7 @@ internal class TestKt {
             title("Basic Example")
             size(480, 320, WebviewKo.WindowHint.None)
             html("Thanks for using webview!")
-            show()
+            start()
         }
     }
     @Test fun `api Full`() {
@@ -96,7 +87,7 @@ internal class TestKt {
                 </script>
             """.trimIndent())
 
-            show()
+            start()
         }
     }
 
@@ -127,7 +118,7 @@ internal class TestKt {
                 title("thread test")
                 size(600, 500)
                 url("https://example.com")
-                show()
+                start()
             }
         }.apply {
             start()
@@ -230,7 +221,7 @@ internal class TestKt {
                   });
                 </script>
             """.trimIndent())
-            show()
+            start()
         }
     }
 
@@ -309,7 +300,7 @@ internal class TestKt {
                 title("1")
                 size(900, 500)
                 url("https://bing.com")
-                show()
+                start()
             }
         }
 
@@ -318,7 +309,7 @@ internal class TestKt {
                 title("1")
                 size(900, 500)
                 url("https://example.com")
-                show()
+                start()
             }
         }.apply {
             t1.start()

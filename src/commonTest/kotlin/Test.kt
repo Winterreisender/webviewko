@@ -28,7 +28,7 @@ internal class Test {
             title("Title")
             size(800, 600)
             url("https://example.com")
-            show()
+            start()
         }
     }
 
@@ -55,7 +55,7 @@ internal class Test {
                         countElement.textContent = result.count;
                       });});});
                  </script>""")
-                show()
+                start()
         }
     }
 
@@ -112,7 +112,7 @@ internal class Test {
                 </script>
             """.trimIndent())
 
-            show()
+            start()
         }
     }
 
@@ -153,7 +153,7 @@ internal class Test {
                   });
                 </script>
             """.trimIndent())
-            show()
+            start()
         }
     }
 
@@ -172,7 +172,7 @@ internal class Test {
                 `);
             """.trimIndent())
             navigate("about:blank")
-            show()
+            start()
         }
     }
 
@@ -180,17 +180,17 @@ internal class Test {
         WebviewKo().run {
             size(800,600)
             navigate("about:blank")
-            show()
+            start()
         }
         WebviewKo().run {
             size(800,600)
             navigate("about:blank")
-            show()
+            start()
         }
         WebviewKo().run {
             size(800,600)
             navigate("about:blank")
-            show()
+            start()
         }
     }
 

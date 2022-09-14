@@ -126,7 +126,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("webview-nodejs", "0.0.8", generateExternals = false))
+                implementation(npm("webview-nodejs", "0.0.16", generateExternals = false))
             }
         }
 
