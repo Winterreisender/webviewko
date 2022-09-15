@@ -46,11 +46,11 @@ repositories {
     maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
 }
 
-implementation("com.github.winterreisender:webviewko:0.4.0")            // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.4.0")        // Java and Kotlin/JVM
-implementation("com.github.winterreisender:webviewko-linuxx64:0.4.0")   // Kotlin/Native Linux x64
-implementation("com.github.winterreisender:webviewko-mingwx64:0.4.0")   // Kotlin/Native Windows x64
-implementation("com.github.winterreisender:webviewko-js:0.5.0-SNAPSHOT")// Kotlin/JS Node.js
+implementation("com.github.winterreisender:webviewko:0.5.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.5.0")        // Java and Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.5.0")   // Kotlin/Native Linux x64
+implementation("com.github.winterreisender:webviewko-mingwx64:0.5.0")   // Kotlin/Native Windows x64
+implementation("com.github.winterreisender:webviewko-js:0.5.0")// Kotlin/JS Node.js
 ```
 
 If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
@@ -125,6 +125,7 @@ WebviewKo(1).run {
   - [Test](https://github.com/Winterreisender/webviewko/blob/main/src/commonTest/kotlin/Test.kt) (Kotlin Multiplatform)
   - [TestKt](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/kotlin/TestKt.kt) (Kotlin/JVM)
   - [TestJava](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/java/TestJava.java) (Java)
+  - [TestJS](https://github.com/Winterreisender/webviewko/blob/main/src/jsTest/kotlin/TestJS.java) (Kotlin/JS)
   - [TestNative](https://github.com/Winterreisender/webviewko/blob/main/src/nativeTest/kotlin/TestNative.kt) (Kotlin/Native)
 - [webview Documentation](https://webview.dev/)
 
@@ -146,7 +147,7 @@ All suggestions, pull requests, issues and other contributions are welcome and a
 | [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [MIT](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                     |
 | [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                        |
 | [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
-| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [See the License](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)     |
+| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [Microsoft Webview2 License](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)     |
 | [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                            |
 
 ## License

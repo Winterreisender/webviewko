@@ -1,17 +1,17 @@
-﻿# webviewko 
+﻿# webviewko
 
-![Kotlin](https://img.shields.io/badge/Kotlin%2FJVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FNative-262D3A?logo=kotlin&logoColor=FFFFFF)
-![Kotlin](https://img.shields.io/badge/Kotlin%2FJS-339933?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin/JVM-7F52FF?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin/Native-262D3A?logo=kotlin&logoColor=FFFFFF)
+![Kotlin](https://img.shields.io/badge/Kotlin/JS-339933?logo=kotlin&logoColor=FFFFFF)
 ![license](https://img.shields.io/github/license/Winterreisender/webviewko?color=3DA639)
 ![release](https://img.shields.io/github/v/release/Winterreisender/webviewko?label=release&include_prereleases)
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 
-[English](../README.md) | [中文(简体)](docs/README.zh-Hans.md) | **中文(繁體)**
+[English](../README.md) | [中文(简体)](README.zh-Hans.md) | **中文(繁體)** 
 
 
-webviewko 是輕量跨平台的網頁視圖庫 [webview](https://github.com/webview/webview) 的 Kotlin 綁定, 支持 Java 和 Kotlin/Native.
+webviewko 是輕量跨平台的網頁視圖庫 [webview](https://github.com/webview/webview) 的 Kotlin 多平台綁定。
 
 ![screenshot](../screenshot.jpg)
 
@@ -26,17 +26,19 @@ webviewko 是輕量跨平台的網頁視圖庫 [webview](https://github.com/webv
 ```kotlin {3}
 repositories {
     mavenCentral()
-    maven("https://gitlab.com/api/v4/projects/38224197/packages/maven") // 添加GitLab Packages作為Maven倉庫
+    maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
 }
 
-implementation("com.github.winterreisender:webviewko:0.4.0")            // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.4.0")        // Java 和 Kotlin/JVM
-implementation("com.github.winterreisender:webviewko-linuxx64:0.4.0")   // Kotlin/Native Linux
-implementation("com.github.winterreisender:webviewko-mingwx64:0.4.0")   // Kotlin/Native Windows
+implementation("com.github.winterreisender:webviewko:0.5.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.5.0")        // Java and Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-linuxx64:0.5.0")   // Kotlin/Native Linux x64
+implementation("com.github.winterreisender:webviewko-mingwx64:0.5.0")   // Kotlin/Native Windows x64
+implementation("com.github.winterreisender:webviewko-js:0.5.0")// Kotlin/JS Node.js
 ```
-詳情請查看 [GitLab Packages 上的 webviewko](https://gitlab.com/Winterreisender/webviewko/-/packages/)
 
-如果需要手動導入jar文件, 請到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下載。
+如果需要手動導入jar文件, 請到 [GitHub Release](https://github.com/Winterreisender/webviewko/releases) 下載。  
+Kotlin/Native需要一些[額外的步驟](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative)。
+
 
 ### 2. 使用 webviewko
 
@@ -106,6 +108,7 @@ WebviewKo().run {
     - [Test](https://github.com/Winterreisender/webviewko/blob/main/src/commonTest/kotlin/Test.kt) (Kotlin/Multiplatform)
     - [TestKt](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/kotlin/TestKt.kt) (Kotlin/JVM)
     - [TestJava](https://github.com/Winterreisender/webviewko/blob/main/src/jvmTest/java/TestJava.java) (Java)
+    - [TestJS](https://github.com/Winterreisender/webviewko/blob/main/src/jsTest/kotlin/TestJS.java) (Kotlin/JS)
     - [TestNative](https://github.com/Winterreisender/webviewko/blob/main/src/nativeTest/kotlin/TestNative.kt) (Kotlin/Native)
 - [webview 的文檔](https://webview.dev/)
 
@@ -124,6 +127,8 @@ WebviewKo().run {
 | [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                |
 | [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                             |
 | [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                    |
+| [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [MIT](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                     |
+| [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                        |
 | [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
 | [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [See the License](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)     |
 | [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                            |
