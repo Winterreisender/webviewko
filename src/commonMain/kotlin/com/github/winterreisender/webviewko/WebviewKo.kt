@@ -21,9 +21,10 @@ package com.github.winterreisender.webviewko
 /**
  * The Kotlin Multiplatform binding to webview
  *
- * @constructor create a webview or throws `Exception` if failed
+ * @param debug enable debug mode for webview
+ * @param libPath The lib's path. Not supported in Kotlin/Native
  */
-expect class WebviewKo(debug: Int = 0) {
+expect class WebviewKo(debug: Int = 0, libPath :String? = null) {
 
     /**
      * Updates the title of the native window.

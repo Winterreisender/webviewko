@@ -5,14 +5,19 @@ import kotlin.js.*
  * The Kotlin/JS binding to webview
  *
  * @constructor create a webview or throws `Exception` if failed
+ * @param debug enable debug mode for webview
+ * @param libPath The lib's path.
  */
-actual class WebviewKo actual constructor(debug: Int) {
+actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
 
     private var webview :dynamic = null
 
     init {
         js("""var webviewNodeJS = require('webview-nodejs')""")
-        webview = js("""new webviewNodeJS.Webview(debug == 1);""")
+        webview = if(libPath==null)
+            js("""new webviewNodeJS.Webview(debug == 1);""")
+        else
+            js("""new webviewNodeJS.Webview(debug == 1,libPath);""")
     }
 
     /**
@@ -55,10 +60,10 @@ actual class WebviewKo actual constructor(debug: Int) {
     actual fun bind(name: String, fn: WebviewKo.(String) -> String) {
         val fn :(dynamic, String?)->Any = { w, req ->
             kotlin.runCatching { fn(req ?: "") }.fold(
-                onSuccess = { arrayOf<Any>(true,it) },
+                onSuccess = { arrayOf<Any>(false,it) }, // arrayOf(isError,result)
                 onFailure =  {
                     when(it) {
-                        is JSRejectException -> arrayOf<Any>(false,it.message ?: "")
+                        is JSRejectException -> arrayOf<Any>(true,it.message ?: "")
                         else -> throw it
                     }
                 }

@@ -7,8 +7,7 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIE
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIEW_HINT_MAX/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-w-e-b-v-i-e-w_-h-i-n-t_-m-a-x.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIEW_HINT_MIN/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-w-e-b-v-i-e-w_-h-i-n-t_-m-i-n.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIEW_HINT_NONE/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-w-e-b-v-i-e-w_-h-i-n-t_-n-o-n-e.html
-$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/getLib/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/get-lib.html
-$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/getLibOrNull/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/get-lib-or-null.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/getLib/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/get-lib.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-webview-library/webview_bind_fn_callback/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_bind_fn_callback/apply/#kotlin.String?#kotlin.String?#com.sun.jna.Pointer?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-webview-library/webview_bind_fn_callback/apply.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.WebviewLibrary.webview_dispatch_fn_callback///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-webview-library/webview_dispatch_fn_callback/index.html
@@ -39,8 +38,9 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint.Min///
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint.None///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/-none/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/index.html
-$dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int#kotlin.String?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/bind/#kotlin.String#kotlin.Function2[com.github.winterreisender.webviewko.WebviewKo,kotlin.String,kotlin.String]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/bind.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/destroy/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/destroy.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/dispatch/#kotlin.Function1[com.github.winterreisender.webviewko.WebviewKo,kotlin.Unit]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/dispatch.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/eval/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/eval.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/getWebviewPointer/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/[native]get-webview-pointer.html
@@ -49,6 +49,7 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewKo/init/#kotlin.Stri
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/navigate/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/navigate.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/show/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/show.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/size/#kotlin.Int#kotlin.Int#com.github.winterreisender.webviewko.WebviewKo.WindowHint/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/size.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/start/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/start.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/terminate/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/terminate.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/title/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/title.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/unbind/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/unbind.html

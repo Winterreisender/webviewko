@@ -76,7 +76,7 @@ For Java:
 ```java
 import com.github.winterreisender.webviewko.WebviewKo;
 
-WebviewKo webview = new WebviewKo(0);
+WebviewKo webview = new WebviewKo(0,null);
 webview.title("Test");
 webview.size(1024,768,WebviewKo.WindowHint.None);
 webview.url("https://example.com");

@@ -26,10 +26,12 @@ import com.sun.jna.Pointer
  * The Kotlin/JVM binding to webview
  *
  * @constructor create a webview or throws `Exception` if failed
+ * @param debug enable debug mode for webview
+ * @param libPath The lib's path.
  */
 
-actual class WebviewKo actual constructor(debug: Int) {
-    private val lib: WebviewJNA.WebviewLibrary = WebviewJNA.getLib()
+actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
+    private val lib: WebviewJNA.WebviewLibrary = if(libPath==null) WebviewJNA.getLib() else WebviewJNA.getLib(libPath)
     private val pWebview: Pointer = lib.webview_create(debug, Pointer.NULL) ?: throw Exception("Failed to create webview")
 
     /**

@@ -36,7 +36,7 @@ internal class Test {
     @Test fun demo_interact() {
         WebviewKo(1).run {
             title("Test")
-            init("""console.log("Hello, from  init")""")
+            init("""console.log("Hello, from init")""")
             bind("increment") {
                 val r :Int = it.removePrefix("[\"").removeSuffix("\"]").toInt() + 1
                 println(r.toString())

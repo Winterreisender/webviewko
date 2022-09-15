@@ -31,9 +31,11 @@ private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
  * The Kotlin/Native binding to webview
  *
  * @constructor create a webview or throws `Exception` if failed
+ * @param debug enable debug mode for webview
+ * @param libPath not supported in Kotlin/Native
  */
 
-actual class WebviewKo actual constructor(debug: Int) {
+actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
     private val w :webview_t = webview_create(debug, null) ?: throw Exception("Failed to create webview")
 
     // Garbage Collection List for bind and dispatch

@@ -32,7 +32,7 @@ public class TestJava {
     void demoSimple() {
         if (!Desktop.isDesktopSupported()) return;
 
-        WebviewKo webview = new WebviewKo(0);
+        WebviewKo webview = new WebviewKo(0,null);
         webview.title("Test");
         webview.size(1024,768,WebviewKo.WindowHint.None);
         webview.url("https://example.com");
@@ -43,7 +43,7 @@ public class TestJava {
     @Test void apiFull() {
         if (!Desktop.isDesktopSupported()) return;
 
-        WebviewKo w = new WebviewKo(0);
+        WebviewKo w = new WebviewKo(0,null);
         w.title("Java Test");
         w.size(1024,768,WebviewKo.WindowHint.None);
         w.bind("increment" ,(WebviewKo webviewKo,String msg)-> {
@@ -60,7 +60,7 @@ public class TestJava {
     @Test void jnaSimple() {
         if (!Desktop.isDesktopSupported())  return;
 
-        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
+        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib("webview");
         Pointer pWebview = lib.webview_create(1, Pointer.NULL);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
@@ -93,7 +93,7 @@ public class TestJava {
         // This test implemented the bind.c in webview
         if (!Desktop.isDesktopSupported()) return;
 
-        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib();
+        WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib("webview");
         Pointer pWebview = lib.webview_create(1, Pointer.NULL);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
@@ -128,7 +128,7 @@ public class TestJava {
         }).start();
 
         Thread t1 = new Thread(()->{
-            webviewkoWindow.set(new WebviewKo(0));
+            webviewkoWindow.set(new WebviewKo(0,null));
             webviewkoWindow.get().title("thread test");
             webviewkoWindow.get().size(600,500,WebviewKo.WindowHint.None);
             webviewkoWindow.get().url("https://example.com");

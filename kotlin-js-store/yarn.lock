@@ -2,6 +2,34 @@
 # yarn lockfile v1
 
 
+"@types/ffi-napi@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@types/ffi-napi/-/ffi-napi-4.0.5.tgz#0b2dc2d549361947a117d55156ff34fd9632c3df"
+  integrity sha512-WDPpCcHaPhHmP1FIw3ds/+OLt8bYQ/h3SO7o+8kH771PL21kHVzTwii7+WyMBXMQrBsR6xVU2y7w+h+9ggpaQw==
+  dependencies:
+    "@types/node" "*"
+    "@types/ref-napi" "*"
+    "@types/ref-struct-di" "*"
+
+"@types/node@*":
+  version "18.7.18"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.18.tgz#633184f55c322e4fb08612307c274ee6d5ed3154"
+  integrity sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==
+
+"@types/ref-napi@*":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@types/ref-napi/-/ref-napi-3.0.4.tgz#d7edc063b244c85767867ce1167ec2d7051728a1"
+  integrity sha512-ng8SCmdZbz1GHaW3qgGoX9IaHoIvgMqgBHLe3sv18NbAkHVgnjRW8fJq51VTUm4lnJyLu60q9/002o7qjOg13g==
+  dependencies:
+    "@types/node" "*"
+
+"@types/ref-struct-di@*":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@types/ref-struct-di/-/ref-struct-di-1.1.6.tgz#9775753b24ba5bf248dd66d79d4fdb7cebef6e95"
+  integrity sha512-+Sa2H3ynDYo2ungR3d5kmNetlkAYNqQVjJvs1k7i6zvo7Zu/qb+OsrXU54RuiOYJCwY9piN+hOd4YRRaiEOqgw==
+  dependencies:
+    "@types/ref-napi" "*"
+
 "@ungap/promise-all-settled@1.1.2":
   version "1.1.2"
   resolved "https://registry.npmmirror.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
@@ -568,11 +596,12 @@ typescript@3.9.5:
   resolved "https://registry.npmmirror.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
 
-webview-nodejs@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/webview-nodejs/-/webview-nodejs-0.0.8.tgz#09c61cd6f746f30f81dc3ceaf669df909ddc724d"
-  integrity sha512-T0wouJ7KxfRXwM/ZS56UN4l0jmFPpSVDNIYgHpxjw2pyhMZvzbhEUNxRreXpEla+OdzZU3nUEB5b/UvUCjCZHQ==
+webview-nodejs@0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/webview-nodejs/-/webview-nodejs-0.0.17.tgz#e4492c30fb14adcb904d33ecfed27a75eb9e62b9"
+  integrity sha512-TxGeuuvL/+296mjmFwCiL0iPGcM8aapE+APVnnfNeJnQ7H9Y7nkGRmv6b+YxtpQLEB4l8pszCe6Cv/dOJ26UpQ==
   dependencies:
+    "@types/ffi-napi" "^4.0.5"
     ffi-napi "^4.0.3"
 
 workerpool@6.2.1:
