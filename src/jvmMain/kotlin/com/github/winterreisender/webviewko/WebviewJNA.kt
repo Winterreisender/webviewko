@@ -19,6 +19,7 @@
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.*
+import com.sun.jna.ptr.PointerByReference
 import java.nio.file.Files
 
 /**
@@ -95,7 +96,7 @@ class WebviewJNA {
          *
          * @return a webview handle
          */
-        fun webview_create(debug :Int = 0, window : Pointer? = Pointer.NULL) : Pointer?
+        fun webview_create(debug :Int = 0, window : PointerByReference? = null) : Pointer?
 
         // Destroys a webview and closes the native window.
         fun webview_destroy(webview : Pointer?)

@@ -18,6 +18,7 @@
 
 import com.github.winterreisender.webviewko.WebviewJNA
 import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.WebviewKoAWT
 import com.sun.jna.Native.getComponentPointer
 import com.sun.jna.Pointer
 import com.sun.jna.Structure
@@ -27,6 +28,7 @@ import java.awt.*
 import javax.swing.*
 import kotlinx.serialization.json.*
 import kotlin.test.Test
+
 
 
 internal class TestKt {
@@ -130,7 +132,7 @@ internal class TestKt {
 
     @Test fun `jnaLayer simple`() {
         with(WebviewJNA.getLib()) {
-            val pWebview = webview_create(1, Pointer.NULL)
+            val pWebview = webview_create(1, null)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
             webview_navigate(pWebview, "https://example.com")
@@ -143,7 +145,7 @@ internal class TestKt {
         if (!Desktop.isDesktopSupported()) return
 
         with(WebviewJNA.getLib()) {
-            val pWebview = webview_create(1, Pointer.NULL)
+            val pWebview = webview_create(1, null)
             webview_set_title(pWebview, "Hello")
             webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE)
             webview_init(pWebview, """console.log("Hello, from init")""")
@@ -237,7 +239,7 @@ internal class TestKt {
         if (!Desktop.isDesktopSupported()) return
 
         with(WebviewJNA.getLib()) {
-            val pWebview = webview_create(0, Pointer.NULL)
+            val pWebview = webview_create(0, null)
 
             val context = Context().apply {
                 webview = pWebview!!
@@ -309,7 +311,7 @@ internal class TestKt {
                 title("1")
                 size(900, 500)
                 url("https://example.com")
-                start()
+                show()
             }
         }.apply {
             t1.start()
@@ -319,6 +321,31 @@ internal class TestKt {
         }
     }
 
+    @Test fun awt1() {
+        JFrame("Hello").apply {
+            size = Dimension(600,600)
+            //defaultCloseOperation = JFrame.DO_NOTHING_ON_CLOSE;
+
+            JPanel().apply {
+                layout = BorderLayout()
+                val webview = WebviewKoAWT(1) {
+                    it.navigate("https://example.com")
+                    it.show()
+                }.also { add(it,BorderLayout.CENTER) }
+
+                JButton("Change URL").apply {
+                    addActionListener {
+                        webview.dispatch {
+                            navigate("https://neverssl.com")
+                        }
+                    }
+                }.also { add(it,BorderLayout.SOUTH) }
+            }.also { add(it) }
+
+            isVisible = true
+        }
+        Thread.sleep(1000L * 100)
+    }
 
     // Experimental
      @Test fun awt0() {
@@ -362,4 +389,8 @@ internal class TestKt {
              webview_destroy(pWebview)
          }
      }
+
+
+
+
 }

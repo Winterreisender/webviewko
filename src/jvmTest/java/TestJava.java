@@ -61,7 +61,7 @@ public class TestJava {
         if (!Desktop.isDesktopSupported())  return;
 
         WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib("webview");
-        Pointer pWebview = lib.webview_create(1, Pointer.NULL);
+        Pointer pWebview = lib.webview_create(1, null);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
         lib.webview_navigate(pWebview, "https://example.com");
@@ -94,7 +94,7 @@ public class TestJava {
         if (!Desktop.isDesktopSupported()) return;
 
         WebviewJNA.WebviewLibrary lib = WebviewJNA.Companion.getLib("webview");
-        Pointer pWebview = lib.webview_create(1, Pointer.NULL);
+        Pointer pWebview = lib.webview_create(1, null);
         lib.webview_set_title(pWebview, "Hello");
         lib.webview_set_size(pWebview, 800, 600, WebviewJNA.WEBVIEW_HINT_NONE);
 

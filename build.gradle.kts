@@ -25,7 +25,7 @@ plugins {
 }
 
 group = "com.github.winterreisender"
-version = "0.5.0"
+version = "0.6.0-SNAPSHOT"
 description = "webviewko"
 
 repositories {
@@ -102,6 +102,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
         }
@@ -114,6 +115,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 api("net.java.dev.jna:jna:5.12.0")
+
             }
         }
 
@@ -126,7 +128,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("webview-nodejs", "0.0.17", generateExternals = false))
+                implementation(npm("webview-nodejs", "0.1.0", generateExternals = false))
             }
         }
 
@@ -224,7 +226,4 @@ publishing {
         //    }
         //}
     }
-}
-dependencies {
-    implementation(kotlin("stdlib-js"))
 }

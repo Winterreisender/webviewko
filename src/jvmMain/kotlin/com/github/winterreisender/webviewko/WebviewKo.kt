@@ -19,7 +19,7 @@
 package com.github.winterreisender.webviewko
 
 import com.sun.jna.Pointer
-
+import com.sun.jna.ptr.PointerByReference
 
 
 /**
@@ -30,9 +30,17 @@ import com.sun.jna.Pointer
  * @param libPath The lib's path.
  */
 
-actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
-    private val lib: WebviewJNA.WebviewLibrary = if(libPath==null) WebviewJNA.getLib() else WebviewJNA.getLib(libPath)
-    private val pWebview: Pointer = lib.webview_create(debug, Pointer.NULL) ?: throw Exception("Failed to create webview")
+actual class WebviewKo  {
+    private var lib: WebviewJNA.WebviewLibrary
+    private var pWebview: Pointer
+
+    constructor(debug: Int, libPath :String?, target: PointerByReference?) {
+        lib = if(libPath==null) WebviewJNA.getLib() else WebviewJNA.getLib(libPath)
+        pWebview = lib.webview_create(debug, target) ?: throw Exception("Failed to create webview")
+    }
+
+    actual constructor(debug: Int, libPath :String?) :this(debug, libPath,null)
+
 
     /**
      * Updates the title of the native window.
@@ -222,6 +230,8 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
         lib.webview_run(pWebview)
         lib.webview_destroy(pWebview)
     }
+
+
 
 }
 
