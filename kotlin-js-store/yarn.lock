@@ -596,10 +596,10 @@ typescript@3.9.5:
   resolved "https://registry.npmmirror.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
 
-webview-nodejs@0.0.17:
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/webview-nodejs/-/webview-nodejs-0.0.17.tgz#e4492c30fb14adcb904d33ecfed27a75eb9e62b9"
-  integrity sha512-TxGeuuvL/+296mjmFwCiL0iPGcM8aapE+APVnnfNeJnQ7H9Y7nkGRmv6b+YxtpQLEB4l8pszCe6Cv/dOJ26UpQ==
+webview-nodejs@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/webview-nodejs/-/webview-nodejs-0.1.0.tgz#612aee1655c98a77dbb6a5b84c47a5f189f131cc"
+  integrity sha512-W6xOMAm8m0uVrnyVK9ezq5QZmKXuW2VBYeH2GjearC1W5yBuY4yvi9vxGsxZmQoIoM00HREL1jZ5n5P4sMAymg==
   dependencies:
     "@types/ffi-napi" "^4.0.5"
     ffi-napi "^4.0.3"

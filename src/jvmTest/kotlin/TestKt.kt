@@ -322,26 +322,19 @@ internal class TestKt {
     }
 
     @Test fun awt1() {
-        JFrame("Hello").apply {
-            size = Dimension(600,600)
-            //defaultCloseOperation = JFrame.DO_NOTHING_ON_CLOSE;
-
+        JFrame().apply {
+            size = Dimension(800,800)
             JPanel().apply {
-                layout = BorderLayout()
                 val webview = WebviewKoAWT(1) {
                     it.navigate("https://example.com")
                     it.show()
                 }.also { add(it,BorderLayout.CENTER) }
-
                 JButton("Change URL").apply {
                     addActionListener {
-                        webview.dispatch {
-                            navigate("https://neverssl.com")
-                        }
+                        webview.dispatch {navigate("https://neverssl.com")}
                     }
                 }.also { add(it,BorderLayout.SOUTH) }
             }.also { add(it) }
-
             isVisible = true
         }
         Thread.sleep(1000L * 100)
