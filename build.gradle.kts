@@ -115,7 +115,6 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 api("net.java.dev.jna:jna:5.12.0")
-
             }
         }
 
