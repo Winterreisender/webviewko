@@ -116,7 +116,11 @@ WebviewKo(1).run {
 
 ### Integrate with Swing, AWT and Jetpack Compose
 
-![compose-screenshot](compose/screenshot-compose.jpg)
+
+<details>
+  <summary>Screenshot</summary>
+  <img src="compose/screenshot-compose.jpg"/>
+</details>
 
 For Swing or AWT
 

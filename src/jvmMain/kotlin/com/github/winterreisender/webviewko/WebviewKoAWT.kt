@@ -3,14 +3,11 @@ package com.github.winterreisender.webviewko
 import com.sun.jna.Native
 import com.sun.jna.ptr.PointerByReference
 import java.awt.*
-import java.io.Serial
 import java.util.function.Consumer
 
 // Copied and modified from Casterlabs/Webview
-// TODO: Kotlin-fy it
-// TODO: Compose support
 /**
- * Swing/AWT support
+ * Swing/AWT Component support
  * */
 class WebviewKoAWT(private val debug: Int, private val libPath :String? = null, private val onCreate: Consumer<WebviewKo>) :Canvas() {
     private var initialized = false
@@ -63,7 +60,6 @@ class WebviewKoAWT(private val debug: Int, private val libPath :String? = null, 
     }
 
     companion object {
-        @Serial
         private const val serialVersionUID: Long = -6551398642418050882L
     }
 }
