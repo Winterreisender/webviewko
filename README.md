@@ -116,6 +116,7 @@ WebviewKo(1).run {
 
 ### Integrate with Swing, AWT and Jetpack Compose
 
+**These features are experimental and only tested in Windows by now.**
 
 <details>
   <summary>Screenshot</summary>
@@ -191,10 +192,6 @@ fun main() = singleWindowApplication {
                     Button(onClick = {initScript = initText }) {Text("Init")}
                 }}}}
 ```
-
-
-<!-- You can also use JNA and Kotlin/Native bindings directly -->
-
 
 ## Documentation
 
