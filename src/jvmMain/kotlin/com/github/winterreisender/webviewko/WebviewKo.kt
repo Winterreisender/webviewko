@@ -21,7 +21,6 @@ package com.github.winterreisender.webviewko
 import com.sun.jna.Pointer
 import com.sun.jna.ptr.PointerByReference
 
-
 /**
  * The Kotlin/JVM binding to webview
  *
@@ -126,7 +125,7 @@ actual class WebviewKo  {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
      */
-    private fun bindRaw(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
+    actual fun bindRaw(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?) = lib.webview_bind(pWebview, name, object : WebviewJNA.WebviewLibrary.webview_bind_fn_callback {
         override fun apply(seq: String?, req: String?, arg: Pointer?) {
             val (response,status) = fn(req) ?: return
             lib.webview_return(pWebview, seq, status, response)
@@ -230,6 +229,7 @@ actual class WebviewKo  {
         lib.webview_run(pWebview)
         lib.webview_destroy(pWebview)
     }
+
 
 
 

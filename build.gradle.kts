@@ -102,7 +102,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
         }

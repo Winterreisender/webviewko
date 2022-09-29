@@ -18,6 +18,26 @@
 
 package com.github.winterreisender.webviewko
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+
+
+/**
+ * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
+ *
+ * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Unit`,`String` or `Pair<String,Int>`.
+ *
+ * @param name the name of the global JS function
+ * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status.When `fn` return `Pair(Response,Status)` the webview will receive the response and status . When `fn` returns `String`, the Status is 0. When `fn` returns `Unit`, the webview won't receive a feedback.
+ */
+inline fun <reified R :@Serializable Any> WebviewKo.bindAuto(name :String, crossinline fn : WebviewKo.(Array<out JsonElement>)->R) = bind(name) {
+    Json.encodeToString(
+        fn(Json.decodeFromString(it))
+    )
+}
 /**
  * The Kotlin Multiplatform binding to webview
  *
@@ -111,23 +131,22 @@ expect class WebviewKo(debug: Int = 0, libPath :String? = null) {
     class JSRejectException(reason: String? = null, json: String? = null) : Throwable
 
     /**
+     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JS function.
+     *
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function.
+     *
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
+     */
+    fun bindRaw(name :String, fn :WebviewKo.(String?)->Pair<String,Int>?)
+
+    /**
      * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
      *
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
      */
     fun bind(name :String, fn :WebviewKo.(String)->String)
-
-    /**
-     * Binds a Kotlin callback so that it will appear under the given name as a global JS function.
-     *
-     * Callback `fn` receives a request String, which is a JSON array of all the arguments passed to the JS function and returns `Unit`,`String` or `Pair<String,Int>`.
-     *
-     * @param name the name of the global JS function
-     * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON and status.When `fn` return `Pair(Response,Status)` the webview will receive the response and status . When `fn` returns `String`, the Status is 0. When `fn` returns `Unit`, the webview won't receive a feedback.
-     */
-     //inline fun <reified R : Any> bindEx(name :String, crossinline fn: WebviewKo.(String?) -> R)
-
 
     /**
      * Removes a callback that was previously set by `webview_bind`.

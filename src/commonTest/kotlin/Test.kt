@@ -16,6 +16,7 @@
  * SPDX short identifier: Apache-2.0
  */
 import com.github.winterreisender.webviewko.WebviewKo
+import com.github.winterreisender.webviewko.bindAuto
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
@@ -79,6 +80,11 @@ internal class Test {
 
             bind("ktExceptionTest") {
                 throw NotImplementedError() // Should crash
+            }
+
+            bindAuto("testEx") {(x,y,z) ->
+                title(y.jsonPrimitive.content)
+                z.jsonPrimitive.intOrNull!! + x.jsonPrimitive.intOrNull!!
             }
 
             bind("jsRejectTest") {
@@ -176,22 +182,7 @@ internal class Test {
         }
     }
 
-    @Test fun reopen0() {
-        WebviewKo().run {
-            size(800,600)
-            navigate("about:blank")
-            start()
-        }
-        WebviewKo().run {
-            size(800,600)
-            navigate("about:blank")
-            start()
-        }
-        WebviewKo().run {
-            size(800,600)
-            navigate("about:blank")
-            start()
-        }
-    }
+
+
 
 }
