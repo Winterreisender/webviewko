@@ -53,8 +53,9 @@ implementation("com.github.winterreisender:webviewko-mingwx64:0.5.0")   // Kotli
 implementation("com.github.winterreisender:webviewko-js:0.5.0")         // Kotlin/JS Node.js
 ```
 
-If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
-[Additional steps](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative) are required for Kotlin/Native. 
+- If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
+- [Additional steps](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative) are required for Kotlin/Native. 
+- If you are using `JitPack.io` please move `maven("https://jitpack.io")` below `maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")`
 
 ### 2. Use webviewko
 
