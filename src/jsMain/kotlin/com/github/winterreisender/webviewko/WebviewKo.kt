@@ -9,7 +9,6 @@ import kotlin.js.*
  * @param libPath The lib's path.
  */
 actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
-
     private var webview :dynamic = null
 
     init {
@@ -58,7 +57,7 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response JSON. If you want to reject the `Promise`, throw [JSRejectException] in `fn`
      */
     actual fun bind(name: String, fn: WebviewKo.(String) -> String) {
-        val fn :(dynamic, String?)->Any = { w, req ->
+        val fn :(dynamic, String?)->Array<out Any> = { w, req ->
             kotlin.runCatching { fn(req ?: "") }.fold(
                 onSuccess = { arrayOf<Any>(false,it) }, // arrayOf(isError,result)
                 onFailure =  {
@@ -192,6 +191,18 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      */
     actual fun show() {
         webview.show()
+    }
+
+    /**
+     * Binds a native Kotlin/Java callback so that it will appear under the given name as a global JS function.
+     *
+     * Callback receives a request string. Request string is a JSON array of all the arguments passed to the JS function.
+     *
+     * @param name the name of the global JS function
+     * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON. In Java the fn should be String response(WebviewKo webview, String request)
+     */
+    actual fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String, Int>?) {
+        TODO()
     }
 
 }

@@ -133,7 +133,7 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      * @param name the name of the global JS function
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
-    private fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
+    actual fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
         val ctx = StableRef.create(BindContext(this, fn).freeze())
         addDispose(ctx.freeze())
 
