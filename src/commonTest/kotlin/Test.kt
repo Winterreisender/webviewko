@@ -164,18 +164,25 @@ internal class Test {
     }
 
     @Test fun fullscreen() {
-        WebviewKo().run {
+        WebviewKo(1).run {
+            bind("myBind") {
+                println(it)
+                eval("""alert($it)""")
+                "OK"
+            }
             size(800,600)
+
             init("""
                 let w = window.open('');
                 w.document.write(`
-                // You HTML Content here
                 <html>
                 <body>
                 	<button onclick="document.querySelector('body').requestFullscreen()"> fullscreen </button>
+                    <button onclick="myBind('Hello')">use bind</button>
                 </body>
                 </html>
                 `);
+                w.myBind = myBind;
             """.trimIndent())
             navigate("about:blank")
             start()

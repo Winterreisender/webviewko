@@ -17,10 +17,10 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "1.7.10"
+    kotlin("multiplatform") version "1.7.20"
     id("maven-publish")
     `java-library`
-    id("org.jetbrains.dokka") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.7.20"
     id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
@@ -102,25 +102,25 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
                 //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val jvmMain by getting {
             dependencies {
-                api("net.java.dev.jna:jna:5.12.0")
+                api("net.java.dev.jna:jna:5.12.1")
             }
         }
 
         val jvmTest by getting {
             dependencies {
-                implementation("net.java.dev.jna:jna-platform:5.12.0")
+                implementation("net.java.dev.jna:jna-platform:5.12.1")
             }
         }
 
@@ -139,7 +139,7 @@ kotlin {
 
         val nativeMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
             }
         }
 

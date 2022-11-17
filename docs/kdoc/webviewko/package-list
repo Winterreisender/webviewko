@@ -1,6 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:com.github.winterreisender.webviewko////PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/index.html
+$dokka.location:com.github.winterreisender.webviewko//bindEx/com.github.winterreisender.webviewko.WebviewKo#kotlin.String#kotlin.Function1[kotlin.Array[kotlinx.serialization.json.JsonElement],TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/bind-ex.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/JNA_LIBRARY_NAME/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-j-n-a_-l-i-b-r-a-r-y_-n-a-m-e.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIEW_HINT_FIXED/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-w-e-b-v-i-e-w_-h-i-n-t_-f-i-x-e-d.html
@@ -41,6 +42,7 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewKo///PointingToDecla
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int#kotlin.String?#com.sun.jna.ptr.PointerByReference?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int#kotlin.String?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/bind/#kotlin.String#kotlin.Function2[com.github.winterreisender.webviewko.WebviewKo,kotlin.String,kotlin.String]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/bind.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo/bindRaw/#kotlin.String#kotlin.Function2[com.github.winterreisender.webviewko.WebviewKo,kotlin.String?,kotlin.Pair[kotlin.String,kotlin.Int]?]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/bind-raw.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/destroy/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/destroy.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/dispatch/#kotlin.Function1[com.github.winterreisender.webviewko.WebviewKo,kotlin.Unit]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/dispatch.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/eval/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/eval.html
