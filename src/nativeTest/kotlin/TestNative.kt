@@ -62,7 +62,7 @@ class TestNative {
         }
     }
 
-    @Test fun `multi thread`() {
+    @Test fun `multithread`() {
         val webviewKo1 = WebviewKo(1).apply {
             title("1")
             size(900, 500)
@@ -75,8 +75,6 @@ class TestNative {
                 ""
             }
         }
-
-        webviewKo1.freeze()
 
         val w1 = Worker.start().execute(TransferMode.SAFE, {webviewKo1}) { it ->
             sleep(5u)

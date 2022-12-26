@@ -219,9 +219,7 @@ All suggestions, pull requests, issue and other contributions are welcome and ap
 | Project                                                                      | License                                                                                                         |
 |------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                                   |
-| [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                               |
-| [Casterlabs/Webview](https://github.com/Casterlabs/Webview)                  | [MIT](https://github.com/Casterlabs/Webview/blob/main/LICENSE.md)                                               |
-| [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                                            |
+| [webview_java](https://github.com/webview/webview_java)                | [MIT](https://github.com/webview/webview_java/blob/main/LICENSE.md)                                               |
 | [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                             |
 | [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                                       |
 | [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE)                |

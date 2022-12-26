@@ -17,7 +17,7 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "1.7.20"
+    kotlin("multiplatform") version "1.7.21"
     id("maven-publish")
     `java-library`
     id("org.jetbrains.dokka") version "1.7.20"
@@ -51,6 +51,7 @@ kotlin {
             useJUnitPlatform()
         }
     }
+
 
     js(LEGACY) {
         nodejs {
@@ -127,7 +128,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("webview-nodejs", "0.1.0", generateExternals = false))
+                implementation(npm("webview-nodejs", "0.1.3", generateExternals = false))
             }
         }
 
@@ -203,10 +204,12 @@ publishing {
             }
         }
 
-        //maven {
-        //    name = "GitHubPages"
-        //    url = uri("file://${rootDir.resolve("docs/maven-repo")}")
-        //}
+        /*
+        maven {
+            name = "GitHubPages"
+            url = uri("file://${rootDir.resolve("docs/maven-repo")}")
+        }
+        */
     }
     publications {
         matching {it.name == "native"}.all {
@@ -217,12 +220,14 @@ publishing {
                     publication.artifactId = "webviewko-${osPrefix}".toLowerCase()
                 }
         }
-        //publications {
-        //    create<MavenPublication>("maven") {
-        //        artifactId = "webviewko-${osPrefix}"
-        //        components.forEach { println(it.name) }
-        //        from(components["kotlin"])
-        //    }
-        //}
+        /*
+        publications {
+            create<MavenPublication>("maven") {
+                artifactId = "webviewko-${osPrefix}"
+                components.forEach { println(it.name) }
+                from(components["kotlin"])
+            }
+        }
+        */
     }
 }

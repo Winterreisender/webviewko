@@ -5,7 +5,6 @@ import com.sun.jna.ptr.PointerByReference
 import java.awt.*
 import java.util.function.Consumer
 
-// Copied and modified from Casterlabs/Webview
 /**
  * Swing/AWT Component support
  * */
@@ -19,9 +18,8 @@ class WebviewKoAWT(private val debug: Int, private val libPath :String? = null, 
         get() =  initialized
 
     override fun paint(g: Graphics?) {
-        val size = this.size
-        if (size != lastSize) {
-            lastSize = size
+        if (this.size != lastSize) {
+            lastSize = this.size
             if (webview != null) {
                 this.updateSize()
             }
@@ -55,7 +53,6 @@ class WebviewKoAWT(private val debug: Int, private val libPath :String? = null, 
     fun dispatch(fn :WebviewKo.()->Unit) = webview!!.dispatch(fn)
 
     protected fun finalize() {
-        println("finalize")
         webview?.terminate()
     }
 

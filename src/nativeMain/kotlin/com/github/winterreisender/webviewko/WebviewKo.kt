@@ -21,7 +21,6 @@ package com.github.winterreisender.webviewko
 import kotlinx.cinterop.*
 import com.github.winterreisender.cwebview.*
 import kotlin.native.concurrent.AtomicReference
-import kotlin.native.concurrent.freeze
 
 private typealias BindContext = Pair<WebviewKo,WebviewKo.(String?) -> Pair<String,Int>?>
 private typealias DispatchContext = Pair<WebviewKo,WebviewKo.() ->Unit>
@@ -39,14 +38,13 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
     private val w :webview_t = webview_create(debug, null) ?: throw Exception("Failed to create webview")
 
     // Garbage Collection List for bind and dispatch
-    private val disposeList = AtomicReference(listOf<StableRef<Any>>().freeze())
+    private val disposeList = AtomicReference(listOf<StableRef<Any>>())
     private fun addDispose(s: StableRef<Any>){
         disposeList.value = mutableListOf<StableRef<Any>>().apply {
             addAll(disposeList.value)
             if(!contains(s)){
                 add(s)
             }
-            freeze()
         }
     }
     protected fun finalize() {
@@ -134,8 +132,8 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      * @param fn the callback function which receives the request parameter in JSON as input and return the response to JS in JSON.
      */
     actual fun bindRaw(name: String, fn: WebviewKo.(String?) -> Pair<String,Int>?) {
-        val ctx = StableRef.create(BindContext(this, fn).freeze())
-        addDispose(ctx.freeze())
+        val ctx = StableRef.create(BindContext(this, fn))
+        addDispose(ctx)
 
         webview_bind(
             w,name,
@@ -190,14 +188,13 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      * Posts a function to be executed on the main thread.
      *
      * It safely schedules the callback to be run on the main thread on the next main loop iteration.
-     * Please remember to call [WebviewKo.freeze] before sharing between threads
      *
      * @param fn the function to be executed on the main thread.
      *
      */
     actual fun dispatch(fn: WebviewKo.() -> Unit) {
-        val ctx = StableRef.create(DispatchContext(this,fn).freeze())
-        addDispose(ctx.freeze())
+        val ctx = StableRef.create(DispatchContext(this,fn))
+        addDispose(ctx)
         webview_dispatch(
             w,
             staticCFunction { w,arg ->
