@@ -17,7 +17,7 @@
  */
 
 plugins {
-    kotlin("multiplatform") version "1.7.21"
+    kotlin("multiplatform") version "1.8.0"
     id("maven-publish")
     `java-library`
     id("org.jetbrains.dokka") version "1.7.20"
@@ -140,7 +140,6 @@ kotlin {
 
         val nativeMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.5")
             }
         }
 
@@ -157,7 +156,6 @@ kotlin {
                         publication.artifactId = "webviewko-${osPrefix}".toLowerCase()
                     }
             }
-
         }
     }
 }

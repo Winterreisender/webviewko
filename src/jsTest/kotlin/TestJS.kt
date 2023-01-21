@@ -4,6 +4,10 @@ import kotlin.test.assertTrue
 
 // https://kotlinlang.org/docs/js-interop.html#declare-static-members-of-a-class
 
+@JsModule("webview-nodejs")
+@JsNonModule
+external class Webview
+
 internal class TestKt {
     @Test fun test0() {
         val p = 0
@@ -41,5 +45,9 @@ internal class TestKt {
             start()
         }
 
+    }
+
+    @Test fun test3() {
+        val x = Webview()
     }
 }

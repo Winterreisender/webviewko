@@ -1,6 +1,14 @@
 package com.github.winterreisender.webviewko
 import kotlin.js.*
 
+@JsModule("webview-nodejs")
+@JsNonModule
+external class Webview
+
+enum class WindowHint {
+    None, Min, Max, Fixed
+}
+
 /**
  * The Kotlin/JS binding to webview
  *
@@ -10,6 +18,7 @@ import kotlin.js.*
  */
 actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
     private var webview :dynamic = null
+    private var webview2 :Webview = Webview()
 
     init {
         js("""var webviewNodeJS = require('webview-nodejs')""")
@@ -25,8 +34,8 @@ actual class WebviewKo actual constructor(debug: Int, libPath :String?) {
      * A Wrapper of WEBVIEW_HINT_NONE, WEBVIEW_HINT_MIN, WEBVIEW_HINT_MAX and WEBVIEW_HINT_FIXED
      *
      */
-    actual enum class WindowHint(v :Int) {
-        None(0), Min(1), Max(2), Fixed(3)
+    actual enum class WindowHint {
+        None, Min, Max, Fixed
     }
 
     /**

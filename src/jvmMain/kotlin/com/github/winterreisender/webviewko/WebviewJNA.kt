@@ -62,17 +62,8 @@ class WebviewJNA {
          * @return a `WebviewLibrary` contains native webview functions or null if failed to load
          *
          */
-        private fun getLibOrNull(libPath :String = "webview") : WebviewLibrary? {
-            //extract WebView2Loader
-            if (Platform.getOSType() == Platform.WINDOWS && libPath=="webview") {
-                val file = Native.extractFromResourcePath("WebView2Loader.dll", WebviewJNA::class.java.classLoader)
-                val dest = file.toPath().parent.resolve("WebView2Loader.dll")
-                if(Files.notExists(dest)) {
-                    Files.move(file.toPath(), dest)
-                }
-            }
-            return Native.load(libPath, WebviewLibrary::class.java)
-        }
+        private fun getLibOrNull(libPath :String = "webview") : WebviewLibrary?
+            = Native.load(libPath, WebviewLibrary::class.java)
 
         /**
          * Return a WebviewLibrary contains native webview functions.
