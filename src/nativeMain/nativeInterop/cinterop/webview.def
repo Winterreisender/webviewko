@@ -4,12 +4,13 @@ package = com.github.winterreisender.cwebview
 
 compilerOpts = -Isrc/nativeMain/nativeInterop/cinterop/
 
-staticLibraries.mingw = libwebview.dll.a
+staticLibraries.mingw = libwebview.a
 libraryPaths.mingw_x64 = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
+linkerOpts.mingw = -ladvapi32 -lole32 -lshell32 -lshlwapi -luser32 -lversion
 
-#linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
+linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
 
-#linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
+linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
 
 # compilerOpts.android =
 # linkerOpts.android =
