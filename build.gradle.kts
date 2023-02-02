@@ -25,7 +25,7 @@ plugins {
 }
 
 group = "com.github.winterreisender"
-version = "0.6.0-SNAPSHOT"
+version = "0.6.0"
 description = "webviewko"
 
 repositories {
@@ -128,7 +128,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(npm("webview-nodejs", "0.1.3", generateExternals = false))
+                implementation(npm("webview-nodejs", "0.1.5", generateExternals = false))
             }
         }
 

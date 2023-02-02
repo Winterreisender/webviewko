@@ -8,7 +8,7 @@
 [![gradle ci](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml/badge.svg)](https://github.com/Winterreisender/webviewko/actions/workflows/gradle-ci.yml)
 ![last commit](https://img.shields.io/github/last-commit/Winterreisender/webviewko)
 
-[English](../README.md) | **中文(简体)** | [中文(繁體)](README.zh-Hant.md) 
+[English](../README.md) | **中文(简体)**
 
 
 webviewko 是轻量跨平台的网页视图库 [webview](https://github.com/webview/webview) 的 Kotlin 多平台绑定。
@@ -122,16 +122,16 @@ WebviewKo().run {
 
 ## 引用
 
-| 项目                                                                           | 许可                                                                                                      |
-|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
-| [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                       |
-| [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                                    |
-| [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                           |
-| [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                     |
-| [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                               |
-| [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE)        |
-| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [Microsoft Webview2 License](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License) |
-| [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                                   |
+| 项目                                                                           | 许可                                                                                               |
+|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                |
+| [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                             |
+| [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                    |
+| [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)              |
+| [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                        |
+| [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
+| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [BSD-style](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)           |
+| [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                            |
 
 ## 版权与许可
 

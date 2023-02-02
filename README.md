@@ -12,7 +12,7 @@
 See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https://www.w3.org/International/articles/language-tags/#bytheway) and [iana](https://www.iana.org/assignments/language-subtag-registry)
 -->
 
-**English** | [中文(简体)](docs/README.zh-Hans.md) | [中文(繁體)](docs/README.zh-Hant.md) 
+**English** | [中文(简体)](docs/README.zh-Hans.md)
 
 webviewko provides a Kotlin Multiplatform binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform desktop GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
@@ -223,7 +223,7 @@ All suggestions, pull requests, issue and other contributions are welcome and ap
 | [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                             |
 | [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                                       |
 | [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE)                |
-| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [BSD-3-Clause](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)         |
+| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [BSD-style](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)         |
 | [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                                           |
 
 ## License
