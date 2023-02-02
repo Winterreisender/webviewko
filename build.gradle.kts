@@ -25,7 +25,7 @@ plugins {
 }
 
 group = "com.github.winterreisender"
-version = "0.6.0"
+version = "0.6.0-SNAPSHOT"
 description = "webviewko"
 
 repositories {
