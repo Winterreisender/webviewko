@@ -2,15 +2,20 @@ headers = webview/webview.h
 headerFilter = webview/webview.h
 package = com.github.winterreisender.cwebview
 
+staticLibraries = libwebview.a
 compilerOpts = -Isrc/nativeMain/nativeInterop/cinterop/
 
-staticLibraries.mingw = libwebview.a
 libraryPaths.mingw_x64 = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
 linkerOpts.mingw = -ladvapi32 -lole32 -lshell32 -lshlwapi -luser32 -lversion
 
-linkerOpts.linux = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
+linkerOpts.linux_x64 = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
 
-linkerOpts.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64/libwebview.dylib
+# pkg-config seems not work with Kotlin
+#libraryPaths.linux_x64 = src/nativeMain/nativeInterop/cinterop/webview/linuxX64
+#linkerOpts.linux_x64 = $(pkg-config --cflags gtk+-3.0 webkit2gtk-4.0)
+#compilerOpts.linux_x64 = $(pkg-config --libs gtk+-3.0 webkit2gtk-4.0)
 
-# compilerOpts.android =
-# linkerOpts.android =
+libraryPaths.osx = src/nativeMain/nativeInterop/cinterop/webview/macosX64
+linkerOpts.osx = -framework WebKit
+compilerOpts.osx = -framework WebKit
+
