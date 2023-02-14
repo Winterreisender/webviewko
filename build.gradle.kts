@@ -182,20 +182,12 @@ tasks.withType<JavaCompile> {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Winterreisender/webviewko")
-            credentials {
-                username =  System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
-        }
-
-        maven {
             name = "GitLabPackages"
             url = uri("https://gitlab.com/api/v4/projects/38224197/packages/maven")
             credentials(HttpHeaderCredentials::class) {
-                name = "Deploy-Token"//name =  "Private-Token"
-                value = System.getenv("GITLAB_DEPLOY_TOKEN")
+                //name = "Deploy-Token"
+                name =  "Private-Token"
+                value = System.getenv("GITLAB_TOKEN")
             }
             authentication {
                 create<HttpHeaderAuthentication>("header")
