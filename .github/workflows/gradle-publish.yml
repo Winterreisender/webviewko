@@ -81,16 +81,6 @@ jobs:
                     name: gradle-package-linux
                     path: ~/.m2/repository/com/github/winterreisender/
 
-
-            -   name: publish Native to GitHub Packages
-                uses: gradle/gradle-build-action@v2
-                with:
-                    arguments: publishNativePublicationToGitHubPackagesRepository
-                env:
-                    USERNAME: ${{ secrets.USERNAME }}
-                    TOKEN: ${{ secrets.TOKEN }}
-
-
             -   name: publish Native to GitLab Packages
                 uses: gradle/gradle-build-action@v2
                 with:
