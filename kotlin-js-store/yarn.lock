@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@types/ffi-napi@^4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@types/ffi-napi/-/ffi-napi-4.0.5.tgz#0b2dc2d549361947a117d55156ff34fd9632c3df"
-  integrity sha512-WDPpCcHaPhHmP1FIw3ds/+OLt8bYQ/h3SO7o+8kH771PL21kHVzTwii7+WyMBXMQrBsR6xVU2y7w+h+9ggpaQw==
+"@types/ffi-napi@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.npmjs.org/@types/ffi-napi/-/ffi-napi-4.0.7.tgz#b3a9beeae160c74adca801ca1c9defb1ec0a1a32"
+  integrity sha512-2CvLfgxCUUSj7qVab6/uFLyVpgVd2gEV4H/TQEHHn6kZTV8iTesz9uo0bckhwzsh71atutOv8P3JmvRX2ZvpZg==
   dependencies:
     "@types/node" "*"
     "@types/ref-napi" "*"
@@ -596,12 +596,12 @@ typescript@3.9.5:
   resolved "https://registry.npmmirror.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
 
-webview-nodejs@0.1.3:
-  version "0.1.3"
-  resolved "https://registry.npmjs.org/webview-nodejs/-/webview-nodejs-0.1.3.tgz#54f09a88d3e337db203fe42035637b4aa80cb644"
-  integrity sha512-mmYQ0qrOfDYw9SVoeFBvbDP1z7//EH/Re475WI0kNxd0yA+b80zjGqVVjzbUJP+LGmNDNWQqU4WDoDm/5Jrb9A==
+webview-nodejs@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/webview-nodejs/-/webview-nodejs-0.1.5.tgz#474cc824f858393438b919fce8ed67935e544181"
+  integrity sha512-FIRElWJkNhcyTrQEzjl1vrxN6GFsU2HLpZDJ1YbZBr2aEoNpfow35I8zG1kavl9mJR2M9ZTI5Gx19DdmCeBU9w==
   dependencies:
-    "@types/ffi-napi" "^4.0.5"
+    "@types/ffi-napi" "^4.0.7"
     ffi-napi "^4.0.3"
 
 workerpool@6.2.1:
