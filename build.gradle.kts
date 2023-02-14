@@ -194,12 +194,6 @@ publishing {
             }
         }
 
-        /*
-        maven {
-            name = "GitHubPages"
-            url = uri("file://${rootDir.resolve("docs/maven-repo")}")
-        }
-        */
     }
     publications {
         matching {it.name == "native"}.all {
@@ -210,14 +204,5 @@ publishing {
                     publication.artifactId = "webviewko-${osPrefix}".toLowerCase()
                 }
         }
-        /*
-        publications {
-            create<MavenPublication>("maven") {
-                artifactId = "webviewko-${osPrefix}"
-                components.forEach { println(it.name) }
-                from(components["kotlin"])
-            }
-        }
-        */
     }
 }
