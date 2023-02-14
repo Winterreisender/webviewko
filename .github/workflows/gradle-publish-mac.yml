@@ -1,54 +1,11 @@
-name: Publish Packages
+name: Publish macOS Package
 
 on:
     workflow_dispatch:
 
 jobs:
-    build-windows:
-        runs-on: windows-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Setup Java JDK
-              uses: actions/setup-java@v3
-              with:
-                  java-version: '8'
-                  distribution: 'temurin'
-
-            - name: Make gradlew executable
-              run: chmod +x ./gradlew
-
-            - name: Setup Gradle
-              uses: gradle/gradle-build-action@v2
-              with:
-                  gradle-version: 7.4.2
-
-            -   name: clean with Gradle
-                uses: gradle/gradle-build-action@v2
-                with:
-                    arguments: clean
-
-            -   name: publishToMavenLocal with Gradle
-                uses: gradle/gradle-build-action@v2
-                with:
-                    arguments: publishToMavenLocal
-
-            -   name: Upload MavenLocal
-                uses: actions/upload-artifact@v2
-                with:
-                    name: gradle-package-win
-                    path: ~/.m2/repository/com/github/winterreisender/
-
-            -   name: publish all with Gradle
-                uses: gradle/gradle-build-action@v2
-                with:
-                    arguments: publish
-                env:
-                    USERNAME: ${{ secrets.USERNAME }}
-                    TOKEN: ${{ secrets.TOKEN }}
-                    GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-
     build-linux:
-        runs-on: ubuntu-latest
+        runs-on: macos-latest
         steps:
             - uses: actions/checkout@v3
             - name: Setup Java JDK
@@ -63,7 +20,7 @@ jobs:
             - name: Setup Gradle
               uses: gradle/gradle-build-action@v2
               with:
-                  gradle-version: 7.4.2
+                  gradle-version: 7.6
 
             -   name: clean with Gradle
                 uses: gradle/gradle-build-action@v2
@@ -78,7 +35,7 @@ jobs:
             -   name: Upload Maven Local
                 uses: actions/upload-artifact@v2
                 with:
-                    name: gradle-package-linux
+                    name: gradle-package-macos
                     path: ~/.m2/repository/com/github/winterreisender/
 
 
