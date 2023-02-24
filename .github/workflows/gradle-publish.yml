@@ -33,7 +33,7 @@ jobs:
                     arguments: publishToMavenLocal
 
             -   name: Upload MavenLocal
-                uses: actions/upload-artifact@v2
+                uses: actions/upload-artifact@v3
                 with:
                     name: gradle-package-win
                     path: ~/.m2/repository/com/github/winterreisender/
@@ -76,7 +76,7 @@ jobs:
                     arguments: publishToMavenLocal
 
             -   name: Upload Maven Local
-                uses: actions/upload-artifact@v2
+                uses: actions/upload-artifact@v3
                 with:
                     name: gradle-package-linux
                     path: ~/.m2/repository/com/github/winterreisender/

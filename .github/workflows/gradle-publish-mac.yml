@@ -27,7 +27,6 @@ jobs:
                 with:
                     arguments: clean
 
-
             -   name: publish Native to GitLab Packages
                 uses: gradle/gradle-build-action@v2
                 with:

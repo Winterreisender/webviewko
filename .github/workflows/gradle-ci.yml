@@ -37,13 +37,13 @@ jobs:
                   arguments: publishToMavenLocal
 
             - name: Upload Maven Package
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: gradle-ci-package
                   path: ~/.m2/repository/com/github/winterreisender/
 
             - name: Upload Jar Package
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: gradle-ci-package-jar
                   path: build/libs/
