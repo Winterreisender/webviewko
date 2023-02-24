@@ -42,11 +42,6 @@ jobs:
                   name: gradle-ci-package
                   path: ~/.m2/repository/com/github/winterreisender/
 
-            - name: shadowJar with Gradle
-              uses: gradle/gradle-build-action@v2
-              with:
-                  arguments: shadowJar
-
             - name: Upload Jar Package
               uses: actions/upload-artifact@v2
               with:

@@ -16,7 +16,7 @@ See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https:/
 
 webviewko provides a Kotlin Multiplatform binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform desktop GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
-![screenshot](screenshot.jpg)
+![screenshot](docs/media/screenshot.jpg)
 
 <!--
 ## Highlights
@@ -59,8 +59,6 @@ implementation("com.github.winterreisender:webviewko-js:0.5.0")         // Kotli
 
 ### 2. Use webviewko
 
-For Kotlin/JVM and Kotlin/Native:
-
 ```kotlin
 import com.github.winterreisender.webviewko.WebviewKo
 
@@ -70,18 +68,6 @@ WebviewKo().run {
     url("https://example.com")
     show()
 }
-```
-
-For Java:
-
-```java
-import com.github.winterreisender.webviewko.WebviewKo;
-
-WebviewKo webview = new WebviewKo(0,null);
-webview.title("Test");
-webview.size(1024,768,WebviewKo.WindowHint.None);
-webview.url("https://example.com");
-webview.show();
 ```
 
 ### 3. Interact with webview
@@ -115,9 +101,9 @@ WebviewKo(1).run {
 }
 ```
 
-## Documentation
+## Help
 
-- [API Reference (KDoc)](https://winterreisender.github.io/webviewko/docs/kdoc/index.html)
+- [API Reference](https://winterreisender.github.io/webviewko/docs/kdoc/index.html)
 - [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)
 - Examples
   - [Test](https://github.com/Winterreisender/webviewko/blob/main/src/commonTest/kotlin/Test.kt) (Kotlin Multiplatform)
@@ -126,10 +112,7 @@ WebviewKo(1).run {
   - [TestJS](https://github.com/Winterreisender/webviewko/blob/main/src/jsTest/kotlin/TestJS.kt) (Kotlin/JS)
   - [TestNative](https://github.com/Winterreisender/webviewko/blob/main/src/nativeTest/kotlin/TestNative.kt) (Kotlin/Native)
 - [webview Documentation](https://webview.dev/)
-
-## Demos
-
-A commandline interface for JVM and Native: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
+- Demo: A CLI Tool [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
 
 ## Contribution
 
@@ -137,24 +120,29 @@ All suggestions, pull requests, issue and other contributions are welcome and ap
 
 ## Credits
 
-| Project                                                                      | License                                                                                                         |
-|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                                   |
-| [webview_java](https://github.com/webview/webview_java)                | [MIT](https://github.com/webview/webview_java/blob/main/LICENSE.md)                                               |
-| [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)                             |
-| [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                                       |
-| [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE)                |
-| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [BSD-style](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)         |
-| [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                                           |
+| Project                                                                      | License                                                                                          |
+|------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                    |
+| [webview_java](https://github.com/webview/webview_java)                      | [MIT](https://github.com/webview/webview_java/blob/main/LICENSE.md)                              |
+| [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)              |
+| [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                        |
+| [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
+| [Microsoft Webview2](https://www.nuget.org/packages/Microsoft.Web.WebView2/) | [BSD-style](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.1245.22/License)           |
+| [Kotlin & kotlinx](https://kotlinlang.org/)                                  | [Apache-2.0](https://github.com/JetBrains/kotlin/blob/master/LICENSE)                            |
 
 ## License
 
-Copyright 2022 Winterreisender and [other contributors](https://github.com/Winterreisender/webviewko/graphs/contributors).
+```text
+Copyright 2022 Winterreisender and other contributors.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0  
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  
-See the License for the specific language governing permissions and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
 
-SPDX short identifier: **Apache-2.0**
-
-<img src="https://opensource.org/sites/default/files/public/OSIApproved.svg" width="100" />
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

@@ -1,31 +1,12 @@
-/*
- * Copyright (C) 2022. Winterreisender
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX short identifier: Apache-2.0
- */
-
 plugins {
-    kotlin("multiplatform") version "1.8.0"
+    kotlin("multiplatform") version "1.7.20"
     id("maven-publish")
     `java-library`
     id("org.jetbrains.dokka") version "1.7.20"
-    id("com.github.johnrengelman.shadow") version "latest.release"
 }
 
 group = "com.github.winterreisender"
-version = "0.6.0-SNAPSHOT"
+version = "0.6.0-RC1"
 description = "webviewko"
 
 repositories {
@@ -52,12 +33,13 @@ kotlin {
         }
     }
 
-
+    /* JS IR not work
     js(LEGACY) {
         nodejs {
 
         }
     }
+     */
 
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -88,12 +70,14 @@ kotlin {
             test("native") {
                 if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
 
+                /* Copy it manully
                 copy {
                     from("src/nativeMain/nativeInterop/cinterop/webview/${osPrefix}/")
                     into(outputDirectory)
-                    include("*.dll", "*.dylib", "*.so")
+                    include("*.so")
                     duplicatesStrategy= DuplicatesStrategy.WARN
                 }
+                */
             }
         }
 
@@ -103,8 +87,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
-                //implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
+                //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val commonTest by getting {
@@ -125,6 +108,7 @@ kotlin {
             }
         }
 
+        /*
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
@@ -132,11 +116,13 @@ kotlin {
             }
         }
 
+
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
             }
         }
+        */
 
         val nativeMain by getting {
             dependencies {
@@ -160,6 +146,7 @@ kotlin {
     }
 }
 
+/* deprecated shadow jar
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     archiveClassifier.set("all")
     val main by kotlin.jvm().compilations
@@ -174,6 +161,7 @@ tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
         )
     }
 }
+*/
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
@@ -193,7 +181,6 @@ publishing {
                 create<HttpHeaderAuthentication>("header")
             }
         }
-
     }
     publications {
         matching {it.name == "native"}.all {

@@ -13,7 +13,7 @@
 
 webviewko 是轻量跨平台的网页视图库 [webview](https://github.com/webview/webview) 的 Kotlin 多平台绑定。
 
-![screenshot](../screenshot.jpg)
+![screenshot](media/screenshot.jpg)
 
 ## 快速开始
 
@@ -42,8 +42,6 @@ Kotlin/Native需要一些[额外的步骤](https://github.com/Winterreisender/we
 
 ### 2. 使用 webviewko
 
-对于 Kotlin/JVM 和 Kotlin/Native:
-
 ```kotlin
 import com.github.winterreisender.webviewko.WebviewKo
 
@@ -53,18 +51,6 @@ WebviewKo().run {
     url("https://example.com")
     show()
 }
-```
-
-对于 Java:
-
-```java
-import com.github.winterreisender.webviewko.WebviewKo;
-
-WebviewKo webview = new WebviewKo(0,null);
-webview.title("Test");
-webview.size(1024,768,WebviewKo.WindowHint.None);
-webview.url("https://example.com");
-webview.show();
 ```
 
 ### 3.与 webview 交互
@@ -102,7 +88,7 @@ WebviewKo().run {
 
 ## 文档
 
-- [API 参考 (KDoc)](https://winterreisender.github.io/webviewko/docs/kdoc/index.html)
+- [API 参考](https://winterreisender.github.io/webviewko/docs/kdoc/index.html)
 - [GitHub Wiki](https://github.com/Winterreisender/webviewko/wiki)
 - 示例
     - [Test](https://github.com/Winterreisender/webviewko/blob/main/src/commonTest/kotlin/Test.kt) (Kotlin/Multiplatform)
@@ -111,10 +97,7 @@ WebviewKo().run {
     - [TestJS](https://github.com/Winterreisender/webviewko/blob/main/src/jsTest/kotlin/TestJS.kt) (Kotlin/JS)
     - [TestNative](https://github.com/Winterreisender/webviewko/blob/main/src/nativeTest/kotlin/TestNative.kt) (Kotlin/Native)
 - [webview 的文档](https://webview.dev/)
-
-## 演示
-
-命令行界面: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
+- 演示: [Winterreisender/webviewkoCLI](https://github.com/Winterreisender/webviewkoCLI)
 
 ## 贡献
 
@@ -122,11 +105,10 @@ WebviewKo().run {
 
 ## 引用
 
-| 项目                                                                           | 许可                                                                                               |
+| Project                                                                      | License                                                                                          |
 |------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| [wiverson/webviewjar](https://github.com/wiverson/webviewjar)                | [MIT](https://github.com/wiverson/webviewjar/blob/master/LICENSE)                                |
-| [webview_csharp](https://github.com/webview/webview_csharp)                  | [MIT](https://github.com/webview/webview_csharp/blob/master/LICENSE)                             |
 | [webview](https://github.com/webview/webview)                                | [MIT](https://github.com/webview/webview/blob/master/LICENSE)                                    |
+| [webview_java](https://github.com/webview/webview_java)                      | [MIT](https://github.com/webview/webview_java/blob/main/LICENSE.md)                              |
 | [webview-nodejs](https://github.com/Winterreisender/webview-nodejs)          | [Apache-2.0](https://github.com/Winterreisender/webview-nodejs/blob/master/LICENSE)              |
 | [node-ffi-napi](https://github.com/node-ffi-napi/node-ffi-napi)              | [MIT](https://github.com/node-ffi-napi/node-ffi-napi/blob/master/LICENSE)                        |
 | [JNA](https://github.com/java-native-access/jna)                             | [LGPL-2.1-or-later OR Apache-2.0](https://github.com/java-native-access/jna/blob/master/LICENSE) |
@@ -135,12 +117,17 @@ WebviewKo().run {
 
 ## 版权与许可
 
-Copyright 2022 Winterreisender and [other contributors](https://github.com/Winterreisender/webviewko/graphs/contributors).
+```text
+Copyright 2022 Winterreisender and other contributors.
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0  
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  
-See the License for the specific language governing permissions and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
 
-SPDX 许可证标识符: **Apache-2.0**
-
-![OSI Approved](https://opensource.org/files/OSIApproved_100X125.png)
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

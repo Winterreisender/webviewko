@@ -25,8 +25,6 @@ import com.sun.jna.ptr.PointerByReference
  * The Kotlin/JVM binding to webview
  *
  * @constructor create a webview or throws `Exception` if failed
- * @param debug enable debug mode for webview
- * @param libPath The lib's path.
  */
 
 actual class WebviewKo  {

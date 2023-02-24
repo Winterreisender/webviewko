@@ -1,7 +1,6 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:com.github.winterreisender.webviewko////PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/index.html
-$dokka.location:com.github.winterreisender.webviewko//bindEx/com.github.winterreisender.webviewko.WebviewKo#kotlin.String#kotlin.Function1[kotlin.Array[kotlinx.serialization.json.JsonElement],TypeParam(bounds=[kotlin.Any])]/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/bind-ex.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/JNA_LIBRARY_NAME/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-j-n-a_-l-i-b-r-a-r-y_-n-a-m-e.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewJNA.Companion/WEBVIEW_HINT_FIXED/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-j-n-a/-companion/-w-e-b-v-i-e-w_-h-i-n-t_-f-i-x-e-d.html
@@ -38,6 +37,8 @@ $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint.Max///
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint.Min///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/-min/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint.None///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/-none/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/index.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint/valueOf/#kotlin.String/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/[native]value-of.html
+$dokka.location:com.github.winterreisender.webviewko/WebviewKo.WindowHint/values/#/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-window-hint/[native]values.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo///PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/index.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int#kotlin.String?#com.sun.jna.ptr.PointerByReference?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html
 $dokka.location:com.github.winterreisender.webviewko/WebviewKo/WebviewKo/#kotlin.Int#kotlin.String?/PointingToDeclaration/webviewko/com.github.winterreisender.webviewko/-webview-ko/-webview-ko.html

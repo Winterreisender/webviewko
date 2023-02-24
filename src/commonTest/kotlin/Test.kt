@@ -16,7 +16,6 @@
  * SPDX short identifier: Apache-2.0
  */
 import com.github.winterreisender.webviewko.WebviewKo
-import com.github.winterreisender.webviewko.bindAuto
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.*
@@ -81,11 +80,13 @@ internal class Test {
             bind("ktExceptionTest") {
                 throw NotImplementedError() // Should crash
             }
-
+            /*
+            import com.github.winterreisender.webviewko.bindAuto
             bindAuto("testEx") {(x,y,z) ->
                 title(y.jsonPrimitive.content)
                 z.jsonPrimitive.intOrNull!! + x.jsonPrimitive.intOrNull!!
             }
+             */
 
             bind("jsRejectTest") {
                 throw WebviewKo.JSRejectException("NotImplemented") // Should call `Promise.reject(reason :string)` and Get an Exception in JS
