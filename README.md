@@ -32,16 +32,15 @@ repositories {
     maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")
 }
 
-implementation("com.github.winterreisender:webviewko:0.5.0")            // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.5.0")        // Kotlin/JVM and Java
-implementation("com.github.winterreisender:webviewko-linuxx64:0.5.0")   // Kotlin/Native Linux x64
-implementation("com.github.winterreisender:webviewko-mingwx64:0.5.0")   // Kotlin/Native Windows x64
-implementation("com.github.winterreisender:webviewko-macosx64:0.6.0-RC1")   // Kotlin/Native macOS x64
+implementation("com.github.winterreisender:webviewko:0.6.0")            // Kotlin Multiplatform
+implementation("com.github.winterreisender:webviewko-jvm:0.6.0")        // Kotlin/JVM and Java
+implementation("com.github.winterreisender:webviewko-linuxx64:0.6.0")   // Kotlin/Native Linux x64
+implementation("com.github.winterreisender:webviewko-mingwx64:0.6.0")   // Kotlin/Native Windows x64
+implementation("com.github.winterreisender:webviewko-macosx64:0.6.0")   // Kotlin/Native macOS x64
 implementation("com.github.winterreisender:webviewko-js:0.5.0")         // Kotlin/JS Node.js
 ```
 
-- If you want to use jar files, see [GitHub Release](https://github.com/Winterreisender/webviewko/releases)  
-- [Additional steps](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative) are required for Kotlin/Native. 
+- [Additional steps](https://github.com/Winterreisender/webviewko/wiki/How-to-Import#using-gradle-with-kotlinnative) are required for Kotlin/Native in Linux. 
 - If you are using `JitPack.io` please move `maven("https://jitpack.io")` below `maven("https://gitlab.com/api/v4/projects/38224197/packages/maven")`
 
 ### 2. Use webviewko
