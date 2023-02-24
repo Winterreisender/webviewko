@@ -18,20 +18,6 @@ webviewko provides a Kotlin Multiplatform binding to [webview](https://github.co
 
 ![screenshot](docs/media/screenshot.jpg)
 
-<!--
-## Highlights
-
-### Kotlin/JVM and Java
-
-- Tiny size: The demo jar distribution is `<5MB`
-- Support Windows, Linux and macOS
-
-### Kotlin/Native
-
-- Tiny size: The demo is `<1MB` for Linux and `<1.5MB` for Windows
-- Support Windows and Linux
--->
-
 ## Getting Started
 
 ### 1. Import webviewko
@@ -47,9 +33,10 @@ repositories {
 }
 
 implementation("com.github.winterreisender:webviewko:0.5.0")            // Kotlin Multiplatform
-implementation("com.github.winterreisender:webviewko-jvm:0.5.0")        // Java and Kotlin/JVM
+implementation("com.github.winterreisender:webviewko-jvm:0.5.0")        // Kotlin/JVM and Java
 implementation("com.github.winterreisender:webviewko-linuxx64:0.5.0")   // Kotlin/Native Linux x64
 implementation("com.github.winterreisender:webviewko-mingwx64:0.5.0")   // Kotlin/Native Windows x64
+implementation("com.github.winterreisender:webviewko-macosx64:0.6.0-RC1")   // Kotlin/Native macOS x64
 implementation("com.github.winterreisender:webviewko-js:0.5.0")         // Kotlin/JS Node.js
 ```
 

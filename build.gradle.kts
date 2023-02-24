@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.github.winterreisender"
-version = "0.6.0-RC1"
+version = "0.6.0-RC2"
 description = "webviewko"
 
 repositories {
@@ -68,7 +68,8 @@ kotlin {
         }
         binaries {
             test("native") {
-                if(hostOs == "Linux") linkerOpts("-Wl,-rpath=${'$'}ORIGIN")
+                if(hostOs == "Linux")
+                    linkerOpts("native/src/nativeMain/resources/linuxx64/libwebview.so","-Wl,-rpath=${'$'}ORIGIN")
 
                 /* Copy it manully
                 copy {

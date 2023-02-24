@@ -8,7 +8,7 @@ staticLibraries.mingw_x64 = libwebview.a
 libraryPaths.mingw_x64 = src/nativeMain/nativeInterop/cinterop/webview/mingwX64
 linkerOpts.mingw = -ladvapi32 -lole32 -lshell32 -lshlwapi -luser32 -lversion
 
-linkerOpts.linux_x64 = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
+#linkerOpts.linux_x64 = src/nativeMain/nativeInterop/cinterop/webview/linuxX64/libwebview.so
 
 # pkg-config seems not work with Kotlin
 #libraryPaths.linux_x64 = src/nativeMain/nativeInterop/cinterop/webview/linuxX64
