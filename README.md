@@ -16,6 +16,14 @@ See [RFC4646](https://www.ietf.org/rfc/rfc4646.txt), [W3C language tags](https:/
 
 webviewko provides a Kotlin Multiplatform binding to [webview](https://github.com/webview/webview), a tiny cross-platform webview library to build modern cross-platform desktop GUIs using [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/), WebKit and [WebKitGTK](https://webkitgtk.org/).
 
+---
+
+**Looking for Developers to Take Over This Project**  
+Unfortunately, due to my busy schedule during graduate school and my loss of interest in the Kotlin technology, I am no longer willing to maintain this project.  
+If anyone is interested in taking over the maintenance of this project, please contact me by submitting an issue. I will hand over the development of this project to you.
+
+---
+
 ![screenshot](docs/media/screenshot.jpg)
 
 ## Getting Started
